@@ -1,2 +1,2 @@
-# Sistema-De-Conteudo-Escolar
-Compartilhamento de conteúdo escolar.
+# Plataforma de Ensino, Conteudo e Avaliação
+Compartilhamento de conteúdo e avaliação escolar.
