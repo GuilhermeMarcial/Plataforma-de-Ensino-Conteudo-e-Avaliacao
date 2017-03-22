@@ -1,0 +1,44 @@
+machine:
+  post:
+    - sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
+    - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
+    - sudo apt-get update
+    - sudo apt-get install dotnet-dev-1.0.1
+
+dependencies:
+  override:
+    - dotnet restore src/PlataformaDeEnsino.Presenter/PlataformaDeEnsino.Application.csproj
+    - dotnet restore src/PlataformaDeEnsino.Application/PlataformaDeEnsino.Presenter.csproj
+    - dotnet restore src/PlataformaDeEnsino.Core/PlataformaDeEnsino.Core.csproj
+    - dotnet restore src/PlataformaDeEnsino.Infrastructure/PlataformaDeEnsino.Infrastructure.csproj
+    - dotnet restore test/PlataformaDeEnsino.Presenter.test/PlataformaDeEnsino.Presenter.test.csproj
+    - dotnet restore test/PlataformaDeEnsino.Application.test/PlataformaDeEnsino.Application.test.csproj
+    - dotnet restore test/PlataformaDeEnsino.Core.test/PlataformaDeEnsino.Core.test.csproj
+    - dotnet restore test/PlataformaDeEnsino.Infrastructure.test/PlataformaDeEnsino.Infrastructure.test.csproj 
+
+test:
+
+  pre:
+    - dotnet build src/PlataformaDeEnsino.Core/PlataformaDeEnsino.Core.csproj
+    - dotnet build src/PlataformaDeEnsino.Infrastructure/PlataformaDeEnsino.Infrastructure.csproj
+    - dotnet build src/PlataformaDeEnsino.Application/PlataformaDeEnsino.Presenter.csproj
+    - dotnet build src/PlataformaDeEnsino.Presenter/PlataformaDeEnsino.Application.csproj
+    - dotnet build test/PlataformaDeEnsino.Core.test/PlataformaDeEnsino.Core.test.csproj
+    - dotnet build test/PlataformaDeEnsino.Infrastructure.test/PlataformaDeEnsino.Infrastructure.test.csproj
+    - dotnet build test/PlataformaDeEnsino.Application.test/PlataformaDeEnsino.Application.test.csproj
+    - dotnet build test/PlataformaDeEnsino.Presenter.test/PlataformaDeEnsino.Presenter.test.csproj
+  override:
+    - dotnet test test/PlataformaDeEnsino.Presenter.test/PlataformaDeEnsino.Presenter.test.csproj
+    - dotnet test test/PlataformaDeEnsino.Application.test/PlataformaDeEnsino.Application.test.csproj
+    - dotnet test test/PlataformaDeEnsino.Core.test/PlataformaDeEnsino.Core.test.csproj
+    - dotnet test test/PlataformaDeEnsino.Infrastructure.test/PlataformaDeEnsino.Infrastructure.test.csproj
+  
+  post:
+    - dotnet publish --configuration Release src/PlataformaDeEnsino.Core/PlataformaDeEnsino.Core.csproj
+    - dotnet publish --configuration Release src/PlataformaDeEnsino.Infrastructure/PlataformaDeEnsino.Infrastructure.csproj
+    - dotnet publish --configuration Release src/PlataformaDeEnsino.Application/PlataformaDeEnsino.Presenter.csproj
+    - dotnet publish --configuration Release src/PlataformaDeEnsino.Presenter/PlataformaDeEnsino.Application.csproj
+    - cp -R src/PlataformaDeEnsino.Core/bin/Release/netcoreapp1.1/ $CIRCLE_ARTIFACTS/
+    - cp -R src/PlataformaDeEnsino.Infrastructure/bin/Release/netcoreapp1.1/ $CIRCLE_ARTIFACTS/
+    - cp -R src/PlataformaDeEnsino.Application/bin/Release/netcoreapp1.1/ $CIRCLE_ARTIFACTS/
+    - cp -R src/PlataformaDeEnsino.Presenter/bin/Release/netcoreapp1.1/ $CIRCLE_ARTIFACTS/
