@@ -14,7 +14,7 @@ dependencies:
     - dotnet restore test/PlataformaDeEnsino.Presenter.test/PlataformaDeEnsino.Presenter.test.csproj
     - dotnet restore test/PlataformaDeEnsino.Application.test/PlataformaDeEnsino.Application.test.csproj
     - dotnet restore test/PlataformaDeEnsino.Core.test/PlataformaDeEnsino.Core.test.csproj
-    - dotnet restore test/PlataformaDeEnsino.Infrastructure.test/PlataformaDeEnsino.Infrastructure.test.csproj 
+    - dotnet restore test/PlataformaDeEnsino.Infrastructure.test/PlataformaDeEnsino.Infrastructure.test.csproj
 
 test:
 
