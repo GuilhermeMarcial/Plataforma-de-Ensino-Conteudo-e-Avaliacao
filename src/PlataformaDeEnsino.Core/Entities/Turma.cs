@@ -7,6 +7,7 @@ namespace PlataformaDeEnsino.Core.Entities
         public int idDaTurma { get; private set; }
         public int codigoDaTurma { get; private set; }
         
+        public ICollection<Coordenador> coordenadores { get; private set; }
         public ICollection<Modulo> modulos { get; private set; }
         public ICollection<Aluno> alunos { get; private set; }
     }

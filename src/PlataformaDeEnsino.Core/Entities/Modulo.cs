@@ -10,6 +10,6 @@ namespace PlataformaDeEnsino.Core.Entities
         public bool estadoDoModulo { get; private set; }
         
         public Turma turma { get; private set; }
-        public ICollection<Modulo> modulos { get; private set; }
+        public ICollection<Unidade> unidades { get; private set; }
     }
 }
