@@ -1,4 +1,6 @@
+using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Infrastructure.ContextConfig;
 
@@ -20,7 +22,16 @@ namespace PlataformaDeEnsino.Infrastructure.Context
 
         public ConteudoDbContext(DbContextOptions<ConteudoDbContext> opcoes) : base(opcoes)
         {
-
+        }
+        public static IConfigurationRoot Configuration { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json");
+            Configuration = builder.Build();
+            
+            optionsBuilder.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
         }
         public void Commit()
         {
