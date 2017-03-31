@@ -4,10 +4,10 @@ namespace PlataformaDeEnsino.Core.Entities
 {
     public class Professor
     {
-        public int idDoProfessor { get; private set; }
-        public string nomeDoProfessor { get; private set; }
+        public int IdDoProfessor { get; private set; }
+        public string NomeDoProfessor { get; private set; }
 
-        public ICollection<Unidade> unidades { get; private set; }
+        public ICollection<Unidade> Unidades { get; private set; }
 
 
     }

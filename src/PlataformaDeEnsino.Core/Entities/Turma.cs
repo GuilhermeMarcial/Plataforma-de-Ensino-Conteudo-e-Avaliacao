@@ -4,11 +4,11 @@ namespace PlataformaDeEnsino.Core.Entities
 {
     public class Turma
     {
-        public int idDaTurma { get; private set; }
-        public int codigoDaTurma { get; private set; }
-        
-        public ICollection<Coordenador> coordenadores { get; private set; }
-        public ICollection<Modulo> modulos { get; private set; }
-        public ICollection<Aluno> alunos { get; private set; }
+        public int IdDaTurma { get; private set; }
+        public int CodigoDaTurma { get; private set; }
+
+        public ICollection<Coordenador> Coordenadores { get; private set; }
+        public ICollection<Modulo> Modulos { get; private set; }
+        public ICollection<Aluno> Alunos { get; private set; }
     }
 }

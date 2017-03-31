@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using PlataformaDeEnsino.Core.Repositories;
 using PlataformaDeEnsino.Infrastructure.Context;
@@ -8,40 +8,40 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class RepositoryBase<TEntity, TKey> : IRepositoryBase<TEntity, TKey> where TEntity : class where TKey : struct
     {
-        protected ConteudoContext context;
-
+        protected  ConteudoDbContext Context;
+        
         public void Atualizar(TEntity obj)
         {
-            context.Entry(obj).State = EntityState.Modified;
-            context.Commit();
+            Context.Entry(obj).State = EntityState.Modified;
+            Context.Commit();
         }
 
         public TEntity ConsultarPeloId(TKey id)
         {
-            return context.Set<TEntity>().Find(id);
+            return Context.Set<TEntity>().Find(id);
         }
 
         public IEnumerable<TEntity> ConsultarTodos()
         {
-            return context.Set<TEntity>().ToList();
+            return Context.Set<TEntity>().ToList();
         }
 
         public void Deletar(TKey id)
         {
-            TEntity obj = context.Set<TEntity>().Find(id);
-            context.Set<TEntity>().Remove(obj);
-            context.Commit();
+            TEntity obj = Context.Set<TEntity>().Find(id);
+            Context.Set<TEntity>().Remove(obj);
+            Context.Commit();
         }
 
         public void Dispose()
         {
-            context.Dispose();
+            Context.Dispose();
         }
 
         public void Inserir(TEntity obj)
         {
-            context.Set<TEntity>().Add(obj);
-            context.SaveChanges();
+            Context.Set<TEntity>().Add(obj);
+            Context.SaveChanges();
         }
     }
 }

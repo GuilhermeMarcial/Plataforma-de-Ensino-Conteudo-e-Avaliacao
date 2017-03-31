@@ -5,6 +5,6 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class CoordenadorRepository : RepositoryBase<Coordenador, int>, ICoordenadorRepository
     {
-        
+       
     }
 }

@@ -2,10 +2,10 @@ namespace PlataformaDeEnsino.Core.Entities
 {
     public class Aluno
     {
-        public int idDoAluno { get; private set; }
-        public string nomeDoAluno { get; private set; }
+        public int IdDoAluno { get; private set; }
+        public string NomeDoAluno { get; private set; }
         
-        public int idDaTurma { get; private set; }
-        public Turma turma { get; private set; }
+        public int IdDaTurma { get; private set; }
+        public Turma Turma { get; private set; }
     }
 }
