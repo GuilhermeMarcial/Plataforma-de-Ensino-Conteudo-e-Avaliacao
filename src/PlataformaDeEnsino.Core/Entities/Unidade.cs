@@ -10,6 +10,5 @@ namespace PlataformaDeEnsino.Core.Entities
         public Modulo Modulo { get; private set; }
         public int IdDoProfessor { get; private set; }
         public Professor Professor { get; private set; }
-
     }
 }

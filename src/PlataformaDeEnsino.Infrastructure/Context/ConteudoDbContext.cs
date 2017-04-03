@@ -17,9 +17,7 @@ namespace PlataformaDeEnsino.Infrastructure.Context
 
         public ConteudoDbContext() : base()
         {
-
         }
-
         public ConteudoDbContext(DbContextOptions<ConteudoDbContext> opcoes) : base(opcoes)
         {
         }
@@ -37,7 +35,6 @@ namespace PlataformaDeEnsino.Infrastructure.Context
         {
             SaveChangesAsync();
         }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -48,6 +45,5 @@ namespace PlataformaDeEnsino.Infrastructure.Context
             ProfessorConfig.Professor(builder);
             CoordenadorConfig.Coordenador(builder);
         }
-
     }
 }

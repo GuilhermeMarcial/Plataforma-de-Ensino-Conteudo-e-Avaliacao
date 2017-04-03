@@ -8,7 +8,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class RepositoryBase<TEntity, TKey> : IRepositoryBase<TEntity, TKey> where TEntity : class where TKey : struct
     {
-        protected  ConteudoDbContext Context;
+        protected readonly ConteudoDbContext Context;
         
         public void Atualizar(TEntity obj)
         {
