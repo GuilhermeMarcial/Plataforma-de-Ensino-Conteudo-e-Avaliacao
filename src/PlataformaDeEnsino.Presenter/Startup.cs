@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
 
 namespace PlataformaDeEnsino.Presenter
 {
@@ -15,7 +16,8 @@ namespace PlataformaDeEnsino.Presenter
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+            .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
