@@ -12,7 +12,7 @@ namespace PlataformaDeEnsino.Infrastructure.ContextConfig
                 m.ToTable("Modulo");
                 m.HasKey(i => i.IdDoMobulo);
                 m.Property(i => i.IdDoMobulo).IsRequired().ValueGeneratedOnAdd();
-                m.Property(n => n.NomeDoModulo).IsRequired().HasColumnType("varchar(100)").HasMaxLength(100);
+                m.Property(n => n.NomeDoModulo).IsRequired().HasColumnType("varchar(150)").HasMaxLength(150);
                 m.Property(e => e.EstadoDoModulo).IsRequired().HasColumnType("tinyint(1)").HasMaxLength(1);
                 m.HasOne(t => t.Turma).WithMany(t => t.Modulos).HasForeignKey(t => t.IdDaTurma);
             });

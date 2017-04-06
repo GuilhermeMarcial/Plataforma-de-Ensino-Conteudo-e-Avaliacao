@@ -12,7 +12,7 @@ namespace PlataformaDeEnsino.Infrastructure.ContextConfig
                 t.ToTable("Turma");
                 t.HasKey(i => i.IdDaTurma);
                 t.Property(i => i.IdDaTurma).ValueGeneratedOnAdd();
-                t.Property(c => c.CodigoDaTurma).IsRequired().HasColumnType("varchar(100)").HasMaxLength(100);
+                t.Property(c => c.CodigoDaTurma).IsRequired().HasColumnType("varchar(150)").HasMaxLength(150);
             });
         }
     }

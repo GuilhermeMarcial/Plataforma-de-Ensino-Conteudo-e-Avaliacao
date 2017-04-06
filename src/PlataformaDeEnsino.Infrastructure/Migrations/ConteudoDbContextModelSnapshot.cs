@@ -24,8 +24,8 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
 
                     b.Property<string>("NomeDoAluno")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(150)")
+                        .HasMaxLength(150);
 
                     b.HasKey("IdDoAluno");
 
@@ -43,8 +43,8 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
 
                     b.Property<string>("NomeDoCoordenador")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(150)")
+                        .HasMaxLength(150);
 
                     b.HasKey("IdDoCoordenador");
 
@@ -58,6 +58,8 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
                     b.Property<int>("IdDoMobulo")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("DiretorioDaTurma");
+
                     b.Property<bool>("EstadoDoModulo")
                         .HasColumnType("tinyint(1)")
                         .HasMaxLength(1);
@@ -66,8 +68,8 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
 
                     b.Property<string>("NomeDoModulo")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(150)")
+                        .HasMaxLength(150);
 
                     b.HasKey("IdDoMobulo");
 
@@ -83,8 +85,8 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
 
                     b.Property<string>("NomeDoProfessor")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(150)")
+                        .HasMaxLength(150);
 
                     b.HasKey("IdDoProfessor");
 
@@ -97,8 +99,10 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("CodigoDaTurma")
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("DiretorioDaTurma");
 
                     b.HasKey("IdDaTurma");
 
@@ -121,8 +125,8 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
 
                     b.Property<string>("NomeDaUnidade")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(150)")
+                        .HasMaxLength(150);
 
                     b.HasKey("IdDaUnidada");
 
