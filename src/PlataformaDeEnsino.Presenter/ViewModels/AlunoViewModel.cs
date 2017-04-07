@@ -1,5 +1,3 @@
-using PlataformaDeEnsino.Core.Entities;
-
 namespace PlataformaDeEnsino.Presenter.ViewModels
 {
     public class AlunoViewModel
@@ -11,6 +9,6 @@ namespace PlataformaDeEnsino.Presenter.ViewModels
         public bool EstadoDoAluno { get; set; }
 
         public int IdDaTurma { get; set; }
-        public Turma Turma { get; set; }   
+        public TurmaViewModel Turma { get; set; }   
     }
 }

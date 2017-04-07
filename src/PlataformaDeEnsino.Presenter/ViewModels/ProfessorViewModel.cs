@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Presenter.ViewModels
 {
@@ -9,8 +8,8 @@ namespace PlataformaDeEnsino.Presenter.ViewModels
         public string NomeDoProfessor { get; set; }
         public string SobrenomeDoProfessor { get; set; }
         public string CpfDoProfessor { get; set; }
-        public string EstadoDoProfessor { get; set; }
+        public bool EstadoDoProfessor { get; set; }
 
-        public ICollection<Unidade> Unidades { get; set; }
+        public ICollection<UnidadeViewModel> Unidades { get; set; }
     }
 }

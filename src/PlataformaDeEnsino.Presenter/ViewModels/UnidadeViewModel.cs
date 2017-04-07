@@ -1,5 +1,3 @@
-using PlataformaDeEnsino.Core.Entities;
-
 namespace PlataformaDeEnsino.Presenter.ViewModels
 {
     public class UnidadeViewModel
@@ -9,8 +7,8 @@ namespace PlataformaDeEnsino.Presenter.ViewModels
         public string DiretorioDaUnidade { get; set; }
 
         public int IdDoModulo { get; set; }
-        public Modulo Modulo { get; set; }
+        public ModuloViewModel Modulo { get; set; }
         public int IdDoProfessor { get; set; }
-        public Professor Professor { get; set; }
+        public ProfessorViewModel Professor { get; set; }
     }
 }
