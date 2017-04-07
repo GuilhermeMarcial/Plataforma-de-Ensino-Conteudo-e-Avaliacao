@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace PlataformaDeEnsino.Presenter.ViewModels
 {
     public class AlunoViewModel
     {
+        [Key]
         public int IdDoAluno { get; set; }
         public string NomeDoAluno { get; set; }
         public string SobrenomeDoAluno { get; set; }

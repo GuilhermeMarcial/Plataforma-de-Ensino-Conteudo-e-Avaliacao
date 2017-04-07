@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PlataformaDeEnsino.Presenter.ViewModels
 {
     public class TurmaViewModel
     {
+        [Key]
         public int IdDaTurma { get; set; }
         public string CodigoDaTurma { get; set; }
         public string DiretorioDaTurma { get; set; }

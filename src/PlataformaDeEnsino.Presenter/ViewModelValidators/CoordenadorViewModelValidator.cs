@@ -16,7 +16,7 @@ namespace PlataformaDeEnsino.Presenter.ViewModelValidators
             RuleFor(s => s.SobrenomeDoCoordenador)
             .NotEmpty().WithMessage("Informe o sobrenome do coordenador")
             .Length(3, 100).WithMessage("O sobrenome deve conter no minimo 3 caracteres e no maximo 100")
-            .Matches("[a-zA-Z\u00C0-\u00FF]+").WithMessage("O campo aceita somente caracteres literais"); ;
+            .Matches("[a-zA-Z\u00C0-\u00FF]+").WithMessage("O campo aceita somente caracteres literais");
             RuleFor(c => c.CpfDoCoordenador)
             .NotEmpty().WithMessage("Informe o cpf do coordenador")
             .Length(14).WithMessage("O cpf deve conter no minimo 11 digitos, sem os caracteres especiais")

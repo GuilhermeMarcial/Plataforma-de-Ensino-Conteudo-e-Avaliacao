@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace PlataformaDeEnsino.Presenter.ViewModels
 {
     public class UnidadeViewModel
     {
+        [Key]
         public int IdDaUnidada { get; set; }
         public string NomeDaUnidade { get; set; }
         public string DiretorioDaUnidade { get; set; }
