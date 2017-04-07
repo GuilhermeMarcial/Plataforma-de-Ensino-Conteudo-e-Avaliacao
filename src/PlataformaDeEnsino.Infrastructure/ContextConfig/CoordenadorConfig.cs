@@ -13,7 +13,7 @@ namespace PlataformaDeEnsino.Infrastructure.ContextConfig
                 c.HasKey(i => i.IdDoCoordenador);
                 c.Property(i => i.IdDoCoordenador).IsRequired().ValueGeneratedOnAdd();
                 c.Property(n => n.NomeDoCoordenador).IsRequired().HasColumnType("varchar(150)").HasMaxLength(150);
-                c.HasOne(t => t.Turma).WithMany(t => t.Coordenadores).HasForeignKey(t => t.IdDaTurma);
+                c.HasOne(cr => cr.Curso).WithOne(cr => cr.Coordenador).HasForeignKey<Coordenador>(cr => cr.IdDoCurso).IsRequired();
             });
         }
     }

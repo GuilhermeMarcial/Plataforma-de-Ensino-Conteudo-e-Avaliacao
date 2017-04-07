@@ -15,7 +15,7 @@ namespace PlataformaDeEnsino.Infrastructure.ContextConfig
                 u.Property(n => n.NomeDaUnidade).IsRequired().HasColumnType("varchar(150)").HasMaxLength(150);
                 u.Property(d => d.DiretorioDaUnidade).IsRequired().HasColumnType("varchar(200)").HasMaxLength(200);
                 u.HasOne(m => m.Modulo).WithMany(m => m.Unidades).HasForeignKey(m => m.IdDoModulo);
-                u.HasOne(p => p.Professor).WithMany(p => p.Unidades).HasForeignKey(p => p.IdDoProfessor);
+                u.HasOne(p => p.Professor).WithMany(p => p.Unidades).HasForeignKey(p => p.IdDoProfessor).IsRequired();
             });
         }
     }

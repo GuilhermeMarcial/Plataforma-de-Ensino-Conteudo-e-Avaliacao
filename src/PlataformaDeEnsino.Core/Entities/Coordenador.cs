@@ -4,8 +4,10 @@ namespace PlataformaDeEnsino.Core.Entities
     {
         public int IdDoCoordenador { get; private set; }
         public string NomeDoCoordenador { get; private set; }
+        public string SobrenomeDoCoordenador { get; private set; }
+        public string CpfDoCoordenador { get; private set; }
 
-        public int IdDaTurma { get; private set; }
-        public Turma Turma { get; private set; }
+        public int IdDoCurso { get; private set; }
+        public Curso Curso { get; private set; }
     }
 }
