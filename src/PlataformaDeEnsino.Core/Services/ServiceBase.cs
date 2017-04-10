@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using PlataformaDeEnsino.Core.Repositories;
+using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Core.Services
 {
