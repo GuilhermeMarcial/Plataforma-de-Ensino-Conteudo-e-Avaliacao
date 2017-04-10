@@ -15,5 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlataformaDeEnsino.Core\PlataformaDeEnsino.Core.csproj" />
+    <ProjectReference Include="..\PlataformaDeEnsino.Infrastructure\PlataformaDeEnsino.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
