@@ -4,7 +4,7 @@ using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Repositories;
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
-    public class UnidadeRepository : RepositoryBase<Unidade, int>, IUnidadeRepository
+    public class UnidadeRepository : RepositoryBase<Unidade>, IUnidadeRepository
     {
         public IEnumerable<Unidade> ConsultarUnidadadesDoModulo(int idDoModulo)
         {

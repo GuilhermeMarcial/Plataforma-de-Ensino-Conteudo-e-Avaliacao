@@ -5,11 +5,11 @@ using PlataformaDeEnsino.Core.Repositories;
 
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
-    public class ModuloRepository : RepositoryBase<Modulo, int>, IModuloRepository
+    public class ModuloRepository : RepositoryBase<Modulo>, IModuloRepository
     {
         public IEnumerable<Modulo> ConsultarModulosDaTurma(int idDaTurma)
         {
-            return Context.Modulos.Where(m => m.IdDaTurma == idDaTurma).Where(e => e.EstadoDoModulo.Equals(true));
+            return Context.Modulos.Where(m => m.IdDaTurma == idDaTurma).Where(e => e.EstadoDoModulo.Equals(true)).ToList();
         }
     }
 }

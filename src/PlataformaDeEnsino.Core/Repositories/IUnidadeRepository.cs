@@ -4,7 +4,7 @@ using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Core.Repositories
 {
-    public interface IUnidadeRepository : IRepositoryBase<Unidade, int>, IDisposable
+    public interface IUnidadeRepository : IRepositoryBase<Unidade>, IDisposable
     {
          IEnumerable<Unidade> ConsultarUnidadadesDoModulo(int idDoModulo);
     }

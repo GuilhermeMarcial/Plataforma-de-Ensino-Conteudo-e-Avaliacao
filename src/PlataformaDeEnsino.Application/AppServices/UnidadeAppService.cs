@@ -5,7 +5,7 @@ using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Application.AppServices
 {
-    public class UnidadeAppService : AppServiceBase<Unidade, int>, IUnidadeAppService
+    public class UnidadeAppService : AppServiceBase<Unidade>, IUnidadeAppService
     {
         private readonly IUnidadeService _unidadeService;
 

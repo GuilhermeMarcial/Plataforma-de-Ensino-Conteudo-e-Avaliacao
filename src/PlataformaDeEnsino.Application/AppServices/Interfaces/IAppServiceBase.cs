@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 namespace PlataformaDeEnsino.Application.AppServices.Interfaces
 {
-    public interface IAppServiceBase<TEntity, TKey> where TEntity : class where TKey : struct
+    public interface IAppServiceBase<TEntity> where TEntity : class
     {
         IEnumerable<TEntity> ConsultarTodos();
-        TEntity ConsultarPeloId(TKey id);
+        TEntity ConsultarPeloId(int id);
         void Inserir(TEntity obj);
-        void Deletar(TKey id);
+        void Deletar(int id);
         void Atualizar(TEntity obj);
         void Dispose();
     }

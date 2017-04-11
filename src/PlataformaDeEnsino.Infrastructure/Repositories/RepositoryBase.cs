@@ -6,7 +6,7 @@ using PlataformaDeEnsino.Infrastructure.Context;
 
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
-    public class RepositoryBase<TEntity, TKey> : IRepositoryBase<TEntity, TKey> where TEntity : class where TKey : struct
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
         protected readonly ConteudoDbContext Context;
         
@@ -16,7 +16,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
             Context.Commit();
         }
 
-        public TEntity ConsultarPeloId(TKey id)
+        public TEntity ConsultarPeloId(int id)
         {
             return Context.Set<TEntity>().Find(id);
         }
@@ -26,7 +26,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
             return Context.Set<TEntity>().ToList();
         }
 
-        public void Deletar(TKey id)
+        public void Deletar(int id)
         {
             TEntity obj = Context.Set<TEntity>().Find(id);
             Context.Set<TEntity>().Remove(obj);

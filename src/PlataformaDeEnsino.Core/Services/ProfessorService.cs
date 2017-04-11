@@ -4,7 +4,7 @@ using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Core.Services
 {
-    public class ProfessorService : ServiceBase<Professor, int>, IProfessorService
+    public class ProfessorService : ServiceBase<Professor>, IProfessorService
     {
         private readonly IProfessorRepository _professorRepository;
         public ProfessorService(IProfessorRepository professorRepository) : base(professorRepository)

@@ -3,7 +3,7 @@ using PlataformaDeEnsino.Core.Repositories;
 
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
-    public class AlunoRepository : RepositoryBase<Aluno, int>, IAlunoRepository
+    public class AlunoRepository : RepositoryBase<Aluno>, IAlunoRepository
     {
         
     }

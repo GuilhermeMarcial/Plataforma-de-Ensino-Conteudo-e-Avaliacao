@@ -3,7 +3,7 @@ using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Core.Services.Interfaces
 {
-    public interface ICursoService : IServiceBase<Curso, int>, IDisposable
+    public interface ICursoService : IServiceBase<Curso>, IDisposable
     {
          
     }

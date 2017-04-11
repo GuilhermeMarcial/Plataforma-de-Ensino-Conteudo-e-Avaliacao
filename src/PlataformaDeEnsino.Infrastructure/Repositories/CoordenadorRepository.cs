@@ -3,7 +3,7 @@ using PlataformaDeEnsino.Core.Repositories;
 
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
-    public class CoordenadorRepository : RepositoryBase<Coordenador, int>, ICoordenadorRepository
+    public class CoordenadorRepository : RepositoryBase<Coordenador>, ICoordenadorRepository
     {
        
     }

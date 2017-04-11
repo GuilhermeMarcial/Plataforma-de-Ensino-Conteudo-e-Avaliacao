@@ -5,7 +5,7 @@ using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Core.Services
 {
-    public class UnidadeService : ServiceBase<Unidade, int>, IUnidadeService
+    public class UnidadeService : ServiceBase<Unidade>, IUnidadeService
     {
         private readonly IUnidadeRepository _unidadeRepository;
         public UnidadeService(IUnidadeRepository unidadeRepository) : base(unidadeRepository)

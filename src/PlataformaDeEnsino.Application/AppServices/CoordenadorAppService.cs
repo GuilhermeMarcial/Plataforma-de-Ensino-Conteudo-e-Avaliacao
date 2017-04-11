@@ -4,7 +4,7 @@ using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Application.AppServices
 {
-    public class CoordenadorAppService : AppServiceBase<Coordenador, int>, ICoordenadorAppService
+    public class CoordenadorAppService : AppServiceBase<Coordenador>, ICoordenadorAppService
     {
         private readonly ICoordenadorService _coordenadorService;
         public CoordenadorAppService(ICoordenadorService coordenadorService) : base(coordenadorService)

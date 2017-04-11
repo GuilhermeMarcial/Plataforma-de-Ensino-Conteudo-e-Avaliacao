@@ -4,11 +4,11 @@ using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Application.AppServices
 {
-    public class AppServiceBase<TEntity, TKey> : IAppServiceBase<TEntity, TKey> where TEntity : class where TKey : struct
+    public class AppServiceBase<TEntity> : IAppServiceBase<TEntity> where TEntity : class
     {
-        private readonly IServiceBase<TEntity, TKey> _serviceBase;
+        private readonly IServiceBase<TEntity> _serviceBase;
 
-        public AppServiceBase(IServiceBase<TEntity, TKey> serviceBase)
+        public AppServiceBase(IServiceBase<TEntity> serviceBase)
         {
             _serviceBase = serviceBase;
         }
@@ -18,7 +18,7 @@ namespace PlataformaDeEnsino.Application.AppServices
             _serviceBase.Atualizar(obj);
         }
 
-        public TEntity ConsultarPeloId(TKey id)
+        public TEntity ConsultarPeloId(int id)
         {
             return _serviceBase.ConsultarPeloId(id);
         }
@@ -28,7 +28,7 @@ namespace PlataformaDeEnsino.Application.AppServices
             return _serviceBase.ConsultarTodos();
         }
 
-        public void Deletar(TKey id)
+        public void Deletar(int id)
         {
             _serviceBase.Deletar(id);
         }

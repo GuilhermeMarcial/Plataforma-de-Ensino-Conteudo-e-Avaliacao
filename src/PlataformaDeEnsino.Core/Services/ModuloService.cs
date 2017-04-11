@@ -4,7 +4,7 @@ using PlataformaDeEnsino.Core.Repositories;
 
 namespace PlataformaDeEnsino.Core.Services.Interfaces
 {
-    public class ModuloService : ServiceBase<Modulo, int>, IModuloService
+    public class ModuloService : ServiceBase<Modulo>, IModuloService
     {
         private readonly IModuloRepository _moduloRepository;
 

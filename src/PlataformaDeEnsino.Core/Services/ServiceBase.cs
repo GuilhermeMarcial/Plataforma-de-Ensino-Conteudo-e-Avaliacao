@@ -1,14 +1,13 @@
-using System;
 using System.Collections.Generic;
 using PlataformaDeEnsino.Core.Repositories;
 using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Core.Services
 {
-    public class ServiceBase<TEntity, TKey> : IServiceBase<TEntity, TKey> where TEntity : class where TKey : struct
+    public class ServiceBase<TEntity> : IServiceBase<TEntity> where TEntity : class
     {
-        private readonly IRepositoryBase<TEntity,TKey> _repository;
-        public ServiceBase(IRepositoryBase<TEntity, TKey> repository)
+        private readonly IRepositoryBase<TEntity> _repository;
+        public ServiceBase(IRepositoryBase<TEntity> repository)
         {
             _repository = repository;
         }
@@ -16,8 +15,7 @@ namespace PlataformaDeEnsino.Core.Services
         {
             _repository.Atualizar(obj);
         }
-
-        public TEntity ConsultarPeloId(TKey id)
+        public TEntity ConsultarPeloId(int id)
         {
             return _repository.ConsultarPeloId(id);
         }
@@ -27,7 +25,7 @@ namespace PlataformaDeEnsino.Core.Services
             return _repository.ConsultarTodos();
         }
 
-        public void Deletar(TKey id)
+        public void Deletar(int id)
         {
             _repository.Deletar(id);
         }
@@ -39,7 +37,7 @@ namespace PlataformaDeEnsino.Core.Services
 
         public void Inserir(TEntity obj)
         {
-            throw new NotImplementedException();
+            _repository.Inserir(obj);
         }
     }
 }

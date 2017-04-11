@@ -10,11 +10,12 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="6.4.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlataformaDeEnsino.Core\PlataformaDeEnsino.Core.csproj" />
+    <ProjectReference Include="..\PlataformaDeEnsino.Application\PlataformaDeEnsino.Application.csproj" />
     <ProjectReference Include="..\PlataformaDeEnsino.Infrastructure\PlataformaDeEnsino.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

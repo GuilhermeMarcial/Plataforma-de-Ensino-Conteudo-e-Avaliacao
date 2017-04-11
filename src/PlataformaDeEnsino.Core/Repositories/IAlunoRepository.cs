@@ -3,7 +3,7 @@ using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Core.Repositories
 {
-    public interface IAlunoRepository : IRepositoryBase<Aluno, int>, IDisposable
+    public interface IAlunoRepository : IRepositoryBase<Aluno>, IDisposable
     {
          
     }

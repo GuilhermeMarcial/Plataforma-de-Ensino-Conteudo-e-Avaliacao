@@ -3,7 +3,7 @@ using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Core.Services.Interfaces
 {
-    public interface IAlunoService : IServiceBase<Aluno, int>, IDisposable
+    public interface IAlunoService : IServiceBase<Aluno>, IDisposable
     {
         
     }

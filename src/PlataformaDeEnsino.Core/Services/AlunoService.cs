@@ -4,7 +4,7 @@ using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Core.Services
 {
-    public class AlunoService : ServiceBase<Aluno, int>, IAlunoService
+    public class AlunoService : ServiceBase<Aluno>, IAlunoService
     {
         private readonly IAlunoRepository _alunoRepository;
         public AlunoService(IAlunoRepository alunoRepository) : base(alunoRepository)

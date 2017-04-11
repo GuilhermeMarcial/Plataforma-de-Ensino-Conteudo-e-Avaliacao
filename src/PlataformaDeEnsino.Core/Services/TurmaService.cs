@@ -4,7 +4,7 @@ using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Core.Services
 {
-    public class TurmaService : ServiceBase<Turma, int>, ITurmaService
+    public class TurmaService : ServiceBase<Turma>, ITurmaService
     {
         private readonly ITurmaRepository _turmaRepository;
         public TurmaService(ITurmaRepository turmaRepository) : base(turmaRepository)

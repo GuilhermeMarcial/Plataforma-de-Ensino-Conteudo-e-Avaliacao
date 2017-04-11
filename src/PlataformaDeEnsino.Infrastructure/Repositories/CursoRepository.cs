@@ -3,7 +3,7 @@ using PlataformaDeEnsino.Core.Repositories;
 
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
-    public class CursoRepository : RepositoryBase<Curso, int>, ICursoRepository
+    public class CursoRepository : RepositoryBase<Curso>, ICursoRepository
     {
         
     }
