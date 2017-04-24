@@ -5,6 +5,6 @@ namespace PlataformaDeEnsino.Core.Repositories
 {
     public interface ICoordenadorRepository : IRepositoryBase<Coordenador>, IDisposable
     {
-         
+         Coordenador ConsultarPeloCpf(string cpfDoCoordenador);
     }
 }

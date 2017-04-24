@@ -12,7 +12,6 @@ namespace PlataformaDeEnsino.Infrastructure.ContextConfig
                 c.HasKey(i => i.IdDoCurso);
                 c.Property(i => i.IdDoCurso).IsRequired().ValueGeneratedOnAdd();
                 c.Property(n => n.NomeDoCurso).IsRequired().HasColumnType("varchar(150)").HasMaxLength(150);
-                c.Property(m => m.QuantidadeDeModulos).IsRequired().HasColumnType("int(1)").HasMaxLength(1);
             });
         }
     }

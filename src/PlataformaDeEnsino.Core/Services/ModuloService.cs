@@ -12,10 +12,13 @@ namespace PlataformaDeEnsino.Core.Services.Interfaces
         {
             _moduloRepository = moduloRepository;
         }
-
-        public IEnumerable<Modulo> ConsultarModulosDaTurma(int idDaTurma)
+        public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso)
         {
-            return _moduloRepository.ConsultarModulosDaTurma(idDaTurma);
+            return _moduloRepository.ConsultarModulosDoCurso(idDoCurso);
+        }
+        public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso, int nivelDoAluno)
+        {
+            return _moduloRepository.ConsultarModulosDoCurso(idDoCurso, nivelDoAluno);
         }
     }
 }

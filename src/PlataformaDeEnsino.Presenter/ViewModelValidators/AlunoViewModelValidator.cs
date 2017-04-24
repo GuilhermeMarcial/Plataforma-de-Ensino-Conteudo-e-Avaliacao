@@ -17,13 +17,26 @@ namespace PlataformaDeEnsino.Presenter.ViewModelValidators
             .NotEmpty().WithMessage("Informe o sobrenome do aluno")
             .Length(3, 100).WithMessage("O sobrenome deve conter no minimo 3 caracteres e no maximo 100")
             .Matches("[a-zA-Z\u00C0-\u00FF]+").WithMessage("O campo aceita somente caracteres literais");
-            RuleFor(c => c.CpfDoAluno)
-            .NotEmpty().WithMessage("Informe o CPF do aluno")
-            .Length(14).WithMessage("O cpf deve conter no minimo 11 digitos, sem os caracteres especiais")
-            .Matches("^[0-9]{1,}$").WithMessage("O campo aceita somente caracteres numericos");
-            RuleFor(t => t.IdDaTurma)
-            .NotEmpty().WithMessage("Selecione a turma que o aluno sera matriculado")
-            .Must(SomenteNumeros).WithMessage("Valor invalido");
+            RuleFor(t => t.CpfDoAluno)
+            .NotEmpty().WithMessage("Informe o CPF")
+            .Length(10, 12).WithMessage("Cpf deve conter no minimo 10 caracteres")
+            .Matches("^[0-9]{1,}$").WithMessage("O campo só aceita numeros");
+            RuleFor(t => t.EmailDoAluno)
+            .NotEmpty().WithMessage("Informe o Email")
+            .Length(5, 50).WithMessage("Verifique o tamanho do email")
+            .Matches("[A-Za-z0-9\\._-]+@[A-Za-z0-9]+(\\.[A-Za-z]+)*").WithMessage("Informe um email valido");
+            RuleFor(c => c.CodigoDaTurma)
+            .NotEmpty().WithMessage("Informe o Codigo da Turma")
+            .Length(6, 20).WithMessage("O codigo da turma deve conter no minimo 6 caracteres")
+            .Matches("^[0-9]{1,}$").WithMessage("O campo só aceita numeros");
+            RuleFor(n => n.NivelDoAluno)
+            .NotEmpty().WithMessage("Selecione o periodo do aluno")
+            .Must(SomenteNumeros);
+            RuleFor(t => t.IdDoCurso)
+            .NotEmpty().WithMessage("Selecione a turma que o aluno sera matriculado");
+            RuleFor(t => t.Role)
+            .NotEmpty().Matches("[a-zA-Z\u00C0-\u00FF]+");
+
         }
         public static bool SomenteNumeros(int input)
         {   

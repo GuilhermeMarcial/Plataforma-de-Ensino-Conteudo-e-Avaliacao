@@ -7,9 +7,13 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class ModuloRepository : RepositoryBase<Modulo>, IModuloRepository
     {
-        public IEnumerable<Modulo> ConsultarModulosDaTurma(int idDaTurma)
+        public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso)
         {
-            return Context.Modulos.Where(m => m.IdDaTurma == idDaTurma).Where(e => e.EstadoDoModulo.Equals(true)).ToList();
+            return Context.Modulos.Where(m => m.IdDoCurso == idDoCurso).ToList();
+        }
+        public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso, int nivelDoAluno)
+        {
+            return Context.Modulos.Where(m => m.IdDoCurso == idDoCurso).Where(c => c.NivelDoModulo == nivelDoAluno).ToList();
         }
     }
 }

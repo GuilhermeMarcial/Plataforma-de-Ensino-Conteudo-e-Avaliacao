@@ -1,0 +1,66 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model PlataformaDeEnsino.Presenter.ViewModels.ProfessorViewModel
+@{ Layout = "_Layout"; }
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<body>
+    <div class="container td">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="text-center estilo-noticia-margin-bottom">
+                                <i class="fa fa-book fa-5x icone-book"></i>
+                                <h4 class="modal-title text-center ">Editando professor</h4>
+                            </div>
+                        </div>
+                        <form method="Post" asp-action="EditarProfessor">
+                        <input hidden name="IdDoProfessor" value="@Model.IdDoProfessor">
+                        <input hidden name="IdDoUsuario" value="@Model.IdDoUsuario">
+                        <input name="Role" value="Professor" hidden>
+                        <div class="modal-container">
+                            <label class="col-2 col-form-label text-modal-title">Nome</label>
+
+                            <input class="form-control" type="text" name="NomeDoProfessor" value="@Model.NomeDoProfessor">
+                            <span asp-validation-for="NomeDoProfessor" class="text-danger"></span>
+
+                        </div>
+                        <div class="modal-container">
+                            <label class="col-2 col-form-label text-modal-title">Sobrenome</label>
+
+                            <input class="form-control" type="text" name="SobrenomeDoProfessor" value="@Model.SobrenomeDoProfessor">
+                            <span asp-validation-for="SobrenomeDoProfessor" class="text-danger"></span>
+
+                        </div>
+                        <div class="modal-container">
+                            <label class="col-2 col-form-label text-modal-title">Email</label>
+
+                            <input class="form-control" type="text" name="EmailDoProfessor" value="@Model.EmailDoProfessor">
+                            <span asp-validation-for="EmailDoProfessor" class="text-danger"></span>
+                        </div>
+                        <div class="modal-container">
+                            <label class="col-2 col-form-label text-modal-title">CPF</label>
+
+                            <input class="form-control" type="text" name="CpfDoProfessor" value="@Model.CpfDoProfessor">
+                            <span asp-validation-for="CpfDoProfessor" class="text-danger"></span>
+
+                        </div>
+                        
+                        <div class="modal-footer footer-modal">
+                            <div class="footer-botoes">
+                                <button type="submit" class="btn btn-default btn-primary enviar-arquivo up-modal"> Salvar</button>
+                                <a href="ProfessorCoordenador" ><button type="button" class="btn btn-default btn-danger fechar-modal up-modal"> Voltar</button></a>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model PlataformaDeEnsino.Presenter.ViewModels.ProfessorViewModel
+@{ Layout = "_Layout"; }
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<body>
+    <div class="container td">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="text-center estilo-noticia-margin-bottom">
+                                <i class="fa fa-book fa-5x icone-book"></i>
+
+                                <h4 class="modal-title text-center ">Vizualizando professor</h4>
+                            </div>
+                        
+                    </div>
+                    <div class="modal-container">
+                        <label class="col-2 col-form-label text-modal-title">Nome</label>
+
+                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.NomeDoProfessor">
+
+                    </div>
+                    <div class="modal-container">
+                        <label class="col-2 col-form-label text-modal-title">Sobrenome</label>
+
+                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.SobrenomeDoProfessor">
+
+                    </div>
+                    <div class="modal-container">
+                        <label class="col-2 col-form-label text-modal-title">Email</label>
+
+                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.EmailDoProfessor">
+
+                    </div>
+                    <div class="modal-container">
+                        <label class="col-2 col-form-label text-modal-title">CPF</label>
+
+                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.CpfDoProfessor">
+
+                    </div>
+                    <div class="modal-footer footer-modal">
+                        <div class="footer-botoes">
+                            <a href="EditarProfessor?IdDoProfessor=@Model.IdDoProfessor&IdDoUsuario=@Model.Usuario.Id" ><button type="button" class="btn btn-default btn-primary enviar-arquivo up-modal"> Editar</button></a>
+                            <a href="ProfessorCoordenador" ><button type="button" class="btn btn-default btn-danger fechar-modal up-modal"> Voltar</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

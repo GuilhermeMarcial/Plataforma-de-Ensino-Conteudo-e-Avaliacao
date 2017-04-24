@@ -1,0 +1,74 @@
+
+@model PlataformaDeEnsino.Presenter.ViewModels.AlunoViewModel
+
+@{ Layout = "_Layout"; }
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<body>
+    <div class="container td">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="text-center estilo-noticia-margin-bottom">
+                            <i class="fa fa-book fa-5x icone-book"></i>
+                            <h4 class="modal-title text-center ">Visualizando aluno</h4>
+                            </div>
+                        </div>
+                        <div class="modal-container">
+                            <label class="col-2 col-form-label text-modal-title">Nome</label>
+
+                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.NomeDoAluno">
+
+                        </div>
+                        <div class="modal-container">
+                            <label class="col-2 col-form-label text-modal-title">Sobrenome</label>
+
+                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.SobrenomeDoAluno">
+
+                        </div>
+                        <div class="modal-container">
+                            <label class="col-2 col-form-label text-modal-title">Email</label>
+
+                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.Usuario.Email">
+
+                        </div>
+                        <div class="modal-container">
+                            <label class="col-2 col-form-label text-modal-title">CPF</label>
+
+                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.CpfDoAluno">
+
+                        </div>
+                        <div class="modal-container">
+                                <label class="col-2 col-form-label text-modal-title">Codigo da turma</label>
+                                <input class="form-control" type="text" disabled="disabled" placeholder="@Model.CodigoDaTurma">
+                            </div>
+                        <div class="modal-container">
+                            <label disabled="disabled" class="col-2 col-form-label text-modal-title">Semestre</label>
+                            <select class="form-control" disabled="disabled">
+                                            <option selected name="">@Model.NivelDoAluno</option>
+                                        </select>
+                        </div>
+                        <div class="modal-container">
+                            <label disabled="disabled" class="col-2 col-form-label text-modal-title">Curso</label>
+                            <select class="form-control" disabled="disabled">
+                                            <option selected value="" name="">@ViewBag.Curso.NomeDoCurso</option>
+                                        </select>
+                        </div>
+                        <div class="modal-footer footer-modal">
+                            <div class="footer-botoes">
+                                <a href="EditarAluno?IdDoAluno=@Model.IdDoAluno&IdDoUsuario=@Model.Usuario.Id"><button type="button" class="btn btn-default btn-primary enviar-arquivo up-modal"> Editar</button></a>
+                                <a href="AlunoCoordenador" ><button type="button" data-dismiss="modal" class="btn btn-default btn-danger fechar-modal up-modal"> Voltar</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

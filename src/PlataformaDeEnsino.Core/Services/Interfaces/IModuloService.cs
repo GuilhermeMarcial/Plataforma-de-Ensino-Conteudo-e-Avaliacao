@@ -6,6 +6,7 @@ namespace PlataformaDeEnsino.Core.Services.Interfaces
 {
     public interface IModuloService : IServiceBase<Modulo>, IDisposable
     {
-        IEnumerable<Modulo> ConsultarModulosDaTurma(int idDaTurma);
+        IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso);
+        IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso, int nivelDoAluno);
     }
 }

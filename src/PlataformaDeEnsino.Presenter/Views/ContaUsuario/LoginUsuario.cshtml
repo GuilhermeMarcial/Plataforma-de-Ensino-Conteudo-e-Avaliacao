@@ -1,0 +1,41 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model PlataformaDeEnsino.Presenter.ViewModels.LoginViewModel
+
+@{ Layout = "_Layout"; }
+
+<!DOCTYPE html>
+<html lang="pt">
+<body>
+    <!-- Logo da pagina de autenticacao -->
+    <div class="container logo-margin-top">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <img class="img-responsive img-rounded" src="~/images/logo-fatec.png" width="100% \9">
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario de login da pagina de autenticacao -->
+    <div class="container margin-top-espaco">
+        <form asp-controller="" asp-action="Login" method="POST" class="form-horizontal">
+            <div class="row">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="col-md-4 col-md-offset-4">
+                    <input name="emailDoUsuario" type="text" class="form-control estilo-form-control" placeholder="Email">
+                    <span asp-validation-for="emailDoUsuario" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 col-md-offset-4 estilo-input">
+                    <input name="cpfDoUsuario" type="password" class="form-control estilo-form-control" placeholder="CPF">
+                    <span asp-validation-for="cpfDoUsuario" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4 col-md-offset-4 estilo-input">
+                    <input type="submit" class="btn btn-success btn-block estilo-btn" value="Logar" hr>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -17,5 +17,9 @@ namespace PlataformaDeEnsino.Core.Services
         {
             return _unidadeRepository.ConsultarUnidadadesDoModulo(idDoModulo);
         }
+        public IEnumerable<Unidade> ConsultarUnidadesDoProfessor(int idDoProfessor)
+        {
+            return _unidadeRepository.ConsultarUnidadesDoProfessor(idDoProfessor);
+        }
     }
 }

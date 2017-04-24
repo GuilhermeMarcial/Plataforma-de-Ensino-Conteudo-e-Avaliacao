@@ -12,5 +12,7 @@ namespace PlataformaDeEnsino.Core.Services
         {
             _cursoRepository = cursoRepository;
         }
+
+        
     }
 }

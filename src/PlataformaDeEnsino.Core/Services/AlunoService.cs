@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Repositories;
 using PlataformaDeEnsino.Core.Services.Interfaces;
@@ -10,6 +12,16 @@ namespace PlataformaDeEnsino.Core.Services
         public AlunoService(IAlunoRepository alunoRepository) : base(alunoRepository)
         {
             _alunoRepository = alunoRepository;
+        }
+
+        public Aluno ConsultarAlunoPeloCpf(string CpfDoAluno)
+        {
+            return _alunoRepository.ConsultarAlunoPeloCpf(CpfDoAluno);
+        }
+
+        public IEnumerable<Aluno> SelecionarAlunosPeloCurso(int idDoCurso)
+        {
+            return _alunoRepository.SelecionarAlunosPeloCurso(idDoCurso);
         }
     }
 }

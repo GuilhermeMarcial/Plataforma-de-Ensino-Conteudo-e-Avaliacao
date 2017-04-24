@@ -1,0 +1,50 @@
+@model PlataformaDeEnsino.Presenter.ViewModels.ConteudoAlunoViewModel 
+@{ Layout = "_Layout"; }
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<body>
+    <div class="container td">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="text-center estilo-noticia-margin-bottom">
+                                <i class="fa fa-book fa-5x icone-book"></i>
+                                <h4 class="modal-title text-center ">Enviar novo arquivo</h4>
+                            </div>
+                        </div>
+                        <form method="GET" asp-action="SelecionarConteudoCoordenador">
+                            <select name="idDoModulo" class="modulo-coordenador-upload form-control form-group" onchange="this.form.submit()">
+                            <option>Modulos</option>
+                            @foreach(var modulo in Model.ModuloViewModel)
+                            {
+                                <option value="@modulo.IdDoModulo">@modulo.NomeDoModulo</option>
+                            }
+                        </select>
+                        </form>
+                        <form method="POST" enctype="multipart/form-data" asp-action="SelecionarConteudoCoordenador">
+                        <select name="diretorioDaUnidade" class="disciplina-coordenador-upload form-control form-group">
+                                    <option>Unidades</option>
+                                    @foreach(var unidade in Model.UnidadeViewModel)
+                                    {
+                                        <option value="@unidade.DiretorioDaUnidade">@unidade.NomeDaUnidade</option>
+                                    }
+                                        </select>
+                        <div class="modal-footer">
+                            <h4 class="text-center escolher-arquivo"><input class="upload-arquivo escolher-arquivo" type="file" name="arquivo" accept="application/pdf"></h4>
+                            <div class="footer-botoes">
+                                <button formmethod="POST" formaction="SelecionarConteudoCoordenador" type="submit" class="btn btn-default btn-primary enviar-arquivo up-modal"> Enviar</button>
+                                <a href="ConteudoCoordenador"><button type="button" class="btn btn-default btn-danger fechar-modal up-modal"> Voltar</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

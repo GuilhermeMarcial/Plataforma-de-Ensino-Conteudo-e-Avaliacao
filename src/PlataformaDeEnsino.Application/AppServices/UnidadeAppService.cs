@@ -18,5 +18,9 @@ namespace PlataformaDeEnsino.Application.AppServices
         {
             return _unidadeService.ConsultarUnidadadesDoModulo(idDoModulo);
         }
+        public IEnumerable<Unidade> ConsultarUnidadesDoProfessor(int idDoProfessor)
+        {
+            return _unidadeService.ConsultarUnidadesDoProfessor(idDoProfessor);
+        }
     }
 }

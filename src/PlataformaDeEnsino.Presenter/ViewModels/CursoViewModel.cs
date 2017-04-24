@@ -10,7 +10,5 @@ namespace PlataformaDeEnsino.Presenter.ViewModels
         public string NomeDoCurso { get; set; }
         public int QuantidadeDeModulos { get; set; }
 
-        public ICollection<TurmaViewModel> Turmas { get; set; }
-        public CoordenadorViewModel Coordenador { get; set; }
     }
 }

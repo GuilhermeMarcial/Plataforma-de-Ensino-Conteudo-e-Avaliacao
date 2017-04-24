@@ -5,6 +5,7 @@ namespace PlataformaDeEnsino.Core.Repositories
 {
     public interface IProfessorRepository : IRepositoryBase<Professor>, IDisposable
     {
-         
+         Professor ConsultarPeloCpf(string cpfDoProfessor);
+         Professor ConsultarPelaUnidade(int idDaUnidade);
     }
 }

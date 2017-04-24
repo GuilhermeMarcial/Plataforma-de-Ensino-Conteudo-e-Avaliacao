@@ -12,10 +12,13 @@ namespace PlataformaDeEnsino.Application.AppServices
         {
             _moduloService = moduloService;
         }
-
-        public IEnumerable<Modulo> ConsultarModulosDaTurma(int idDaTurma)
+        public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso)
         {
-            return _moduloService.ConsultarModulosDaTurma(idDaTurma);
+            return _moduloService.ConsultarModulosDoCurso(idDoCurso);
+        }
+        public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso, int nivelDoAluno)
+        {
+            return _moduloService.ConsultarModulosDoCurso(idDoCurso, nivelDoAluno);
         }
     }
 }

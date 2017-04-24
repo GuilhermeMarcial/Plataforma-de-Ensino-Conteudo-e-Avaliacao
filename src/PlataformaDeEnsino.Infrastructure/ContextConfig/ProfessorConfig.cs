@@ -14,8 +14,9 @@ namespace PlataformaDeEnsino.Infrastructure.ContextConfig
                 p.Property(i => i.IdDoProfessor).IsRequired().ValueGeneratedOnAdd();
                 p.Property(n => n.NomeDoProfessor).IsRequired().HasColumnType("varchar(50)").HasMaxLength(50);
                 p.Property(s => s.SobrenomeDoProfessor).IsRequired().HasColumnType("varchar(100)").HasMaxLength(100);
-                p.Property(c => c.CpfDoProfessor).HasColumnType("varchar(20)").HasMaxLength(20);
-                p.Property(e => e.EstadoDoProfessor).HasColumnType("tinyint(1)").HasMaxLength(1);
+                p.Property(c => c.CpfDoProfessor).IsRequired().HasColumnType("varchar(20)").HasMaxLength(20);
+                p.Property(e => e.EmailDoProfessor).IsRequired().HasColumnType("varchar(100)").HasMaxLength(100);
+
             });
         }
     }

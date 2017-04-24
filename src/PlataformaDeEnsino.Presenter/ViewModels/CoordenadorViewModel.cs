@@ -8,6 +8,7 @@ namespace PlataformaDeEnsino.Presenter.ViewModels
         public int IdDoCoordenador { get; set; }
         public string NomeDoCoordenador { get; set; }
         public string SobrenomeDoCoordenador { get; set; }
+        public string EmailDoCoordenador { get; set; }
         public string CpfDoCoordenador { get; set; }
 
         public int IdDoCurso { get; set; }

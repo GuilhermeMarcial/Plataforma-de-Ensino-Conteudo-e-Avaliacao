@@ -10,12 +10,12 @@ namespace PlataformaDeEnsino.Infrastructure.ContextConfig
             modelBuilder.Entity<Unidade>(u =>
             {
                 u.ToTable("Unidade");
-                u.HasKey(i => i.IdDaUnidada);
-                u.Property(i => i.IdDaUnidada).IsRequired().ValueGeneratedOnAdd();
+                u.HasKey(i => i.IdDaUnidade);
+                u.Property(i => i.IdDaUnidade).IsRequired().ValueGeneratedOnAdd();
                 u.Property(n => n.NomeDaUnidade).IsRequired().HasColumnType("varchar(150)").HasMaxLength(150);
-                u.Property(d => d.DiretorioDaUnidade).IsRequired().HasColumnType("varchar(200)").HasMaxLength(200);
                 u.HasOne(m => m.Modulo).WithMany(m => m.Unidades).HasForeignKey(m => m.IdDoModulo);
-                u.HasOne(p => p.Professor).WithMany(p => p.Unidades).HasForeignKey(p => p.IdDoProfessor).IsRequired();
+                u.HasOne(p => p.Professor).WithMany(p => p.Unidades).HasForeignKey(p => p.IdDoProfessor);
+                 u.Property(d => d.DiretorioDaUnidade).IsRequired().HasColumnType("varchar(350)").HasMaxLength(350);
             });
         }
     }

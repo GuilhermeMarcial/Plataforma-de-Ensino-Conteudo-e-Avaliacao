@@ -15,10 +15,16 @@ namespace PlataformaDeEnsino.Presenter.ViewModelValidators
             .NotEmpty().WithMessage("Informe o sobrenome do professor")
             .Length(3, 100).WithMessage("O sobrenome deve conter no minimo 3 caracteres e no maximo 100")
             .Matches("[a-zA-Z\u00C0-\u00FF]+").WithMessage("O campo aceita somente caracteres literais");
-            RuleFor(c => c.CpfDoProfessor)
-            .NotEmpty().WithMessage("Informe o CPF do professor")
-            .Length(14).WithMessage("O cpf deve conter no minimo 11 digitos, sem os caracteres especiais")
-            .Matches("^[0-9]{1,}$").WithMessage("O campo aceita somente caracteres numericos");
+            RuleFor(t => t.CpfDoProfessor)
+            .NotEmpty().WithMessage("Informe o CPF")
+            .Length(10, 12).WithMessage("Cpf deve conter no minimo 10 a 12 caracteres")
+            .Matches("^[0-9]{1,}$").WithMessage("O campo só aceita numeros");
+            RuleFor(t => t.EmailDoProfessor)
+            .NotEmpty().WithMessage("Informe o Email")
+            .Length(5, 50).WithMessage("Verifique o tamanho do email")
+            .Matches("[A-Za-z0-9\\._-]+@[A-Za-z0-9]+(\\.[A-Za-z]+)*").WithMessage("Informe um email valido");
+            RuleFor(t => t.Role)
+            .NotEmpty().Matches("[a-zA-Z\u00C0-\u00FF]+");
         }
     }
 }

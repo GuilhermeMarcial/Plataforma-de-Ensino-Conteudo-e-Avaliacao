@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Plataforma de Conteudo</title>
+    
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/estilo.css">
+    <link rel="stylesheet" href="~/fonts/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- Navbar principal -->
+    <nav class="navbar navbar-inverse estilo-navbar">
+
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                 </button>
+
+                <a class="navbar-brand estilo-navbar-brand">Plataforma de Conteúdo</a>
+            </div>
+        </div>
+    </nav>
+    @RenderBody()
+</body>
+<footer>
+    <div class="container ">
+
+        <img src="~/images/logo-fatec.png" class="logo-fatec" alt="">
+        <article class="direita">Versão 1.0.0 </article>
+
+    </div>
+</footer>
+
+</html>

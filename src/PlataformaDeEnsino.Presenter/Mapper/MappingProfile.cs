@@ -11,9 +11,8 @@ namespace PlataformaDeEnsino.Presenter.Mapper
             CreateMap<Aluno, AlunoViewModel>().ReverseMap();
             CreateMap<Coordenador, CoordenadorViewModel>().ReverseMap();
             CreateMap<Curso, CursoViewModel>().ReverseMap();
-            CreateMap<Modulo, ModuloViewModel>().ReverseMap();
             CreateMap<Professor, ProfessorViewModel>().ReverseMap();
-            CreateMap<Turma, TurmaViewModel>().ReverseMap();
+            CreateMap<Modulo, ModuloViewModel>().ReverseMap();
             CreateMap<Unidade, UnidadeViewModel>().ReverseMap();
         }
     }

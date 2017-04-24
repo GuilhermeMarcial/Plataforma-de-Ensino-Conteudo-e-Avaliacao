@@ -10,5 +10,9 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
         {
            return Context.Unidades.Where(u => u.IdDoModulo == idDoModulo);
         }
+        public IEnumerable<Unidade> ConsultarUnidadesDoProfessor(int idDoProfessor)
+        {
+            return Context.Unidades.Where(u => u.IdDoProfessor == idDoProfessor);
+        }
     }
 }

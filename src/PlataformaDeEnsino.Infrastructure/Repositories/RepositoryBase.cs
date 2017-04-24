@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using PlataformaDeEnsino.Core.Repositories;
 using PlataformaDeEnsino.Infrastructure.Context;
+using System;
 
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
-        protected readonly ConteudoDbContext Context;
-        
+        protected ConteudoDbContext Context = new ConteudoDbContext();
+
         public void Atualizar(TEntity obj)
         {
             Context.Entry(obj).State = EntityState.Modified;
-            Context.Commit();
+            Context.SaveChanges();
         }
 
         public TEntity ConsultarPeloId(int id)
         {
+
+
             return Context.Set<TEntity>().Find(id);
+
         }
 
         public IEnumerable<TEntity> ConsultarTodos()
@@ -28,6 +32,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 
         public void Deletar(int id)
         {
+
             TEntity obj = Context.Set<TEntity>().Find(id);
             Context.Set<TEntity>().Remove(obj);
             Context.Commit();
@@ -35,7 +40,9 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 
         public void Dispose()
         {
-            Context.Dispose();
+            if (Context != null)
+                Context.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public void Inserir(TEntity obj)
