@@ -27,17 +27,17 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _professorAppService = professorAppService;
         }
 
-        /*private Coordenador CoodernadorUsuario()
+        private Coordenador CoodernadorUsuario()
         {
             return _coordenadorAppService.ConsultarPeloCpf(User.Identity.Name);
-        }*/
+        }
 
         [HttpGet("Unidade")]
         public ViewResult Unidade(int idDoModulo, int idDaUnidade)
         {
-            //_coordenadorUsuario = CoodernadorUsuario();
-            //ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
-            var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCurso(1));
+            _coordenadorUsuario = CoodernadorUsuario();
+            ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
+            var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCurso(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModulo(idDoModulo));
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
             return View(ConteudoAlunoViewModel);

@@ -40,8 +40,8 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         [HttpGet("ProfessorCoordenador")]
         public IActionResult ProfessorCoordenador()
         {
-            //_coordenadorUsuario = CoodernadorUsuario();
-            //ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
+            _coordenadorUsuario = CoodernadorUsuario();
+            ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
             var professorViewModel = _mapper.Map<IEnumerable<Professor>, IEnumerable<ProfessorViewModel>>(_professorAppService.ConsultarTodos());
             return View(professorViewModel);
         }
