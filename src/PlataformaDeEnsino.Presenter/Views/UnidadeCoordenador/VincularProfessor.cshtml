@@ -20,13 +20,16 @@
                         <form method="POST" asp-controller="UnidadeCoordenador" asp-action="VincularProfessor">
                         <div class="modal-container">
                             <label for="example-text-input" class="col-2 col-form-label text-modal-title">Unidade</label>
-                            <input value="@Model.unidadeViewModel.NomeDaUnidade" disabled class="form-control">
-                            <input name="idDaUnidade" value="@Model.unidadeViewModel.IdDaUnidade" hidden disabled>
+                            <input value="@Model.unidadeViewModel.NomeDaUnidade" readonly class="form-control">
+                            <input name="IdDaUnidade" value="@Model.unidadeViewModel.IdDaUnidade" hidden readonly>
+                            <input name="NomeDaUnidade" value="@Model.unidadeViewModel.NomeDaUnidade" hidden readonly>
+                            <input name="DiretorioDaUnidade" value="@Model.unidadeViewModel.DiretorioDaUnidade" hidden readonly>
+                            <input name="IdDoModulo" value="@Model.unidadeViewModel.IdDoModulo" hidden readonly>
                         </div>
 
                         <div class="modal-container">
                             <label for="example-text-input" class="col-2 col-form-label text-modal-title">Professor</label>
-                            <select name="idDoProfessor" class="form-control">
+                            <select name="IdDoProfessor" class="form-control">
                             <option>Professores</option>
                             @if(Model.professoresViewModel != null)
                             {

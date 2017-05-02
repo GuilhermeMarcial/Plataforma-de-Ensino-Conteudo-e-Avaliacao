@@ -60,16 +60,13 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             var VincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professoresViewModel);
             return View(VincularProfessorViewModel);
         }
-        
+
         [HttpPost("VincularProfessor")]
-        public IActionResult VincularProfessor(int? idDaUnidade, int? IdDoProfessor)
+        public IActionResult VincularProfessor(UnidadeViewModel unidadeViewModel)
         {
-            
-                var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(_unidadeAppService.ConsultarPeloId(Convert.ToInt32(idDaUnidade)));
-                unidadeViewModel.IdDoProfessor = IdDoProfessor;
-                var unidade = _mapper.Map<UnidadeViewModel, Unidade>(unidadeViewModel);
-                _unidadeAppService.Atualizar(unidade);
-                return Redirect("VisualizarUnidade?IdDaUnidade=" + idDaUnidade);
+            var unidade = _mapper.Map<UnidadeViewModel, Unidade>(unidadeViewModel);
+            _unidadeAppService.Atualizar(unidade);
+            return Redirect("VisualizarUnidade?IdDaUnidade=" + unidadeViewModel.IdDaUnidade);
         }
     }
 }
