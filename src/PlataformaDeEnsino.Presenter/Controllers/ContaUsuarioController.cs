@@ -66,7 +66,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             }
             if (User.IsInRole("Coordenador"))
             {
-                return Redirect("Coordenador/Conteudo");
+                return Redirect("ConteudoCoordenador");
             }
             else
             {

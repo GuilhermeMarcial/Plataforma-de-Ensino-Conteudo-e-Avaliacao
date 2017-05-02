@@ -44,16 +44,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return _coordenadorAppService.ConsultarPeloCpf(User.Identity.Name);
         }
 
-        [HttpGet("SelecionarConteudoCoordenador")]
-        public ViewResult SelecionarConteudoCoordenador(int idDoModulo)
-        {
-            _coordenadorUsuario = CoodernadorUsuario();
-            var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCurso(_coordenadorUsuario.IdDoCurso));
-            var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModulo(idDoModulo));
-            var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
-            return View(ConteudoAlunoViewModel);
-        }
-
         [HttpGet("ConteudoCoordenador")]
         [Authorize(Roles = "Coordenador")]
         public IActionResult ConteudoCoordenador([FromQuery] int idDoModulo, string DiretorioDaUnidade)
@@ -64,6 +54,17 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModulo(idDoModulo));
             arquivos = DiretorioDaUnidade != null ? _arquivoAppService.RecuperarArquivos(DiretorioDaUnidade) : null;
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel, arquivos);
+            return View(ConteudoAlunoViewModel);
+        }
+
+        [HttpGet("SelecionarConteudoCoordenador")]
+        [Authorize(Roles = "Coordenador")]
+        public ViewResult SelecionarConteudoCoordenador(int idDoModulo)
+        {
+            _coordenadorUsuario = CoodernadorUsuario();
+            var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCurso(_coordenadorUsuario.IdDoCurso));
+            var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModulo(idDoModulo));
+            var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
             return View(ConteudoAlunoViewModel);
         }
 

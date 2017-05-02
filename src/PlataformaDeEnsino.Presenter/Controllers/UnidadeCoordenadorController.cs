@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlataformaDeEnsino.Application.AppServices.Interfaces;
 using PlataformaDeEnsino.Core.Entities;
@@ -33,6 +34,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("Unidade")]
+        [Authorize(Roles = "Coordenador")]
         public ViewResult Unidade(int idDoModulo, int idDaUnidade)
         {
             _coordenadorUsuario = CoodernadorUsuario();
@@ -44,6 +46,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("VisualizarUnidade")]
+        [Authorize(Roles = "Coordenador")]
         public IActionResult VisualizarUnidade(int idDaUnidade)
         {
             var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(_unidadeAppService.ConsultarPeloId(idDaUnidade));
@@ -53,6 +56,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("VincularProfessor")]
+        [Authorize(Roles = "Coordenador")]
         public IActionResult VincularProfessor(int idDaUnidade)
         {
             var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(_unidadeAppService.ConsultarPeloId(idDaUnidade));
@@ -62,6 +66,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpPost("VincularProfessor")]
+        [Authorize(Roles = "Coordenador")]
         public IActionResult VincularProfessor(UnidadeViewModel unidadeViewModel)
         {
             var unidade = _mapper.Map<UnidadeViewModel, Unidade>(unidadeViewModel);

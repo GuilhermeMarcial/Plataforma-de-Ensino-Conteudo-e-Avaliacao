@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PlataformaDeEnsino.Application.AppServices.Interfaces;
@@ -38,6 +39,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("AlunoCoordenador")]
+        [Authorize(Roles = "Coordenador")]
         public IActionResult AlunoCoordenador()
         {
             _coordenadorUsuario = CoodernadorUsuario();
@@ -47,12 +49,14 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("NovoAluno")]
+        [Authorize(Roles = "Coordenador")]
         public ViewResult NovoAluno()
         {
             return View();
         }
 
         [HttpPost("NovoAluno")]
+        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> NovoAluno(AlunoViewModel alunoViewModel)
         {
 
@@ -75,6 +79,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("VisualizarAluno")]
+        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> VisualizarAluno(int? IdDoAluno, int? IdDoCurso)
         {
             if (IdDoCurso != null)
@@ -93,6 +98,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("EditarAluno")]
+        [Authorize(Roles = "Coordenador")]
         public async Task<ViewResult> EditarAluno(int? IdDoAluno, string IdDoUsuario)
         {
             if (IdDoAluno != null)
@@ -106,6 +112,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return View();
         }
         [HttpPost("EditarAluno")]
+        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> EditarAluno(AlunoViewModel alunoViewModel)
         {
             if (ModelState.IsValid)
@@ -131,6 +138,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return View(alunoViewModel);
         }
         [HttpGet("DeletarAluno")]
+        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> DeletarAluno(int IdDoAluno)
         {
             var aluno = _alunoAppService.ConsultarPeloId(IdDoAluno);

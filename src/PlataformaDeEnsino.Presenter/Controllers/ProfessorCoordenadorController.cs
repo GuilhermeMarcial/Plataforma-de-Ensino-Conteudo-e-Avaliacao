@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PlataformaDeEnsino.Application.AppServices.Interfaces;
@@ -38,6 +39,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("ProfessorCoordenador")]
+        [Authorize(Roles = "Coordenador")]
         public IActionResult ProfessorCoordenador()
         {
             _coordenadorUsuario = CoodernadorUsuario();
@@ -47,6 +49,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("NovoProfessor")]
+        [Authorize(Roles = "Coordenador")]
         public ViewResult NovoProfessor()
         {
             return View();
@@ -75,6 +78,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("VisualizarProfessor")]
+        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> VisualizarProfessor(int? IdDoProfessor)
         {
             if (IdDoProfessor != null)
@@ -88,6 +92,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("EditarProfessor")]
+        [Authorize(Roles = "Coordenador")]
         public async Task<ViewResult> EditarProfessor(int? IdDoProfessor, string IdDoUsuario)
         {
             if (IdDoProfessor != null)
@@ -101,6 +106,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return View();
         }
         [HttpPost("EditarProfessor")]
+        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> EditarProfessor(ProfessorViewModel professorViewModel)
         {
             if (ModelState.IsValid)
@@ -126,6 +132,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return View(professorViewModel);
         }
         [HttpGet("DeletarProfessor")]
+        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> DeletarProfessor(int IdDoProfessor)
         {
             var professor = _professorAppService.ConsultarPeloId(IdDoProfessor);
