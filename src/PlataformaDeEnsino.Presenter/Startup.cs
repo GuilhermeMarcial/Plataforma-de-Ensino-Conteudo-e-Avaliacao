@@ -100,8 +100,8 @@ namespace PlataformaDeEnsino.Presenter
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
-            app.UseStatusCodePages();
-            app.UseDeveloperExceptionPage();
+            app.UseExceptionHandler("/Erro");
+            app.UseStatusCodePagesWithRedirects("/Erro/{0}");
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseMvc();

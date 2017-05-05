@@ -131,6 +131,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             }
             return View(professorViewModel);
         }
+
         [HttpGet("DeletarProfessor")]
         [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> DeletarProfessor(int IdDoProfessor)
@@ -142,6 +143,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             {
                 _professorAppService.Deletar(professor.IdDoProfessor);
             }
+            
             return Redirect("ProfessorCoordenador");
         }
     }

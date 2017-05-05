@@ -18,20 +18,19 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _signInManager = signInManager;
         }
 
-        [Route("")]
-        [HttpGet("Login")]
+        [HttpGet("")]
         [AllowAnonymous]
         public IActionResult LoginUsuario()
         {
-            if(_signInManager.IsSignedIn(User))
+            if (_signInManager.IsSignedIn(User))
             {
                 return RedirectToAction("RedirecionarUsuario");
             }
-            
+
             return View();
         }
 
-        [HttpPost("Login")]
+        [HttpPost("")]
         [AllowAnonymous]
         public async Task<IActionResult> LoginUsuario(LoginViewModel model)
         {
@@ -39,10 +38,13 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             {
                 await _signInManager.SignOutAsync();
                 var usuario = await _userManager.FindByEmailAsync(model.emailDoUsuario);
-                var result = await _signInManager.PasswordSignInAsync(usuario, model.cpfDoUsuario, false, false);
-                if (result.Succeeded)
+                if (usuario != null)
                 {
-                    return RedirectToAction("RedirecionarUsuario");
+                    var result = await _signInManager.PasswordSignInAsync(usuario, model.cpfDoUsuario, false, false);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("RedirecionarUsuario");
+                    }
                 }
                 else
                 {
@@ -73,7 +75,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
                 return Redirect("Login");
             }
         }
-        
+
         [HttpGet("LogOff")]
         [Authorize]
         public async Task<IActionResult> LogOff()

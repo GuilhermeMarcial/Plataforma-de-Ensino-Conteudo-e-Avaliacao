@@ -13,7 +13,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
         }
         public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso, int nivelDoAluno)
         {
-            return Context.Modulos.Where(m => m.IdDoCurso == idDoCurso).Where(c => c.NivelDoModulo == nivelDoAluno).ToList();
+            return Context.Modulos.Where(m => m.IdDoCurso == idDoCurso).Where(c => c.NivelDoModulo <= nivelDoAluno).ToList();
         }
     }
 }

@@ -19,7 +19,9 @@
     <div class="container margin-top-espaco">
         <form asp-controller="" asp-action="Login" method="POST" class="form-horizontal">
             <div class="row">
+                <div class="col-md-4 col-md-offset-4">
                 <div asp-validation-summary="All" class="text-danger"></div>
+                </div>
                 <div class="col-md-4 col-md-offset-4">
                     <input name="emailDoUsuario" type="text" class="form-control estilo-form-control" placeholder="Email">
                     <span asp-validation-for="emailDoUsuario" class="text-danger"></span>

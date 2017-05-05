@@ -93,10 +93,12 @@ namespace PlataformaDeEnsino.Presenter.Controllers
 
         [HttpGet("DeletarCoordenador")]
         [Authorize(Roles = "Coordenador")]
-        public IActionResult DeletarArquivo(string caminhoDoArquivo)
+        public IActionResult DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
         {
-            var urlEncode = _encoder.Encode(caminhoDoArquivo);
             _deletarAppService.DeletarArquivo(caminhoDoArquivo);
+
+            var caminhoDoDiretorio = caminhoDoArquivo.Replace(nomeDoArquivo, "");
+            var urlEncode = _encoder.Encode(caminhoDoDiretorio);
             return Redirect("ConteudoCoordenador?DiretorioDaUnidade=" + urlEncode);
         }
     }

@@ -70,14 +70,14 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         [Authorize(Roles = "Professor")]
         public async Task<IActionResult> SelecionarArquivoProfessor(string diretorioDaUnidade, IFormFile arquivo)
         {
-                string urlEncode;
-                if (diretorioDaUnidade != null)
-                {
-                    urlEncode = _encoder.Encode(diretorioDaUnidade);
-                    await _enviarAquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
-                    return Redirect("Conteudo?DiretorioDaUnidade=" + urlEncode);
-                }
-                return Redirect("Conteudo");
+            string urlEncode;
+            if (diretorioDaUnidade != null)
+            {
+                urlEncode = _encoder.Encode(diretorioDaUnidade);
+                await _enviarAquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
+                return Redirect("Conteudo?DiretorioDaUnidade=" + urlEncode);
+            }
+            return Redirect("Conteudo");
         }
 
         [HttpGet("Download")]
@@ -91,10 +91,12 @@ namespace PlataformaDeEnsino.Presenter.Controllers
 
         [HttpGet("Deletar")]
         [Authorize(Roles = "Professor")]
-        public IActionResult DeletarArquivo(string caminhoDoArquivo)
+        public IActionResult DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
         {
-            var urlEncode = _encoder.Encode(caminhoDoArquivo);
             _deletarAppService.DeletarArquivo(caminhoDoArquivo);
+
+            var caminhoDoDiretorio = caminhoDoArquivo.Replace(nomeDoArquivo, "");
+            var urlEncode = _encoder.Encode(caminhoDoDiretorio);
             return Redirect("Conteudo?DiretorioDaUnidade=" + urlEncode);
         }
     }
