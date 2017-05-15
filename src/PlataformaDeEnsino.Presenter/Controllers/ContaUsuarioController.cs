@@ -7,6 +7,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class ContaUsuarioController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

@@ -13,6 +13,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class AlunoCoordenadorController : Controller
     {
         private readonly IMapper _mapper;

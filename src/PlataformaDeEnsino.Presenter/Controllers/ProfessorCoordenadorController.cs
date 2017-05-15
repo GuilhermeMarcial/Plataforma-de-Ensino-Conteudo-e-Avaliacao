@@ -12,6 +12,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class ProfessorCoordenadorController : Controller
     {
         private readonly IMapper _mapper;
@@ -56,6 +57,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpPost("NovoProfessor")]
+        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> NovoProfessor(ProfessorViewModel professorViewModel)
         {
 

@@ -13,6 +13,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
     [Route("Professor")]
+    [AutoValidateAntiforgeryToken]
     public class ProfessorController : Controller
     {
         private UrlEncoder _encoder;

@@ -16,6 +16,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using PlataformaDeEnsino.Core.Identity;
 using PlataformaDeEnsino.Identity.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PlataformaDeEnsino.Presenter
 {
@@ -30,7 +31,7 @@ namespace PlataformaDeEnsino.Presenter
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
+            services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
             .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddDbContext<AppIdentityDbContext>(options =>

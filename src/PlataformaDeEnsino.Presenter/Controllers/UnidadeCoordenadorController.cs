@@ -9,6 +9,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class UnidadeCoordenadorController : Controller
     {
         private readonly IMapper _mapper;

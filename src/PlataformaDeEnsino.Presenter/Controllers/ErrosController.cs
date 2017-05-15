@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class ErrosController : Controller
     {
         public ErrosController()

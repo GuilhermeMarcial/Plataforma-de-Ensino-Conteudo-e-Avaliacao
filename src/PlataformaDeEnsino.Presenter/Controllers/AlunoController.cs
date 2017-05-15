@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
     [Route("Aluno")]
+    [AutoValidateAntiforgeryToken]
     public class AlunoController : Controller
     {
         private readonly IMapper _mapper;

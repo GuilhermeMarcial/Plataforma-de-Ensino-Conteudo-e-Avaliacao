@@ -12,6 +12,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class ConteudoCoordenadorController : Controller
     {
         private IEnumerable<FileInfo> arquivos;
