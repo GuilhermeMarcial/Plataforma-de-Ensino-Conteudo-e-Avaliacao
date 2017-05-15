@@ -106,6 +106,11 @@ namespace PlataformaDeEnsino.Presenter
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseMvc();
+            app.Use(async(contex, next) =>
+            {
+                contex.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+                await next();
+            });
         }
     }
 }
