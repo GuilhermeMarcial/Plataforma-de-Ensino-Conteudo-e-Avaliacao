@@ -53,7 +53,7 @@ namespace PlataformaDeEnsino.Presenter
         options.Lockout.MaxFailedAccessAttempts = 10;
 
         // Cookie settings
-        options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
+        options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromMinutes(30);
         options.Cookies.ApplicationCookie.LoginPath = "/Login";
         options.Cookies.ApplicationCookie.LogoutPath = "/LogOff";
         options.Cookies.ApplicationCookie.AccessDeniedPath = "/RedirecionarUsuario";
