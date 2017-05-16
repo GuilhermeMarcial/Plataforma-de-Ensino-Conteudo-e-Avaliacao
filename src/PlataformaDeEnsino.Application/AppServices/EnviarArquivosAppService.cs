@@ -14,7 +14,7 @@ namespace PlataformaDeEnsino.Application.AppServices
         }
         public async Task EnviarArquivos(string diretorioDaUnidade, IFormFile file)
         {
-             await _enviarArquivosService.EnviarArquivos(diretorioDaUnidade, file);
+             await _enviarArquivosService.EnviarArquivosAsync(diretorioDaUnidade, file);
         }
     }
 }

@@ -2,6 +2,7 @@ using System.IO;
 using System.Collections.Generic;
 using PlataformaDeEnsino.Core.Services.Interfaces;
 using PlataformaDeEnsino.Application.AppServices.Interfaces;
+using System.Threading.Tasks;
 
 namespace PlataformaDeEnsino.Application.AppServices
 {

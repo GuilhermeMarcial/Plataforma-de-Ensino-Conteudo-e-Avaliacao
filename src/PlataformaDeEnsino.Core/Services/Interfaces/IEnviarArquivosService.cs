@@ -5,6 +5,6 @@ namespace PlataformaDeEnsino.Core.Services.Interfaces
 {
     public interface IEnviarArquivosService
     {
-        Task EnviarArquivos(string diretorioDaUnidade, IFormFile file);
+        Task EnviarArquivosAsync(string diretorioDaUnidade, IFormFile file);
     }
 }

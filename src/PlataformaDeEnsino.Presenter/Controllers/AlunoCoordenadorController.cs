@@ -64,7 +64,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             if (ModelState.IsValid)
             {
                 var aluno = _mapper.Map<AlunoViewModel, Aluno>(alunoViewModel);
-                _alunoAppService.Inserir(aluno);
+                _alunoAppService.InserirAsync(aluno);
                 var user = new AppUser { UserName = alunoViewModel.CpfDoAluno, Email = alunoViewModel.EmailDoAluno };
                 var resultCreate = await _userManager.CreateAsync(user, alunoViewModel.CpfDoAluno);
                 if (resultCreate.Succeeded)
@@ -86,12 +86,12 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             if (IdDoCurso != null)
             {
                 var idDoCurso = Convert.ToInt32(IdDoCurso);
-                ViewBag.Curso = _mapper.Map<Curso, CursoViewModel>(_cursoAppService.ConsultarPeloId(idDoCurso));
+                ViewBag.Curso = _mapper.Map<Task<Curso>, CursoViewModel>(_cursoAppService.ConsultarPeloIdAsync(idDoCurso));
             }
             if (IdDoAluno != null)
             {
                 var idDoAluno = Convert.ToInt32(IdDoAluno);
-                var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(_alunoAppService.ConsultarPeloId(idDoAluno));
+                var alunoViewModel = _mapper.Map<Task<Aluno>, AlunoViewModel>(_alunoAppService.ConsultarPeloIdAsync(idDoAluno));
                 alunoViewModel.Usuario = await _userManager.FindByNameAsync(alunoViewModel.CpfDoAluno);
                 return View(alunoViewModel);
             }
@@ -105,7 +105,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             if (IdDoAluno != null)
             {
                 var idDoAluno = Convert.ToInt32(IdDoAluno);
-                var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(_alunoAppService.ConsultarPeloId(idDoAluno));
+                var alunoViewModel = _mapper.Map<Task<Aluno>, AlunoViewModel>(_alunoAppService.ConsultarPeloIdAsync(idDoAluno));
                 alunoViewModel.IdDoUsuario = IdDoUsuario;
                 alunoViewModel.Usuario = await _userManager.FindByIdAsync(IdDoUsuario);
                 return View(alunoViewModel);
@@ -130,7 +130,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
                         if (resultadoDaAtualizacaoDoUsuario.Succeeded)
                         {
                             var aluno = _mapper.Map<AlunoViewModel, Aluno>(alunoViewModel);
-                            _alunoAppService.Atualizar(aluno);
+                            _alunoAppService.AtualizarAsync(aluno);
                             return Redirect("VisualizarAluno?IdDoAluno=" + alunoViewModel.IdDoAluno + "&IdDoCurso=" + alunoViewModel.IdDoCurso);
                         }
                     }
@@ -142,12 +142,13 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> DeletarAluno(int IdDoAluno)
         {
-            var aluno = _alunoAppService.ConsultarPeloId(IdDoAluno);
+            var alunoAsync = _alunoAppService.ConsultarPeloIdAsync(IdDoAluno);
+            var aluno = alunoAsync.Result;
             var usuario = await _userManager.FindByNameAsync(aluno.CpfDoAluno);
             var deletandoUsuario = await _userManager.DeleteAsync(usuario);
             if (deletandoUsuario.Succeeded)
             {
-                _alunoAppService.Deletar(aluno.IdDoAluno);
+                _alunoAppService.DeletarAsync(aluno.IdDoAluno);
             }
             return Redirect("AlunoCoordenador");
         }

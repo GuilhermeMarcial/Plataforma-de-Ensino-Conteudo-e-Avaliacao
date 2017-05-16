@@ -8,7 +8,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class AlunoRepository : RepositoryBase<Aluno>, IAlunoRepository
     {
-        public Aluno ConsultarAlunoPeloCpf(string cpfDoAluno)
+        public  Aluno ConsultarAlunoPeloCpf(string cpfDoAluno)
         {
             return Context.Alunos.Where(a => a.CpfDoAluno == cpfDoAluno).First();
         }

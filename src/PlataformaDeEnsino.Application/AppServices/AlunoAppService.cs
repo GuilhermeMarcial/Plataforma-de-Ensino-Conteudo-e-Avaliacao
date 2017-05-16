@@ -3,6 +3,7 @@ using PlataformaDeEnsino.Application.AppServices.Interfaces;
 using PlataformaDeEnsino.Core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PlataformaDeEnsino.Application.AppServices
 {
@@ -16,11 +17,11 @@ namespace PlataformaDeEnsino.Application.AppServices
 
         public Aluno ConsultarAlunoPeloCpf(string CpfDoAluno)
         {
-            return _alunoService.ConsultarAlunoPeloCpf(CpfDoAluno);
+            return  _alunoService.ConsultarAlunoPeloCpf(CpfDoAluno);
         }
         public IEnumerable<Aluno> SelecionarAlunosPeloCurso(int idDoCurso)
         {
-            return _alunoService.SelecionarAlunosPeloCurso(idDoCurso);
+            return  _alunoService.SelecionarAlunosPeloCurso(idDoCurso);
         }
     }
 }

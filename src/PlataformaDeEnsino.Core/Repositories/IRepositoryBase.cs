@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PlataformaDeEnsino.Core.Repositories
 {
     public interface IRepositoryBase<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> ConsultarTodos();
-        TEntity ConsultarPeloId(int id);
-        void Inserir(TEntity obj);
-        void Deletar(int id);
-        void Atualizar(TEntity obj);
+        Task<IEnumerable<TEntity>> ConsultarTodosAsync();
+        Task<TEntity> ConsultarPeloIdAsync(int id);
+        void InserirAsync(TEntity obj);
+        void DeletarAsync(int id);
+        void AtualizarAsync(TEntity obj);
         void Dispose();
 
     }

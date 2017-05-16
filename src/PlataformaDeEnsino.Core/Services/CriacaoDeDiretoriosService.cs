@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Core.Services

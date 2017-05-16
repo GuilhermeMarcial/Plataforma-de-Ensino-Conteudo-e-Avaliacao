@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Application.AppServices.Interfaces;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Services.Interfaces;

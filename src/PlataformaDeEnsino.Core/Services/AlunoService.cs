@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Repositories;
 using PlataformaDeEnsino.Core.Services.Interfaces;

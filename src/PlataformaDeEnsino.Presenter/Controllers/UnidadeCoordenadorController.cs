@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -50,8 +51,8 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         [Authorize(Roles = "Coordenador")]
         public IActionResult VisualizarUnidade(int idDaUnidade)
         {
-            var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(_unidadeAppService.ConsultarPeloId(idDaUnidade));
-            var professorViewModel = _mapper.Map<Professor, ProfessorViewModel>(_professorAppService.ConsultarPeloId(Convert.ToInt32(unidadeViewModel.IdDoProfessor)));
+            var unidadeViewModel = _mapper.Map<Task<Unidade>, UnidadeViewModel>(_unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
+            var professorViewModel = _mapper.Map<Task<Professor>, ProfessorViewModel>(_professorAppService.ConsultarPeloIdAsync(Convert.ToInt32(unidadeViewModel.IdDoProfessor)));
             var VincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professorViewModel);
             return View(VincularProfessorViewModel);
         }
@@ -60,8 +61,8 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         [Authorize(Roles = "Coordenador")]
         public IActionResult VincularProfessor(int idDaUnidade)
         {
-            var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(_unidadeAppService.ConsultarPeloId(idDaUnidade));
-            var professoresViewModel = _mapper.Map<IEnumerable<Professor>, IEnumerable<ProfessorViewModel>>(_professorAppService.ConsultarTodos());
+            var unidadeViewModel = _mapper.Map<Task<Unidade>, UnidadeViewModel>(_unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
+            var professoresViewModel = _mapper.Map<Task<IEnumerable<Professor>>, IEnumerable<ProfessorViewModel>>(_professorAppService.ConsultarTodosAsync());
             var VincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professoresViewModel);
             return View(VincularProfessorViewModel);
         }
@@ -71,7 +72,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         public IActionResult VincularProfessor(UnidadeViewModel unidadeViewModel)
         {
             var unidade = _mapper.Map<UnidadeViewModel, Unidade>(unidadeViewModel);
-            _unidadeAppService.Atualizar(unidade);
+            _unidadeAppService.AtualizarAsync(unidade);
             return Redirect("VisualizarUnidade?IdDaUnidade=" + unidadeViewModel.IdDaUnidade);
         }
     }

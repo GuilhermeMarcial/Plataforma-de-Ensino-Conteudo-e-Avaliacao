@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Application.AppServices.Interfaces;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Services.Interfaces;
@@ -15,12 +16,12 @@ namespace PlataformaDeEnsino.Application.AppServices
 
         public Professor ConsultarPelaUnidade(int idDaUnidade)
         {
-            return _professorService.ConsultarPelaUnidade(idDaUnidade);
+            return  _professorService.ConsultarPelaUnidade(idDaUnidade);
         }
 
         public Professor ConsultarPeloCpf(string cpfDoProfessor)
         {
-            return _professorService.ConsultarPeloCpf(cpfDoProfessor);
+            return  _professorService.ConsultarPeloCpf(cpfDoProfessor);
         }
     }
 }

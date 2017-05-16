@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Application.AppServices.Interfaces;
 using PlataformaDeEnsino.Core.Services.Interfaces;
 
@@ -13,24 +14,24 @@ namespace PlataformaDeEnsino.Application.AppServices
             _serviceBase = serviceBase;
         }
 
-        public void Atualizar(TEntity obj)
+        public void AtualizarAsync(TEntity obj)
         {
-            _serviceBase.Atualizar(obj);
+            _serviceBase.AtualizarAsync(obj);
         }
 
-        public TEntity ConsultarPeloId(int id)
+        public async Task<TEntity> ConsultarPeloIdAsync(int id)
         {
-            return _serviceBase.ConsultarPeloId(id);
+            return await _serviceBase.ConsultarPeloIdAsync(id);
         }
 
-        public IEnumerable<TEntity> ConsultarTodos()
+        public async Task<IEnumerable<TEntity>> ConsultarTodosAsync()
         {
-            return _serviceBase.ConsultarTodos();
+            return await _serviceBase.ConsultarTodosAsync();
         }
 
-        public void Deletar(int id)
+        public void DeletarAsync(int id)
         {
-            _serviceBase.Deletar(id);
+            _serviceBase.DeletarAsync(id);
         }
 
         public void Dispose()
@@ -38,9 +39,9 @@ namespace PlataformaDeEnsino.Application.AppServices
             _serviceBase.Dispose();
         }
 
-        public void Inserir(TEntity obj)
+        public void InserirAsync(TEntity obj)
         {
-            _serviceBase.Inserir(obj);
+            _serviceBase.InserirAsync(obj);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         {
             _coordenadorUsuario = CoodernadorUsuario();
             ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
-            var professorViewModel = _mapper.Map<IEnumerable<Professor>, IEnumerable<ProfessorViewModel>>(_professorAppService.ConsultarTodos());
+            var professorViewModel = _mapper.Map<Task<IEnumerable<Professor>>, IEnumerable<ProfessorViewModel>>(_professorAppService.ConsultarTodosAsync());
             return View(professorViewModel);
         }
 
@@ -64,7 +64,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             if (ModelState.IsValid)
             {
                 var professor = _mapper.Map<ProfessorViewModel, Professor>(professorViewModel);
-                _professorAppService.Inserir(professor);
+                _professorAppService.InserirAsync(professor);
                 var user = new AppUser { UserName = professorViewModel.CpfDoProfessor, Email = professorViewModel.EmailDoProfessor };
                 var resultCreate = await _userManager.CreateAsync(user, professorViewModel.CpfDoProfessor);
                 if (resultCreate.Succeeded)
@@ -86,7 +86,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             if (IdDoProfessor != null)
             {
                 var idDoProfessor = Convert.ToInt32(IdDoProfessor);
-                var professorViewModel = _mapper.Map<Professor, ProfessorViewModel>(_professorAppService.ConsultarPeloId(idDoProfessor));
+                var professorViewModel = _mapper.Map<Task<Professor>, ProfessorViewModel>(_professorAppService.ConsultarPeloIdAsync(idDoProfessor));
                 professorViewModel.Usuario = await _userManager.FindByNameAsync(professorViewModel.CpfDoProfessor);
                 return View(professorViewModel);
             }
@@ -100,7 +100,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             if (IdDoProfessor != null)
             {
                 var idDoProfessor = Convert.ToInt32(IdDoProfessor);
-                var professorViewModel = _mapper.Map<Professor, ProfessorViewModel>(_professorAppService.ConsultarPeloId(idDoProfessor));
+                var professorViewModel = _mapper.Map<Task<Professor>, ProfessorViewModel>(_professorAppService.ConsultarPeloIdAsync(idDoProfessor));
                 professorViewModel.IdDoUsuario = IdDoUsuario;
                 professorViewModel.Usuario = await _userManager.FindByIdAsync(IdDoUsuario);
                 return View(professorViewModel);
@@ -125,7 +125,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
                         if (resultadoDaAtualizacaoDoUsuario.Succeeded)
                         {
                             var professor = _mapper.Map<ProfessorViewModel, Professor>(professorViewModel);
-                            _professorAppService.Atualizar(professor);
+                            _professorAppService.AtualizarAsync(professor);
                             return Redirect("VisualizarProfessor?IdDoProfessor=" + professorViewModel.IdDoProfessor);
                         }
                     }
@@ -138,12 +138,13 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> DeletarProfessor(int IdDoProfessor)
         {
-            var professor = _professorAppService.ConsultarPeloId(IdDoProfessor);
+            var professorAsync = _professorAppService.ConsultarPeloIdAsync(IdDoProfessor);
+            var professor = professorAsync.Result;
             var usuario = await _userManager.FindByNameAsync(professor.CpfDoProfessor);
             var deletandoUsuario = await _userManager.DeleteAsync(usuario);
             if (deletandoUsuario.Succeeded)
             {
-                _professorAppService.Deletar(professor.IdDoProfessor);
+                _professorAppService.DeletarAsync(professor.IdDoProfessor);
             }
             
             return Redirect("ProfessorCoordenador");

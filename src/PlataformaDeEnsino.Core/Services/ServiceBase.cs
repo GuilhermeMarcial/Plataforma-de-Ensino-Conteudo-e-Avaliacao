@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Core.Repositories;
 using PlataformaDeEnsino.Core.Services.Interfaces;
 
@@ -11,23 +12,23 @@ namespace PlataformaDeEnsino.Core.Services
         {
             _repository = repository;
         }
-        public void Atualizar(TEntity obj)
+        public void AtualizarAsync(TEntity obj)
         {
-            _repository.Atualizar(obj);
+            _repository.AtualizarAsync(obj);
         }
-        public TEntity ConsultarPeloId(int id)
+        public async Task<TEntity> ConsultarPeloIdAsync(int id)
         {
-            return _repository.ConsultarPeloId(id);
-        }
-
-        public IEnumerable<TEntity> ConsultarTodos()
-        {
-            return _repository.ConsultarTodos();
+            return await _repository.ConsultarPeloIdAsync(id);
         }
 
-        public void Deletar(int id)
+        public async Task<IEnumerable<TEntity>> ConsultarTodosAsync()
         {
-            _repository.Deletar(id);
+            return await _repository.ConsultarTodosAsync();
+        }
+
+        public void DeletarAsync(int id)
+        {
+             _repository.DeletarAsync(id);
         }
 
         public void Dispose()
@@ -35,9 +36,9 @@ namespace PlataformaDeEnsino.Core.Services
             _repository.Dispose();
         }
 
-        public void Inserir(TEntity obj)
+        public void InserirAsync(TEntity obj)
         {
-            _repository.Inserir(obj);
+            _repository.InserirAsync(obj);
         }
     }
 }

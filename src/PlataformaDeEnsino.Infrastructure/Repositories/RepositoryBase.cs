@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PlataformaDeEnsino.Core.Repositories;
 using PlataformaDeEnsino.Infrastructure.Context;
 using System;
+using System.Threading.Tasks;
 
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
@@ -11,31 +12,28 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
     {
         protected ConteudoDbContext Context = new ConteudoDbContext();
 
-        public void Atualizar(TEntity obj)
+        public async void AtualizarAsync(TEntity obj)
         {
             Context.Entry(obj).State = EntityState.Modified;
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public TEntity ConsultarPeloId(int id)
+        public async Task<TEntity> ConsultarPeloIdAsync(int id)
         {
-
-
-            return Context.Set<TEntity>().Find(id);
-
+            return await Context.Set<TEntity>().FindAsync(id);
         }
 
-        public IEnumerable<TEntity> ConsultarTodos()
+        public async Task<IEnumerable<TEntity>> ConsultarTodosAsync()
         {
-            return Context.Set<TEntity>().ToList();
+            return await Context.Set<TEntity>().ToListAsync();
         }
 
-        public void Deletar(int id)
+        public async void DeletarAsync(int id)
         {
 
-            TEntity obj = Context.Set<TEntity>().Find(id);
+            TEntity obj = await Context.Set<TEntity>().FindAsync(id);
             Context.Set<TEntity>().Remove(obj);
-            Context.Commit();
+            await Context.SaveChangesAsync();
         }
 
         public void Dispose()
@@ -45,10 +43,10 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public void Inserir(TEntity obj)
+        public async void InserirAsync(TEntity obj)
         {
-            Context.Set<TEntity>().Add(obj);
-            Context.SaveChanges();
+            await Context.Set<TEntity>().AddAsync(obj);
+            await Context.SaveChangesAsync();
         }
     }
 }
