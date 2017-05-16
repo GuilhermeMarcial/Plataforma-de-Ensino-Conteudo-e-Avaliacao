@@ -5,8 +5,14 @@ machine:
     - sudo apt-get update
     - sudo apt-get install dotnet-dev-1.0.1
 
-test:
+dependencies:
+  override:
+    - dotnet restore src/PlataformaDeEnsino.Presenter/PlataformaDeEnsino.Presenter.csproj
+    - dotnet restore src/PlataformaDeEnsino.Application/PlataformaDeEnsino.Application.csproj
+    - dotnet restore src/PlataformaDeEnsino.Core/PlataformaDeEnsino.Core.csproj
+    - dotnet restore src/PlataformaDeEnsino.Infrastructure/PlataformaDeEnsino.Infrastructure.csproj
 
+test:
   pre:
     - dotnet build src/PlataformaDeEnsino.Core/PlataformaDeEnsino.Core.csproj
     - dotnet build src/PlataformaDeEnsino.Infrastructure/PlataformaDeEnsino.Infrastructure.csproj
