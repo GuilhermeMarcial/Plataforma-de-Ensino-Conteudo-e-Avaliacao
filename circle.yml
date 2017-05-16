@@ -18,10 +18,6 @@ test:
     - dotnet build src/PlataformaDeEnsino.Infrastructure/PlataformaDeEnsino.Infrastructure.csproj
     - dotnet build src/PlataformaDeEnsino.Application/PlataformaDeEnsino.Application.csproj
     - dotnet build src/PlataformaDeEnsino.Presenter/PlataformaDeEnsino.Presenter.csproj
-    - dotnet build test/PlataformaDeEnsino.Core.test/PlataformaDeEnsino.Core.test.csproj
-    - dotnet build test/PlataformaDeEnsino.Infrastructure.test/PlataformaDeEnsino.Infrastructure.test.csproj
-    - dotnet build test/PlataformaDeEnsino.Application.test/PlataformaDeEnsino.Application.test.csproj
-    - dotnet build test/PlataformaDeEnsino.Presenter.test/PlataformaDeEnsino.Presenter.test.csproj
   
   post:
     - dotnet publish --configuration Release src/PlataformaDeEnsino.Core/PlataformaDeEnsino.Core.csproj
