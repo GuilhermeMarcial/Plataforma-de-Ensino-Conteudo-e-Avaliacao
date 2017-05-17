@@ -56,7 +56,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         public FileResult DownloadFile(string caminhoDoArquivo)
         {
             var file = new FileInfo(caminhoDoArquivo);
-            byte[] fileBytes = System.IO.File.ReadAllBytes(file.FullName);
+            byte[] fileBytes =  System.IO.File.ReadAllBytes(file.FullName);
             return File(fileBytes, "application/pdf", file.Name);
         }
     }

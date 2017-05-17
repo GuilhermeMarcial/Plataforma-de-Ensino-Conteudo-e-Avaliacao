@@ -143,7 +143,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         public async Task<IActionResult> DeletarAluno(int IdDoAluno)
         {
             var alunoAsync = _alunoAppService.ConsultarPeloIdAsync(IdDoAluno);
-            var aluno = alunoAsync.Result;
+            var aluno = await alunoAsync;
             var usuario = await _userManager.FindByNameAsync(aluno.CpfDoAluno);
             var deletandoUsuario = await _userManager.DeleteAsync(usuario);
             if (deletandoUsuario.Succeeded)
