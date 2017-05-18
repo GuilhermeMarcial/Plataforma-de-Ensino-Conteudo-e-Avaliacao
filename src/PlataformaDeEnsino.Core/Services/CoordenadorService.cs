@@ -14,9 +14,9 @@ namespace PlataformaDeEnsino.Core.Services
             _coordenadorRepository = coordenadorRepository;
         }
 
-        public Coordenador ConsultarPeloCpf(string cpfDoCoordenador)
+        public async Task<Coordenador> ConsultarPeloCpfAsync(string cpfDoCoordenador)
         {
-            return _coordenadorRepository.ConsultarPeloCpf(cpfDoCoordenador);
+            return await _coordenadorRepository.ConsultarPeloCpfAsync(cpfDoCoordenador);
         }
     }
 }

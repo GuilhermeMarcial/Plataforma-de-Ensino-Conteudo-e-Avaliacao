@@ -34,16 +34,18 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _coordenadorAppService = coordenadorAppService;
         }
 
-        private Coordenador CoodernadorUsuario()
+        private async Task<Coordenador> CoodernadorUsuario()
         {
-            return _coordenadorAppService.ConsultarPeloCpf(User.Identity.Name);
+            return await _coordenadorAppService.ConsultarPeloCpfAsync(User.Identity.Name);
         }
 
         [HttpGet("AlunoCoordenador")]
         [Authorize(Roles = "Coordenador")]
-        public IActionResult AlunoCoordenador()
+        public async Task<IActionResult> AlunoCoordenador()
         {
-            _coordenadorUsuario = CoodernadorUsuario();
+            var coordenadorUsuario = CoodernadorUsuario();
+            _coordenadorUsuario = await coordenadorUsuario;
+            
             ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
             var alunosViewModel = _mapper.Map<Task<IEnumerable<Aluno>>, IEnumerable<AlunoViewModel>>(_alunoAppService.SelecionarAlunosPeloCursoAsync(_coordenadorUsuario.IdDoCurso));
             return View(alunosViewModel);

@@ -14,9 +14,9 @@ namespace PlataformaDeEnsino.Application.AppServices
             _coordenadorService = coordenadorService;
         }
 
-        public Coordenador ConsultarPeloCpf(string cpfDoCoordenador)
+        public async Task<Coordenador> ConsultarPeloCpfAsync(string cpfDoCoordenador)
         {
-            return _coordenadorService.ConsultarPeloCpf(cpfDoCoordenador);
+            return await _coordenadorService.ConsultarPeloCpfAsync(cpfDoCoordenador);
         }
     }
 }

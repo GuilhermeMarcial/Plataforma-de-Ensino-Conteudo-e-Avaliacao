@@ -6,6 +6,6 @@ namespace PlataformaDeEnsino.Core.Services.Interfaces
 {
     public interface ICoordenadorService : IServiceBase<Coordenador>, IDisposable
     {
-         Coordenador ConsultarPeloCpf(string cpfDoCoordenador);
+         Task<Coordenador> ConsultarPeloCpfAsync(string cpfDoCoordenador);
     }
 }

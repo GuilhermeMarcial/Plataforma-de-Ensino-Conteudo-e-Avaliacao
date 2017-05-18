@@ -40,16 +40,18 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _encoder = UrlEncoder.Create();
         }
 
-        private Coordenador CoodernadorUsuario()
+        private async Task<Coordenador> CoodernadorUsuario()
         {
-            return _coordenadorAppService.ConsultarPeloCpf(User.Identity.Name);
+            return await _coordenadorAppService.ConsultarPeloCpfAsync(User.Identity.Name);
         }
 
         [HttpGet("ConteudoCoordenador")]
         [Authorize(Roles = "Coordenador")]
-        public IActionResult ConteudoCoordenador([FromQuery] int idDoModulo, string DiretorioDaUnidade)
+        public async Task<IActionResult> ConteudoCoordenador([FromQuery] int idDoModulo, string DiretorioDaUnidade)
         {
-            _coordenadorUsuario = CoodernadorUsuario();
+            var coordenadorUsuario = CoodernadorUsuario();
+            _coordenadorUsuario = await coordenadorUsuario;
+            
             ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCurso(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModulo(idDoModulo));
@@ -60,9 +62,11 @@ namespace PlataformaDeEnsino.Presenter.Controllers
 
         [HttpGet("SelecionarConteudoCoordenador")]
         [Authorize(Roles = "Coordenador")]
-        public ViewResult SelecionarConteudoCoordenador(int idDoModulo)
+        public async Task<ViewResult> SelecionarConteudoCoordenador(int idDoModulo)
         {
-            _coordenadorUsuario = CoodernadorUsuario();
+            var coordenadorUsuario = CoodernadorUsuario();
+            _coordenadorUsuario = await coordenadorUsuario;
+
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCurso(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModulo(idDoModulo));
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
