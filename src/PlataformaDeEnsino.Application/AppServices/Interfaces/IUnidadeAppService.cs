@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Application.AppServices.Interfaces
 {
     public interface IUnidadeAppService : IAppServiceBase<Unidade>
     {
-         IEnumerable<Unidade> ConsultarUnidadadesDoModulo(int idDoModulo);
-         IEnumerable<Unidade> ConsultarUnidadesDoProfessor(int idDoProfessor);
+         Task<IEnumerable<Unidade>> ConsultarUnidadadesDoModuloAsync(int idDoModulo);
+         Task<IEnumerable<Unidade>> ConsultarUnidadesDoProfessorAsync(int idDoProfessor);
     }
 }

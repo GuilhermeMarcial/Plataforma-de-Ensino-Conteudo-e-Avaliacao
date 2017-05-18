@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Repositories;
 using PlataformaDeEnsino.Core.Services.Interfaces;
@@ -13,13 +14,13 @@ namespace PlataformaDeEnsino.Core.Services
             _unidadeRepository = unidadeRepository;
         }
 
-        public IEnumerable<Unidade> ConsultarUnidadadesDoModulo(int idDoModulo)
+        public async Task<IEnumerable<Unidade>> ConsultarUnidadadesDoModuloAsync(int idDoModulo)
         {
-            return _unidadeRepository.ConsultarUnidadadesDoModulo(idDoModulo);
+            return await _unidadeRepository.ConsultarUnidadadesDoModuloAsync(idDoModulo);
         }
-        public IEnumerable<Unidade> ConsultarUnidadesDoProfessor(int idDoProfessor)
+        public async Task<IEnumerable<Unidade>> ConsultarUnidadesDoProfessorAsync(int idDoProfessor)
         {
-            return _unidadeRepository.ConsultarUnidadesDoProfessor(idDoProfessor);
+            return await _unidadeRepository.ConsultarUnidadesDoProfessorAsync(idDoProfessor);
         }
     }
 }

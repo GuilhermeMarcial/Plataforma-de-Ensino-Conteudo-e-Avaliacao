@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Core.Repositories
 {
     public interface IUnidadeRepository : IRepositoryBase<Unidade>, IDisposable
     {
-         IEnumerable<Unidade> ConsultarUnidadadesDoModulo(int idDoModulo);
+         Task<IEnumerable<Unidade>> ConsultarUnidadadesDoModuloAsync(int idDoModulo);
 
-         IEnumerable<Unidade> ConsultarUnidadesDoProfessor(int idDoProfessor);
+         Task<IEnumerable<Unidade>> ConsultarUnidadesDoProfessorAsync(int idDoProfessor);
     }
 }

@@ -51,7 +51,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             var professorUsuario = ProfessorUsuario();
             _professorUsuario = await _professorAppService.ConsultarPeloCpfAsync(User.Identity.Name);
             
-            var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadesDoProfessor(_professorUsuario.IdDoProfessor));
+            var unidadeViewModel = _mapper.Map<Task<IEnumerable<Unidade>>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadesDoProfessorAsync(_professorUsuario.IdDoProfessor));
             var ConteudoProfessorViewModel = new ConteudoProfessorViewModel(unidadeViewModel);
             return View(ConteudoProfessorViewModel);
         }
@@ -64,7 +64,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _professorUsuario = await ProfessorUsuario();
             
             ViewBag.UserName = _professorUsuario.NomeDoProfessor + " " + _professorUsuario.SobrenomeDoProfessor;
-            var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadesDoProfessor(_professorUsuario.IdDoProfessor));
+            var unidadeViewModel = _mapper.Map<Task<IEnumerable<Unidade>>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadesDoProfessorAsync(_professorUsuario.IdDoProfessor));
             arquivos = diretorioDaUnidade != null ? _arquivoAppService.RecuperarArquivos(diretorioDaUnidade) : null;
             var ConteudoProfessorViewModel = new ConteudoProfessorViewModel(unidadeViewModel, arquivos);
             return View(ConteudoProfessorViewModel);

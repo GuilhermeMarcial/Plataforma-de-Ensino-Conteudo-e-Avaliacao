@@ -15,13 +15,13 @@ namespace PlataformaDeEnsino.Application.AppServices
             _unidadeService = unidadeService;
         }
 
-        public IEnumerable<Unidade> ConsultarUnidadadesDoModulo(int idDoModulo)
+        public async Task<IEnumerable<Unidade>> ConsultarUnidadadesDoModuloAsync(int idDoModulo)
         {
-            return  _unidadeService.ConsultarUnidadadesDoModulo(idDoModulo);
+            return await _unidadeService.ConsultarUnidadadesDoModuloAsync(idDoModulo);
         }
-        public IEnumerable<Unidade> ConsultarUnidadesDoProfessor(int idDoProfessor)
+        public async Task<IEnumerable<Unidade>> ConsultarUnidadesDoProfessorAsync(int idDoProfessor)
         {
-            return  _unidadeService.ConsultarUnidadesDoProfessor(idDoProfessor);
+            return await _unidadeService.ConsultarUnidadesDoProfessorAsync(idDoProfessor);
         }
     }
 }

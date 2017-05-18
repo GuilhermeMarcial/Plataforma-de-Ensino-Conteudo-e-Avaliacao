@@ -1,18 +1,21 @@
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Repositories;
+using System.Threading.Tasks;
+
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class UnidadeRepository : RepositoryBase<Unidade>, IUnidadeRepository
     {
-        public IEnumerable<Unidade> ConsultarUnidadadesDoModulo(int idDoModulo)
+        public async Task<IEnumerable<Unidade>> ConsultarUnidadadesDoModuloAsync(int idDoModulo)
         {
-           return Context.Unidades.Where(u => u.IdDoModulo == idDoModulo);
+           return await Context.Unidades.Where(u => u.IdDoModulo == idDoModulo).ToListAsync();
         }
-        public IEnumerable<Unidade> ConsultarUnidadesDoProfessor(int idDoProfessor)
+        public async Task<IEnumerable<Unidade>> ConsultarUnidadesDoProfessorAsync(int idDoProfessor)
         {
-            return Context.Unidades.Where(u => u.IdDoProfessor == idDoProfessor);
+            return await Context.Unidades.Where(u => u.IdDoProfessor == idDoProfessor).ToListAsync();
         }
     }
 }
