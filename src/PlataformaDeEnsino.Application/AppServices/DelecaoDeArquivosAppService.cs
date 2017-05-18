@@ -1,5 +1,6 @@
 using PlataformaDeEnsino.Core.Services.Interfaces;
 using PlataformaDeEnsino.Application.AppServices.Interfaces;
+using System.Threading.Tasks;
 
 namespace PlataformaDeEnsino.Application.AppServices
 {
@@ -10,9 +11,9 @@ namespace PlataformaDeEnsino.Application.AppServices
         {
             _delegacaoDeArquivos = delegacaoDeArquivos;
         }
-        public void DeletarArquivo(string arquivo)
+        public async void DeletarArquivoAsync(string arquivo)
         {
-             _delegacaoDeArquivos.DeletarArquivo(arquivo);
+             await Task.Run(() => _delegacaoDeArquivos.DeletarArquivoAsync(arquivo));
         }
     }
 }

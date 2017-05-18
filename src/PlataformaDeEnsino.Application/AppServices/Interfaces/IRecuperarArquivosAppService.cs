@@ -6,6 +6,6 @@ namespace PlataformaDeEnsino.Application.AppServices.Interfaces
 {
     public interface IRecuperarArquivosAppService
     {
-        IEnumerable<FileInfo> RecuperarArquivos(string caminhoDoArquivo);
+        Task<IEnumerable<FileInfo>> RecuperarArquivosAsync(string caminhoDoArquivo);
     }
 }

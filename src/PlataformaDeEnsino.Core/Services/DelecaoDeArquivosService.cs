@@ -1,15 +1,16 @@
 using System.IO;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Core.Services.Interfaces;
 
 namespace PlataformaDeEnsino.Core.Services
 {
     public class DelecaoDeArquivosService : IDelecaoDeArquivosService
     {
-        public void DeletarArquivo(string arquivo)
+        public async void DeletarArquivoAsync(string arquivo)
         {
             if (File.Exists(arquivo))
             {
-                File.Delete(arquivo);
+                await Task.Run(() => File.Delete(arquivo));
             }
         }
     }

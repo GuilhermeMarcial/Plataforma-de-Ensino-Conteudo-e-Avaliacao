@@ -9,7 +9,7 @@ namespace PlataformaDeEnsino.Core.Services
     {
         public async Task EnviarArquivosAsync(string diretorioDaUnidade, IFormFile file)
         {
-            var extensaoDoArquivo = Path.GetExtension(file.FileName);
+            var extensaoDoArquivo = await Task.Run(() => Path.GetExtension(file.FileName));
 
             if (Directory.Exists(diretorioDaUnidade))
             {

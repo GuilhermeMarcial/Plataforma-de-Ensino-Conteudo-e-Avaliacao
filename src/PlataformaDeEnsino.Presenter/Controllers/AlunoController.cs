@@ -48,7 +48,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             ViewBag.UserName = _alunoUsuario.NomeDoAluno + " " + _alunoUsuario.SobrenomeDoAluno;
             var moduloViewModel = _mapper.Map<Task<IEnumerable<Modulo>>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCursoAsync(_alunoUsuario.IdDoCurso, _alunoUsuario.NivelDoAluno));
             var unidadeViewModel = _mapper.Map<Task<IEnumerable<Unidade>>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
-            arquivos = DiretorioDaUnidade != null ? _arquivoAppService.RecuperarArquivos(DiretorioDaUnidade) : null;
+            arquivos = DiretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(DiretorioDaUnidade) : null;
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel, arquivos);
             return View(ConteudoAlunoViewModel);
         }

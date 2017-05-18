@@ -65,7 +65,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             
             ViewBag.UserName = _professorUsuario.NomeDoProfessor + " " + _professorUsuario.SobrenomeDoProfessor;
             var unidadeViewModel = _mapper.Map<Task<IEnumerable<Unidade>>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadesDoProfessorAsync(_professorUsuario.IdDoProfessor));
-            arquivos = diretorioDaUnidade != null ? _arquivoAppService.RecuperarArquivos(diretorioDaUnidade) : null;
+            arquivos = diretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(diretorioDaUnidade) : null;
             var ConteudoProfessorViewModel = new ConteudoProfessorViewModel(unidadeViewModel, arquivos);
             return View(ConteudoProfessorViewModel);
         }
@@ -95,9 +95,9 @@ namespace PlataformaDeEnsino.Presenter.Controllers
 
         [HttpGet("Deletar")]
         [Authorize(Roles = "Professor")]
-        public IActionResult DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
+        public async Task<IActionResult> DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
         {
-            _deletarAppService.DeletarArquivo(caminhoDoArquivo);
+            await Task.Run(() => _deletarAppService.DeletarArquivoAsync(caminhoDoArquivo));
 
             var caminhoDoDiretorio = caminhoDoArquivo.Replace(nomeDoArquivo, "");
             var urlEncode = _encoder.Encode(caminhoDoDiretorio);

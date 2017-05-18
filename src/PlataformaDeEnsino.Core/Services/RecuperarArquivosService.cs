@@ -7,10 +7,10 @@ namespace PlataformaDeEnsino.Core.Services
 {
     public class RecuperarArquivosService : IRecuperarArquivosService
     {
-        public IEnumerable<FileInfo> RecuperarArquivos(string caminhoDoArquivo)
+        public async Task<IEnumerable<FileInfo>> RecuperarArquivosAsync(string caminhoDoArquivo)
         {
             var diretorio = new DirectoryInfo(caminhoDoArquivo);
-            return (diretorio.Exists) ? diretorio.EnumerateFiles() : null;
+            return (diretorio.Exists) ? await Task.Run(() => diretorio.EnumerateFiles()) : null;
         }
     }
 }

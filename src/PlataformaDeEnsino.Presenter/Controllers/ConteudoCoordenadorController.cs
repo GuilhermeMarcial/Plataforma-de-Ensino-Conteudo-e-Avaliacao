@@ -55,7 +55,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
             var moduloViewModel = _mapper.Map<Task<IEnumerable<Modulo>>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<Task<IEnumerable<Unidade>>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
-            arquivos = DiretorioDaUnidade != null ? _arquivoAppService.RecuperarArquivos(DiretorioDaUnidade) : null;
+            arquivos = DiretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(DiretorioDaUnidade) : null;
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel, arquivos);
             return View(ConteudoAlunoViewModel);
         }
@@ -98,9 +98,9 @@ namespace PlataformaDeEnsino.Presenter.Controllers
 
         [HttpGet("DeletarCoordenador")]
         [Authorize(Roles = "Coordenador")]
-        public IActionResult DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
+        public async Task<IActionResult> DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
         {
-            _deletarAppService.DeletarArquivo(caminhoDoArquivo);
+            await Task.Run(() => _deletarAppService.DeletarArquivoAsync(caminhoDoArquivo));
 
             var caminhoDoDiretorio = caminhoDoArquivo.Replace(nomeDoArquivo, "");
             var urlEncode = _encoder.Encode(caminhoDoDiretorio);

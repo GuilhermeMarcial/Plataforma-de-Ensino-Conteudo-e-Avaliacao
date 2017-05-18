@@ -13,9 +13,9 @@ namespace PlataformaDeEnsino.Application.AppServices
         {
             _recuperarArquivos = recuperarArquivos;
         }
-        public IEnumerable<FileInfo> RecuperarArquivos(string caminhoDoArquivo)
+        public async Task<IEnumerable<FileInfo>> RecuperarArquivosAsync(string caminhoDoArquivo)
         {
-            return _recuperarArquivos.RecuperarArquivos(caminhoDoArquivo);
+            return await _recuperarArquivos.RecuperarArquivosAsync(caminhoDoArquivo);
         }
     }
 }
