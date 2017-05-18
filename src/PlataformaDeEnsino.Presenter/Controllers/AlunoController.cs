@@ -33,16 +33,18 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _alunoAppService = alunoAppService;
         }
 
-        private Aluno AlunoUsuario()
+        private async Task<Aluno> AlunoUsuario()
         {
-           return  _alunoAppService.ConsultarAlunoPeloCpf(User.Identity.Name);
+           return await  _alunoAppService.ConsultarAlunoPeloCpfAsync(User.Identity.Name);
         }
 
         [HttpGet("Conteudo")]
         [Authorize(Roles = "Aluno")]
-        public IActionResult ConteudoAluno([FromQuery] int idDoModulo, string DiretorioDaUnidade)
+        public async Task<IActionResult> ConteudoAluno([FromQuery] int idDoModulo, string DiretorioDaUnidade)
         {
-            _alunoUsuario = AlunoUsuario();
+            var alunoUsuario = AlunoUsuario();
+            _alunoUsuario = await alunoUsuario;
+            
             ViewBag.UserName = _alunoUsuario.NomeDoAluno + " " + _alunoUsuario.SobrenomeDoAluno;
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCurso(_alunoUsuario.IdDoCurso, _alunoUsuario.NivelDoAluno));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModulo(idDoModulo));

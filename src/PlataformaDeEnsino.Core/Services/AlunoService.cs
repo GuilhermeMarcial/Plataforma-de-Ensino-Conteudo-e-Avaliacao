@@ -15,14 +15,14 @@ namespace PlataformaDeEnsino.Core.Services
             _alunoRepository = alunoRepository;
         }
 
-        public Aluno ConsultarAlunoPeloCpf(string CpfDoAluno)
+        public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string CpfDoAluno)
         {
-            return _alunoRepository.ConsultarAlunoPeloCpf(CpfDoAluno);
+            return await _alunoRepository.ConsultarAlunoPeloCpfAsync(CpfDoAluno);
         }
 
-        public IEnumerable<Aluno> SelecionarAlunosPeloCurso(int idDoCurso)
+        public async Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso)
         {
-            return _alunoRepository.SelecionarAlunosPeloCurso(idDoCurso);
+            return await _alunoRepository.SelecionarAlunosPeloCursoAsync(idDoCurso);
         }
     }
 }

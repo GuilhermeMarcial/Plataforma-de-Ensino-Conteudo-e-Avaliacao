@@ -45,7 +45,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         {
             _coordenadorUsuario = CoodernadorUsuario();
             ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
-            var alunosViewModel = _mapper.Map<IEnumerable<Aluno>, IEnumerable<AlunoViewModel>>(_alunoAppService.SelecionarAlunosPeloCurso(_coordenadorUsuario.IdDoCurso));
+            var alunosViewModel = _mapper.Map<Task<IEnumerable<Aluno>>, IEnumerable<AlunoViewModel>>(_alunoAppService.SelecionarAlunosPeloCursoAsync(_coordenadorUsuario.IdDoCurso));
             return View(alunosViewModel);
         }
 

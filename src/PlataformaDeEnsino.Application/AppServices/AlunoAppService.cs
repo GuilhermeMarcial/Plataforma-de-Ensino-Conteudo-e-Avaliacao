@@ -15,13 +15,13 @@ namespace PlataformaDeEnsino.Application.AppServices
             _alunoService = alunoService;
         }
 
-        public Aluno ConsultarAlunoPeloCpf(string CpfDoAluno)
+        public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string CpfDoAluno)
         {
-            return  _alunoService.ConsultarAlunoPeloCpf(CpfDoAluno);
+            return await  _alunoService.ConsultarAlunoPeloCpfAsync(CpfDoAluno);
         }
-        public IEnumerable<Aluno> SelecionarAlunosPeloCurso(int idDoCurso)
+        public async Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso)
         {
-            return  _alunoService.SelecionarAlunosPeloCurso(idDoCurso);
+            return await  _alunoService.SelecionarAlunosPeloCursoAsync(idDoCurso);
         }
     }
 }
