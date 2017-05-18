@@ -13,13 +13,13 @@ namespace PlataformaDeEnsino.Core.Services.Interfaces
         {
             _moduloRepository = moduloRepository;
         }
-        public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso)
+        public async Task<IEnumerable<Modulo>> ConsultarModulosDoCursoAsync(int idDoCurso)
         {
-            return _moduloRepository.ConsultarModulosDoCurso(idDoCurso);
+            return await _moduloRepository.ConsultarModulosDoCursoAsync(idDoCurso);
         }
-        public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso, int nivelDoAluno)
+        public async Task<IEnumerable<Modulo>> ConsultarModulosDoCursoAsync(int idDoCurso, int nivelDoAluno)
         {
-            return _moduloRepository.ConsultarModulosDoCurso(idDoCurso, nivelDoAluno);
+            return await _moduloRepository.ConsultarModulosDoCursoAsync(idDoCurso, nivelDoAluno);
         }
     }
 }

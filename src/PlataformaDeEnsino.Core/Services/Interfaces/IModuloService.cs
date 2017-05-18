@@ -7,7 +7,7 @@ namespace PlataformaDeEnsino.Core.Services.Interfaces
 {
     public interface IModuloService : IServiceBase<Modulo>, IDisposable
     {
-        IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso);
-        IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso, int nivelDoAluno);
+        Task<IEnumerable<Modulo>> ConsultarModulosDoCursoAsync(int idDoCurso);
+        Task<IEnumerable<Modulo>> ConsultarModulosDoCursoAsync(int idDoCurso, int nivelDoAluno);
     }
 }

@@ -53,7 +53,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _coordenadorUsuario = await coordenadorUsuario;
             
             ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
-            var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCurso(_coordenadorUsuario.IdDoCurso));
+            var moduloViewModel = _mapper.Map<Task<IEnumerable<Modulo>>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModulo(idDoModulo));
             arquivos = DiretorioDaUnidade != null ? _arquivoAppService.RecuperarArquivos(DiretorioDaUnidade) : null;
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel, arquivos);
@@ -67,7 +67,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
 
-            var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCurso(_coordenadorUsuario.IdDoCurso));
+            var moduloViewModel = _mapper.Map<Task<IEnumerable<Modulo>>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModulo(idDoModulo));
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
             return View(ConteudoAlunoViewModel);

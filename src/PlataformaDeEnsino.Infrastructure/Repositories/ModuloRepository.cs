@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Repositories;
 
@@ -8,13 +9,13 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class ModuloRepository : RepositoryBase<Modulo>, IModuloRepository
     {
-        public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso)
+        public async Task<IEnumerable<Modulo>> ConsultarModulosDoCursoAsync(int idDoCurso)
         {
-            return Context.Modulos.Where(m => m.IdDoCurso == idDoCurso).ToList();
+            return await Context.Modulos.Where(m => m.IdDoCurso == idDoCurso).ToListAsync();
         }
-        public IEnumerable<Modulo> ConsultarModulosDoCurso(int idDoCurso, int nivelDoAluno)
+        public async Task<IEnumerable<Modulo>> ConsultarModulosDoCursoAsync(int idDoCurso, int nivelDoAluno)
         {
-            return Context.Modulos.Where(m => m.IdDoCurso == idDoCurso).Where(c => c.NivelDoModulo <= nivelDoAluno).ToList();
+            return await Context.Modulos.Where(m => m.IdDoCurso == idDoCurso).Where(c => c.NivelDoModulo <= nivelDoAluno).ToListAsync();
         }
     }
 }
