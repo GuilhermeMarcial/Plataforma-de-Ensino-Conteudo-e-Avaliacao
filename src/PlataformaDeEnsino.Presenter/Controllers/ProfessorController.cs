@@ -39,17 +39,18 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _encoder = UrlEncoder.Create();
         }
 
-        private Professor ProfessorUsuario()
+        private async Task<Professor> ProfessorUsuario()
         {
-            return _professorAppService.ConsultarPeloCpf(User.Identity.Name);
+            return await _professorAppService.ConsultarPeloCpfAsync(User.Identity.Name);
         }
 
         [HttpGet("EnviarArquivo")]
         [Authorize(Roles = "Professor")]
-        public IActionResult SelecionarArquivoProfessor()
+        public async Task<IActionResult> SelecionarArquivoProfessor()
         {
-            var _professorUsuario = ProfessorUsuario();
-            _professorUsuario = _professorAppService.ConsultarPeloCpf(User.Identity.Name);
+            var professorUsuario = ProfessorUsuario();
+            _professorUsuario = await _professorAppService.ConsultarPeloCpfAsync(User.Identity.Name);
+            
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadesDoProfessor(_professorUsuario.IdDoProfessor));
             var ConteudoProfessorViewModel = new ConteudoProfessorViewModel(unidadeViewModel);
             return View(ConteudoProfessorViewModel);
@@ -57,9 +58,11 @@ namespace PlataformaDeEnsino.Presenter.Controllers
 
         [HttpGet("Conteudo")]
         [Authorize(Roles = "Professor")]
-        public IActionResult ConteudoProfessor([FromQuery] string diretorioDaUnidade)
+        public async Task<IActionResult> ConteudoProfessor([FromQuery] string diretorioDaUnidade)
         {
-            _professorUsuario = ProfessorUsuario();
+            var professorUsuario = ProfessorUsuario();
+            _professorUsuario = await ProfessorUsuario();
+            
             ViewBag.UserName = _professorUsuario.NomeDoProfessor + " " + _professorUsuario.SobrenomeDoProfessor;
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadesDoProfessor(_professorUsuario.IdDoProfessor));
             arquivos = diretorioDaUnidade != null ? _arquivoAppService.RecuperarArquivos(diretorioDaUnidade) : null;

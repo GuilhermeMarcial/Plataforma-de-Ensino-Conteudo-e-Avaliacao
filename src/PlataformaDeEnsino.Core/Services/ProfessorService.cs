@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Repositories;
 using PlataformaDeEnsino.Core.Services.Interfaces;
@@ -13,14 +14,14 @@ namespace PlataformaDeEnsino.Core.Services
             _professorRepository = professorRepository;
         }
 
-        public Professor ConsultarPelaUnidade(int idDaUnidade)
+        public async Task<Professor> ConsultarPelaUnidadeAsync(int idDaUnidade)
         {
-            return _professorRepository.ConsultarPelaUnidade(idDaUnidade);
+            return await _professorRepository.ConsultarPelaUnidadeAsync(idDaUnidade);
         }
 
-        public Professor ConsultarPeloCpf(string cpfDoProfessor)
+        public async Task<Professor> ConsultarPeloCpfAsync(string cpfDoProfessor)
         {
-            return _professorRepository.ConsultarPeloCpf(cpfDoProfessor);
+            return await _professorRepository.ConsultarPeloCpfAsync(cpfDoProfessor);
         }
     }
 }

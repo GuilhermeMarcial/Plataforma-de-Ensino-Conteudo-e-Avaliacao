@@ -14,14 +14,13 @@ namespace PlataformaDeEnsino.Application.AppServices
             _professorService = professorService;
         }
 
-        public Professor ConsultarPelaUnidade(int idDaUnidade)
+        public async Task<Professor> ConsultarPelaUnidadeAsync(int idDaUnidade)
         {
-            return  _professorService.ConsultarPelaUnidade(idDaUnidade);
+            return await _professorService.ConsultarPelaUnidadeAsync(idDaUnidade);
         }
-
-        public Professor ConsultarPeloCpf(string cpfDoProfessor)
+        public async Task<Professor> ConsultarPeloCpfAsync(string cpfDoProfessor)
         {
-            return  _professorService.ConsultarPeloCpf(cpfDoProfessor);
+            return await _professorService.ConsultarPeloCpfAsync(cpfDoProfessor);
         }
     }
 }
