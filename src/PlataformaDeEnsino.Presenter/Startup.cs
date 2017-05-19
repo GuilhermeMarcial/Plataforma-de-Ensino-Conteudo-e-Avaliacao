@@ -17,6 +17,15 @@ using Microsoft.EntityFrameworkCore;
 using PlataformaDeEnsino.Core.Identity;
 using PlataformaDeEnsino.Identity.Models;
 using Microsoft.AspNetCore.Mvc;
+using PlataformaDeEnsino.Core.Repositories.InstituicaoRepositories;
+using PlataformaDeEnsino.Core.Services.Interfaces.InstituicaoInterfaces;
+using PlataformaDeEnsino.Core.Services.InstituicaoServices;
+using PlataformaDeEnsino.Core.Services.Interfaces.ArquivosInterfaces;
+using PlataformaDeEnsino.Core.Services.ArquivoServices;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
+using PlataformaDeEnsino.Application.AppServices.InstituicaoAppServices;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
+using PlataformaDeEnsino.Application.AppServices.ArquivosAppServices;
 
 namespace PlataformaDeEnsino.Presenter
 {

@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using PlataformaDeEnsino.Application.AppServices.Interfaces;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Presenter.ViewModels;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {

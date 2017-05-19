@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using PlataformaDeEnsino.Core.Repositories.InstituicaoRepositories;
 
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {

@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using PlataformaDeEnsino.Identity.Models;
 using System.Threading.Tasks;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
