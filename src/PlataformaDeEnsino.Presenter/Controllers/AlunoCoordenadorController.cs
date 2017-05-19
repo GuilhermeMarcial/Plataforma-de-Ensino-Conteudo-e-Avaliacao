@@ -47,7 +47,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _coordenadorUsuario = await coordenadorUsuario;
             
             ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
-            var alunosViewModel = _mapper.Map<Task<IEnumerable<Aluno>>, IEnumerable<AlunoViewModel>>(_alunoAppService.SelecionarAlunosPeloCursoAsync(_coordenadorUsuario.IdDoCurso));
+            var alunosViewModel = _mapper.Map<IEnumerable<Aluno>, IEnumerable<AlunoViewModel>>(await _alunoAppService.SelecionarAlunosPeloCursoAsync(_coordenadorUsuario.IdDoCurso));
             return View(alunosViewModel);
         }
 
@@ -88,12 +88,12 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             if (IdDoCurso != null)
             {
                 var idDoCurso = Convert.ToInt32(IdDoCurso);
-                ViewBag.Curso = _mapper.Map<Task<Curso>, CursoViewModel>(_cursoAppService.ConsultarPeloIdAsync(idDoCurso));
+                ViewBag.Curso = _mapper.Map<Curso, CursoViewModel>(await _cursoAppService.ConsultarPeloIdAsync(idDoCurso));
             }
             if (IdDoAluno != null)
             {
                 var idDoAluno = Convert.ToInt32(IdDoAluno);
-                var alunoViewModel = _mapper.Map<Task<Aluno>, AlunoViewModel>(_alunoAppService.ConsultarPeloIdAsync(idDoAluno));
+                var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(await _alunoAppService.ConsultarPeloIdAsync(idDoAluno));
                 alunoViewModel.Usuario = await _userManager.FindByNameAsync(alunoViewModel.CpfDoAluno);
                 return View(alunoViewModel);
             }
@@ -107,7 +107,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             if (IdDoAluno != null)
             {
                 var idDoAluno = Convert.ToInt32(IdDoAluno);
-                var alunoViewModel = _mapper.Map<Task<Aluno>, AlunoViewModel>(_alunoAppService.ConsultarPeloIdAsync(idDoAluno));
+                var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(await _alunoAppService.ConsultarPeloIdAsync(idDoAluno));
                 alunoViewModel.IdDoUsuario = IdDoUsuario;
                 alunoViewModel.Usuario = await _userManager.FindByIdAsync(IdDoUsuario);
                 return View(alunoViewModel);

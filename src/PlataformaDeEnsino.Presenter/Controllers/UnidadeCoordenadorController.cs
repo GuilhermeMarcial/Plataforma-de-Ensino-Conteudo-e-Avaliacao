@@ -43,28 +43,28 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _coordenadorUsuario = await coordenadorUsuario;
 
             ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
-            var moduloViewModel = _mapper.Map<Task<IEnumerable<Modulo>>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
-            var unidadeViewModel = _mapper.Map<Task<IEnumerable<Unidade>>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
+            var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
+            var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
             return View(ConteudoAlunoViewModel);
         }
 
         [HttpGet("VisualizarUnidade")]
         [Authorize(Roles = "Coordenador")]
-        public IActionResult VisualizarUnidade(int idDaUnidade)
+        public async Task<IActionResult> VisualizarUnidade(int idDaUnidade)
         {
-            var unidadeViewModel = _mapper.Map<Task<Unidade>, UnidadeViewModel>(_unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
-            var professorViewModel = _mapper.Map<Task<Professor>, ProfessorViewModel>(_professorAppService.ConsultarPeloIdAsync(Convert.ToInt32(unidadeViewModel.IdDoProfessor)));
+            var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(await _unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
+            var professorViewModel = _mapper.Map<Professor, ProfessorViewModel>(await _professorAppService.ConsultarPeloIdAsync(Convert.ToInt32(unidadeViewModel.IdDoProfessor)));
             var VincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professorViewModel);
             return View(VincularProfessorViewModel);
         }
 
         [HttpGet("VincularProfessor")]
         [Authorize(Roles = "Coordenador")]
-        public IActionResult VincularProfessor(int idDaUnidade)
+        public async Task<IActionResult> VincularProfessor(int idDaUnidade)
         {
-            var unidadeViewModel = _mapper.Map<Task<Unidade>, UnidadeViewModel>(_unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
-            var professoresViewModel = _mapper.Map<Task<IEnumerable<Professor>>, IEnumerable<ProfessorViewModel>>(_professorAppService.ConsultarTodosAsync());
+            var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(await _unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
+            var professoresViewModel = _mapper.Map<IEnumerable<Professor>, IEnumerable<ProfessorViewModel>>(await _professorAppService.ConsultarTodosAsync());
             var VincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professoresViewModel);
             return View(VincularProfessorViewModel);
         }

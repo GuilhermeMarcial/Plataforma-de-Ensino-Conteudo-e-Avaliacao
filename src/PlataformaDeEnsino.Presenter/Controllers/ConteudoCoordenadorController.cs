@@ -53,8 +53,8 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _coordenadorUsuario = await coordenadorUsuario;
             
             ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
-            var moduloViewModel = _mapper.Map<Task<IEnumerable<Modulo>>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
-            var unidadeViewModel = _mapper.Map<Task<IEnumerable<Unidade>>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
+            var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
+            var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
             arquivos = DiretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(DiretorioDaUnidade) : null;
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel, arquivos);
             return View(ConteudoAlunoViewModel);
@@ -67,8 +67,8 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
 
-            var moduloViewModel = _mapper.Map<Task<IEnumerable<Modulo>>, IEnumerable<ModuloViewModel>>(_moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
-            var unidadeViewModel = _mapper.Map<Task<IEnumerable<Unidade>>, IEnumerable<UnidadeViewModel>>(_unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
+            var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
+            var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
             return View(ConteudoAlunoViewModel);
         }
