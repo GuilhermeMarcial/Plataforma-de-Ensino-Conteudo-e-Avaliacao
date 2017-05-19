@@ -12,10 +12,10 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
     {
         protected ConteudoDbContext Context = new ConteudoDbContext();
 
-        public async void AtualizarAsync(TEntity obj)
+        public void AtualizarAsync(TEntity obj)
         {
             Context.Entry(obj).State = EntityState.Modified;
-            await Context.SaveChangesAsync();
+            Context.SaveChanges();
         }
 
         public async Task<TEntity> ConsultarPeloIdAsync(int id)
@@ -33,7 +33,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 
             TEntity obj = await Context.Set<TEntity>().FindAsync(id);
             Context.Set<TEntity>().Remove(obj);
-            await Context.SaveChangesAsync();
+            Context.SaveChanges();
         }
 
         public void Dispose()
@@ -46,7 +46,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
         public async void InserirAsync(TEntity obj)
         {
             await Context.Set<TEntity>().AddAsync(obj);
-            await Context.SaveChangesAsync();
+            Context.SaveChanges();
         }
     }
 }

@@ -61,7 +61,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         public async Task<IActionResult> ConteudoProfessor([FromQuery] string diretorioDaUnidade)
         {
             var professorUsuario = ProfessorUsuario();
-            _professorUsuario = await ProfessorUsuario();
+            _professorUsuario = await professorUsuario;
             
             ViewBag.UserName = _professorUsuario.NomeDoProfessor + " " + _professorUsuario.SobrenomeDoProfessor;
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadesDoProfessorAsync(_professorUsuario.IdDoProfessor));
