@@ -17,6 +17,7 @@
                             </div>
                         </div>
                         <form method="POST" enctype="multipart/form-data" asp-controller="Professor" asp-action="EnviarArquivo">
+                            @Html.AntiForgeryToken()
                             <select name="diretorioDaUnidade" class="disciplina-professor-upload form-control form-group">
                                         <option value="" name="">Unidades</option>
                                 @if(Model.UnidadeViewModel != null)
