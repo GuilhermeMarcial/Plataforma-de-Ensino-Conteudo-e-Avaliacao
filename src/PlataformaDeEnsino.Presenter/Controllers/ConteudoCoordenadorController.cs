@@ -12,6 +12,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
+    [Authorize(Roles = "Coordenador")]
     [AutoValidateAntiforgeryToken]
     public class ConteudoCoordenadorController : Controller
     {
@@ -46,7 +47,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("ConteudoCoordenador")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> ConteudoCoordenador([FromQuery] int idDoModulo, string DiretorioDaUnidade)
         {
             var coordenadorUsuario = CoodernadorUsuario();
@@ -61,7 +61,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("SelecionarConteudoCoordenador")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<ViewResult> SelecionarConteudoCoordenador(int idDoModulo)
         {
             var coordenadorUsuario = CoodernadorUsuario();
@@ -74,7 +73,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpPost("SelecionarConteudoCoordenador")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> SelecionarArquivoCoordenador(string diretorioDaUnidade, IFormFile arquivo)
         {
             string urlEncode;
@@ -88,7 +86,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("DownloadCoordenador")]
-        [Authorize(Roles = "Coordenador")]
         public FileResult DownloadFile(string caminhoDoArquivo)
         {
             var file = new FileInfo(caminhoDoArquivo);
@@ -97,7 +94,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("DeletarCoordenador")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
         {
             await Task.Run(() => _deletarAppService.DeletarArquivoAsync(caminhoDoArquivo));

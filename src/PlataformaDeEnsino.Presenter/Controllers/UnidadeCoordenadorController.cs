@@ -10,6 +10,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
+    [Authorize(Roles = "Coordenador")]
     [AutoValidateAntiforgeryToken]
     public class UnidadeCoordenadorController : Controller
     {
@@ -36,7 +37,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("Unidade")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<ViewResult> Unidade(int idDoModulo, int idDaUnidade)
         {
             var coordenadorUsuario = CoodernadorUsuario();
@@ -50,7 +50,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("VisualizarUnidade")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> VisualizarUnidade(int idDaUnidade)
         {
             var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(await _unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
@@ -60,7 +59,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("VincularProfessor")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> VincularProfessor(int idDaUnidade)
         {
             var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(await _unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
@@ -70,7 +68,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpPost("VincularProfessor")]
-        [Authorize(Roles = "Coordenador")]
         public IActionResult VincularProfessor(UnidadeViewModel unidadeViewModel)
         {
             var unidade = _mapper.Map<UnidadeViewModel, Unidade>(unidadeViewModel);

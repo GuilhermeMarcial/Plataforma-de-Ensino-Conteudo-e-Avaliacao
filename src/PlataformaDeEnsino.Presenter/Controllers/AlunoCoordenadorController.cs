@@ -13,6 +13,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
+    [Authorize(Roles = "Coordenador")]
     [AutoValidateAntiforgeryToken]
     public class AlunoCoordenadorController : Controller
     {
@@ -40,7 +41,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("AlunoCoordenador")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> AlunoCoordenador()
         {
             var coordenadorUsuario = CoodernadorUsuario();
@@ -52,14 +52,12 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("NovoAluno")]
-        [Authorize(Roles = "Coordenador")]
         public ViewResult NovoAluno()
         {
             return View();
         }
 
         [HttpPost("NovoAluno")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> NovoAluno(AlunoViewModel alunoViewModel)
         {
 
@@ -82,7 +80,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("VisualizarAluno")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> VisualizarAluno(int? IdDoAluno, int? IdDoCurso)
         {
             if (IdDoCurso != null)
@@ -101,7 +98,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("EditarAluno")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<ViewResult> EditarAluno(int? IdDoAluno, string IdDoUsuario)
         {
             if (IdDoAluno != null)
@@ -115,7 +111,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return View();
         }
         [HttpPost("EditarAluno")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> EditarAluno(AlunoViewModel alunoViewModel)
         {
             if (ModelState.IsValid)
@@ -141,7 +136,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return View(alunoViewModel);
         }
         [HttpGet("DeletarAluno")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> DeletarAluno(int IdDoAluno)
         {
             var alunoAsync = _alunoAppService.ConsultarPeloIdAsync(IdDoAluno);

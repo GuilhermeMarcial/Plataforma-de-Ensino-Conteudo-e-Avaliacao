@@ -12,6 +12,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
+    [Authorize(Roles = "Coordenador")]
     [AutoValidateAntiforgeryToken]
     public class ProfessorCoordenadorController : Controller
     {
@@ -40,7 +41,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("ProfessorCoordenador")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> ProfessorCoordenador()
         {
             var coordenadorUsuario = CoodernadorUsuario();
@@ -52,14 +52,12 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("NovoProfessor")]
-        [Authorize(Roles = "Coordenador")]
         public ViewResult NovoProfessor()
         {
             return View();
         }
 
         [HttpPost("NovoProfessor")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> NovoProfessor(ProfessorViewModel professorViewModel)
         {
 
@@ -82,7 +80,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("VisualizarProfessor")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> VisualizarProfessor(int? IdDoProfessor)
         {
             if (IdDoProfessor != null)
@@ -96,7 +93,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("EditarProfessor")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<ViewResult> EditarProfessor(int? IdDoProfessor, string IdDoUsuario)
         {
             if (IdDoProfessor != null)
@@ -110,7 +106,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return View();
         }
         [HttpPost("EditarProfessor")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> EditarProfessor(ProfessorViewModel professorViewModel)
         {
             if (ModelState.IsValid)
@@ -137,7 +132,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("DeletarProfessor")]
-        [Authorize(Roles = "Coordenador")]
         public async Task<IActionResult> DeletarProfessor(int IdDoProfessor)
         {
             var professorAsync = _professorAppService.ConsultarPeloIdAsync(IdDoProfessor);

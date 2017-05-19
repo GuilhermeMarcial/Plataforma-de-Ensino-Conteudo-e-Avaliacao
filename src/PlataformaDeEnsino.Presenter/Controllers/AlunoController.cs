@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
     [Route("Aluno")]
+    [Authorize(Roles = "Aluno")]
     [AutoValidateAntiforgeryToken]
     public class AlunoController : Controller
     {
@@ -39,7 +40,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("Conteudo")]
-        [Authorize(Roles = "Aluno")]
         public async Task<IActionResult> ConteudoAluno([FromQuery] int idDoModulo, string DiretorioDaUnidade)
         {
             var alunoUsuario = AlunoUsuario();
@@ -54,7 +54,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("Download")]
-        [Authorize(Roles = "Aluno")]
         public FileResult DownloadFile(string caminhoDoArquivo)
         {
             var file = new FileInfo(caminhoDoArquivo);
