@@ -1,5 +1,3 @@
-using System;
-using System.Text.RegularExpressions;
 using FluentValidation;
 using PlataformaDeEnsino.Presenter.ViewModels;
 

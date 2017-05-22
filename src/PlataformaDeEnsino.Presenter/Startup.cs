@@ -1,31 +1,19 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using FluentValidation.AspNetCore;
-using AutoMapper;
-using PlataformaDeEnsino.Application.AppServices.Interfaces;
-using PlataformaDeEnsino.Application.AppServices;
-using PlataformaDeEnsino.Core.Repositories;
-using PlataformaDeEnsino.Infrastructure.Repositories;
-using PlataformaDeEnsino.Core.Services.Interfaces;
-using PlataformaDeEnsino.Core.Services;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
 using Microsoft.EntityFrameworkCore;
-using PlataformaDeEnsino.Core.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
 using PlataformaDeEnsino.Identity.Models;
-using Microsoft.AspNetCore.Mvc;
-using PlataformaDeEnsino.Core.Repositories.InstituicaoRepositories;
-using PlataformaDeEnsino.Core.Services.Interfaces.InstituicaoInterfaces;
-using PlataformaDeEnsino.Core.Services.InstituicaoServices;
-using PlataformaDeEnsino.Core.Services.Interfaces.ArquivosInterfaces;
-using PlataformaDeEnsino.Core.Services.ArquivoServices;
-using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
-using PlataformaDeEnsino.Application.AppServices.InstituicaoAppServices;
-using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
-using PlataformaDeEnsino.Application.AppServices.ArquivosAppServices;
+using PlataformaDeEnsino.Core.Identity;
+using PlataformaDeEnsino.Identity.ServiceCollectionExtensionsIdentity;
+using PlataformaDeEnsino.Core.Services.ServiceCollectionExtensionsServices;
+using PlataformaDeEnsino.Presenter.Mapper.ServiceCollectionExtensionsMapper;
+using PlataformaDeEnsino.Infrastructure.ServiceCollectionExtensionsInfrastructure;
+using PlataformaDeEnsino.Application.ServiceCollectionExtensionsApplicationService;
 
 namespace PlataformaDeEnsino.Presenter
 {
@@ -38,6 +26,7 @@ namespace PlataformaDeEnsino.Presenter
             .SetBasePath(env.ContentRootPath)
             .AddJsonFile("appsettings.json").Build();
         }
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
@@ -48,65 +37,15 @@ namespace PlataformaDeEnsino.Presenter
             Configuration["Data:ConteudoDBA:ConnectionString"]));
 
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(options =>
-    {
-        // Password settings
-        options.Password.RequireDigit = true;
-        options.Password.RequiredLength = 8;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireUppercase = false;
-        options.Password.RequireLowercase = false;
-
-        // Lockout settings
-        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-        options.Lockout.MaxFailedAccessAttempts = 10;
-
-        // Cookie settings
-        options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-        options.Cookies.ApplicationCookie.LoginPath = "/Login";
-        options.Cookies.ApplicationCookie.LogoutPath = "/LogOff";
-        options.Cookies.ApplicationCookie.AccessDeniedPath = "/RedirecionarUsuario";
-
-        // User settings
-        options.User.RequireUniqueEmail = true;
-    });
-
-            services.AddAutoMapper(typeof(Startup));
-            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-            services.AddScoped<IAlunoRepository, AlunoRepository>();
-            services.AddScoped<ICoordenadorRepository, CoordenadorRepository>();
-            services.AddScoped<ICursoRepository, CursoRepository>();
-            services.AddScoped<IModuloRepository, ModuloRepository>();
-            services.AddScoped<IProfessorRepository, ProfessorRepository>();
-            services.AddScoped<IUnidadeRepository, UnidadeRepository>();
-            services.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
-            services.AddScoped<IAlunoService, AlunoService>();
-            services.AddScoped<ICoordenadorService, CoordenadorService>();
-            services.AddScoped<ICursoService, CursoService>();
-            services.AddScoped<IModuloService, ModuloService>();
-            services.AddScoped<IProfessorService, ProfessorService>();
-            services.AddScoped<IUnidadeService, UnidadeService>();
-            services.AddScoped<ICriacaoDoDiretorioService, CriacaoDoDiretorioService>();
-            services.AddScoped<IDelecaoDeDiretoriosService, DelecaoDeDiretoriosService>();
-            services.AddScoped<IEnviarArquivosService, EnviarArquivosService>();
-            services.AddScoped<IRecuperarArquivosService, RecuperarArquivosService>();
-            services.AddScoped<IDelecaoDeArquivosService, DelecaoDeArquivosService>();
-            services.AddScoped(typeof(IAppServiceBase<>), typeof(AppServiceBase<>));
-            services.AddScoped<IAlunoAppService, AlunoAppService>();
-            services.AddScoped<ICoordenadorAppService, CoordenadorAppService>();
-            services.AddScoped<ICursoAppService, CursoAppService>();
-            services.AddScoped<IModuloAppService, ModuloAppService>();
-            services.AddScoped<IProfessorAppService, ProfessorAppService>();
-            services.AddScoped<IUnidadeAppService, UnidadeAppService>();
-            services.AddScoped<ICriacaoDoDiretorioAppService, CriacaoDoDiretorioAppService>();
-            services.AddScoped<IDelecaoDeDiretoriosAppService, DelecaoDeDiretoriosAppService>();
-            services.AddScoped<IEnviarArquivosAppService, EnviarArquivosAppService>();
-            services.AddScoped<IRecuperarArquivosAppService, RecuperarArquivosAppService>();
-            services.AddScoped<IDelecaoDeArquivosAppService, DelecaoDeArquivosAppService>();
-
-
+            
+            services.RegistrarDependenciasIdentity();
+            services.RegistrarDependenciasMapper();
+            services.RegistrarDependenciasInfrastructure();
+            services.RegistrarDependenciasServices();
+            services.RegistrarDependenciasApplicationService();
+        
         }
+        
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();

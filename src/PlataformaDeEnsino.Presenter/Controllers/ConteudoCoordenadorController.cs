@@ -6,11 +6,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PlataformaDeEnsino.Application.AppServices.Interfaces;
-using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
-using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Presenter.ViewModels;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
@@ -18,29 +17,36 @@ namespace PlataformaDeEnsino.Presenter.Controllers
     [AutoValidateAntiforgeryToken]
     public class ConteudoCoordenadorController : Controller
     {
-        private IEnumerable<FileInfo> arquivos;
-        private UrlEncoder _encoder;
+        private IEnumerable<FileInfo> _arquivos;
+        private readonly UrlEncoder _encoder;
         private readonly IMapper _mapper;
         private readonly ICoordenadorAppService _coordenadorAppService;
         private readonly IModuloAppService _moduloAppService;
         private readonly IUnidadeAppService _unidadeAppService;
-        private readonly IRecuperarArquivosAppService _arquivoAppService;
-        private readonly IDelecaoDeArquivosAppService _deletarAppService;
-        private readonly IEnviarArquivosAppService _enviarAquivoAppService;
+        private readonly IRecuperarArquivosAppService _recuperarArquivoAppService;
+        private readonly IDelecaoDeArquivosAppService _deletarArquivoAppService;
+        private readonly IEnviarArquivosAppService _enviarArquivoAppService;
         private Coordenador _coordenadorUsuario;
+        private ILerArquivoAppService _lerArquivoAppService;
+        private ILerArquivoEmBytesAppService _lerArquivoEmBytesAppService;
+
 
         public ConteudoCoordenadorController(IMapper mapper, IModuloAppService moduloAppService, IUnidadeAppService unidadeAppService, 
-        IRecuperarArquivosAppService arquivoAppService, IDelecaoDeArquivosAppService deletarAppService, 
-        IEnviarArquivosAppService enviarAquivoAppService, ICoordenadorAppService coordenadorAppService)
+        IRecuperarArquivosAppService recuperarArquivoAppService, IDelecaoDeArquivosAppService deletarArquivoAppService, 
+        IEnviarArquivosAppService enviarArquivoAppService, ICoordenadorAppService coordenadorAppService, ILerArquivoEmBytesAppService lerArquivoEmBytesAppService
+        , ILerArquivoAppService lerArquivoAppService)
         {
             _mapper = mapper;
             _moduloAppService = moduloAppService;
             _unidadeAppService = unidadeAppService;
-            _arquivoAppService = arquivoAppService;
-            _deletarAppService = deletarAppService;
-            _enviarAquivoAppService = enviarAquivoAppService;
+            _recuperarArquivoAppService = recuperarArquivoAppService;
+            _deletarArquivoAppService = deletarArquivoAppService;
+            _enviarArquivoAppService = enviarArquivoAppService;
             _coordenadorAppService = coordenadorAppService;
+            _lerArquivoAppService = lerArquivoAppService;
+            _lerArquivoEmBytesAppService = lerArquivoEmBytesAppService;
             _encoder = UrlEncoder.Create();
+            
         }
 
         private async Task<Coordenador> CoodernadorUsuario()
@@ -49,7 +55,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         }
 
         [HttpGet("ConteudoCoordenador")]
-        public async Task<IActionResult> ConteudoCoordenador([FromQuery] int idDoModulo, string DiretorioDaUnidade)
+        public async Task<IActionResult> ConteudoCoordenador([FromQuery] int idDoModulo, string diretorioDaUnidade)
         {
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
@@ -57,9 +63,9 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
-            arquivos = DiretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(DiretorioDaUnidade) : null;
-            var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel, arquivos);
-            return View(ConteudoAlunoViewModel);
+            _arquivos = diretorioDaUnidade != null ? await _recuperarArquivoAppService.RecuperarArquivosAsync(diretorioDaUnidade) : null;
+            var conteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel, _arquivos);
+            return View(conteudoAlunoViewModel);
         }
 
         [HttpGet("SelecionarConteudoCoordenador")]
@@ -70,18 +76,17 @@ namespace PlataformaDeEnsino.Presenter.Controllers
 
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
-            var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
-            return View(ConteudoAlunoViewModel);
+            var conteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
+            return View(conteudoAlunoViewModel);
         }
 
         [HttpPost("SelecionarConteudoCoordenador")]
         public async Task<IActionResult> SelecionarArquivoCoordenador(string diretorioDaUnidade, IFormFile arquivo)
         {
-            string urlEncode;
             if (diretorioDaUnidade != null)
             {
-                urlEncode = _encoder.Encode(diretorioDaUnidade);
-                await _enviarAquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
+                var urlEncode = _encoder.Encode(diretorioDaUnidade);
+                await _enviarArquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
                 return Redirect("ConteudoCoordenador?DiretorioDaUnidade=" + urlEncode);
             }
             return Redirect("ConteudoCoordenador");
@@ -90,15 +95,15 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         [HttpGet("DownloadCoordenador")]
         public FileResult DownloadFile(string caminhoDoArquivo)
         {
-            var file = new FileInfo(caminhoDoArquivo);
-            byte[] fileBytes = System.IO.File.ReadAllBytes(file.FullName);
+            var file = _lerArquivoAppService.LerArquivoApp(caminhoDoArquivo);
+            var fileBytes = _lerArquivoEmBytesAppService.LerArquivoEmBytes(file);
             return File(fileBytes, "application/pdf", file.Name);
         }
 
         [HttpGet("DeletarCoordenador")]
         public async Task<IActionResult> DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
         {
-            await Task.Run(() => _deletarAppService.DeletarArquivoAsync(caminhoDoArquivo));
+            await Task.Run(() => _deletarArquivoAppService.DeletarArquivoAsync(caminhoDoArquivo));
 
             var caminhoDoDiretorio = caminhoDoArquivo.Replace(nomeDoArquivo, "");
             var urlEncode = _encoder.Encode(caminhoDoDiretorio);
