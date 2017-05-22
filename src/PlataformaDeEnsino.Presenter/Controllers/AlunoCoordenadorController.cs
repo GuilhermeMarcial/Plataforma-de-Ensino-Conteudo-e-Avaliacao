@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using PlataformaDeEnsino.Application.AppServices.Interfaces;
 using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Identity.Models;
