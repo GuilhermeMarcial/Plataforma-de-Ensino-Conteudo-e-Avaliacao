@@ -11,9 +11,9 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class AlunoRepository : RepositoryBase<Aluno>, IAlunoRepository
     {
-        public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDoAluno)
+        public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDaPessoa)
         {
-            return await Context.Alunos.SingleAsync(a => a.CpfDoAluno == cpfDoAluno);
+            return await Context.Alunos.SingleAsync(a => a.CpfDaPessoa == cpfDaPessoa);
         }
 
         public async Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso)

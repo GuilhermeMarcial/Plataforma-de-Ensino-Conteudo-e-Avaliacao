@@ -46,7 +46,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
 
-            ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
+            ViewBag.UserName = _coordenadorUsuario.NomeDaPessoa + " " + _coordenadorUsuario.SobrenomeDaPessoa;
             var professorViewModel = _mapper.Map<IEnumerable<Professor>, IEnumerable<ProfessorViewModel>>(await _professorAppService.ConsultarTodosAsync());
             return View(professorViewModel);
         }
@@ -136,7 +136,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         {
             var professorAsync = _professorAppService.ConsultarPeloIdAsync(IdDoProfessor);
             var professor = await professorAsync;
-            var usuario = await _userManager.FindByNameAsync(professor.CpfDoProfessor);
+            var usuario = await _userManager.FindByNameAsync(professor.CpfDaPessoa);
             var deletandoUsuario = await _userManager.DeleteAsync(usuario);
             if (deletandoUsuario.Succeeded)
             {

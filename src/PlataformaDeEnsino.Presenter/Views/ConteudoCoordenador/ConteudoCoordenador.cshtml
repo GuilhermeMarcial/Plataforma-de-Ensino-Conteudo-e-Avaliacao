@@ -118,9 +118,9 @@
                                 <tbody>
                                     @if(Model.Arquivos != null) { @foreach(var arquivo in Model.Arquivos) {
                                     <tbody>
-                                        <td><a href="DownloadCoordenador?caminhoDoArquivo=@arquivo.FullName" target="_blank">@arquivo.Name</a></td>
+                                        <td><a href="Download?caminhoDoArquivo=@arquivo.FullName" target="_blank">@arquivo.Name</a></td>
                                         <td>@arquivo.LastAccessTime.ToString("dd/MM/yyyy")</td>
-                                        <td><a href="DeletarCoordenador?caminhoDoArquivo=@arquivo.FullName&nomeDoArquivo=@arquivo.Name" target="_self" ><button class=" btn btn-danger  "><i class="glyphicon glyphicon-trash"></i></button></a></td>
+                                        <td><a href="Deletar?caminhoDoArquivo=@arquivo.FullName&nomeDoArquivo=@arquivo.Name" target="_self" ><button class=" btn btn-danger  "><i class="glyphicon glyphicon-trash"></i></button></a></td>
                                     </tbody>
                                     } }
                                 </tbody>

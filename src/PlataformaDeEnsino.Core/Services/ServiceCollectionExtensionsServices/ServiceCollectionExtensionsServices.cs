@@ -25,6 +25,11 @@ namespace PlataformaDeEnsino.Core.Services.ServiceCollectionExtensionsServices
             serviceCollection.AddScoped<IDelecaoDeArquivosService, DelecaoDeArquivosService>();
             serviceCollection.AddScoped<ILerArquivoService, LerArquivoService>();
             serviceCollection.AddScoped<ILerArquivoEmBytesService, LerArquivoEmBytesService>();
+            serviceCollection.AddScoped<IDiretorioExisteService, DiretorioExisteService>();
+            serviceCollection.AddScoped<IArquivoNulloOuVazioService, ArquivoNulloOuVazioService>();
+            serviceCollection.AddScoped<ITamanhoDoArquivoValidoService, TamanhoDoArquivoValidoService>();
+            serviceCollection.AddScoped<IExtesaoValidaDoArquivoService, ExtensaoValidaDoArquivoService>();
+            serviceCollection.AddScoped<IArquivoValidoService, ArquivoValidoService>();
         }
     }
 }

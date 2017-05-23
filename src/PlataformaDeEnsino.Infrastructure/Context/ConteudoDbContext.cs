@@ -17,6 +17,7 @@ namespace PlataformaDeEnsino.Infrastructure.Context
         public ConteudoDbContext() : base()
         {
         }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql("server=localhost;userid=plataformadeconteudo;pwd=@3040#$;database=ConteudoDatabase;");
@@ -25,6 +26,7 @@ namespace PlataformaDeEnsino.Infrastructure.Context
         {
             SaveChangesAsync();
         }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

@@ -9,9 +9,9 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class ProfessorRepository : RepositoryBase<Professor>, IProfessorRepository
     {
-        public async Task<Professor> ConsultarPeloCpfAsync(string cpfDoProfessor)
+        public async Task<Professor> ConsultarPeloCpfAsync(string cpfDaPessoa)
         {
-            return await Context.Professores.Where(p => p.CpfDoProfessor == cpfDoProfessor).FirstAsync();
+            return await Context.Professores.Where(p => p.CpfDaPessoa == cpfDaPessoa).FirstAsync();
         }
 
         public async Task<Professor> ConsultarPelaUnidadeAsync(int idDoProfessor)

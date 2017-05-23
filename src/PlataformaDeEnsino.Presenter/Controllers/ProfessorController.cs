@@ -18,16 +18,13 @@ namespace PlataformaDeEnsino.Presenter.Controllers
     [AutoValidateAntiforgeryToken]
     public class ProfessorController : Controller
     {
-        private UrlEncoder _encoder;
+        private readonly UrlEncoder _encoder;
         private Professor _professorUsuario;
-        private IEnumerable<FileInfo> arquivos;
+        private IEnumerable<FileInfo> _arquivos;
         private readonly IMapper _mapper;
         private readonly IProfessorAppService _professorAppService;
         private readonly IUnidadeAppService _unidadeAppService;
-        private readonly ILerArquivoEmBytesAppService _lerArquivoEmBytesAppService;
-        private readonly ILerArquivoAppService _lerArquivoAppService;
         private readonly IRecuperarArquivosAppService _arquivoAppService;
-        private readonly IDelecaoDeArquivosAppService _deletarAppService;
         private readonly IEnviarArquivosAppService _enviarAquivoAppService;
 
         public ProfessorController(IMapper mapper, IModuloAppService moduloAppService, IUnidadeAppService unidadeAppService, IRecuperarArquivosAppService arquivoAppService, IDelecaoDeArquivosAppService deletarAppService, 
@@ -37,10 +34,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _professorAppService = professorAppService;
             _unidadeAppService = unidadeAppService;
             _arquivoAppService = arquivoAppService;
-            _deletarAppService = deletarAppService;
             _enviarAquivoAppService = enviarAquivoAppService;
-            _lerArquivoAppService = lerArquivoAppService;
-            _lerArquivoEmBytesAppService = lerArquivoEmBytesAppService;
             _encoder = UrlEncoder.Create();
         }
 
@@ -66,10 +60,10 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             var professorUsuario = ProfessorUsuario();
             _professorUsuario = await professorUsuario;
             
-            ViewBag.UserName = _professorUsuario.NomeDoProfessor + " " + _professorUsuario.SobrenomeDoProfessor;
+            ViewBag.UserName = _professorUsuario.NomeDaPessoa + " " + _professorUsuario.SobrenomeDaPessoa;
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadesDoProfessorAsync(_professorUsuario.IdDoProfessor));
-            arquivos = diretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(diretorioDaUnidade) : null;
-            var conteudoProfessorViewModel = new ConteudoProfessorViewModel(unidadeViewModel, arquivos);
+            _arquivos = diretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(diretorioDaUnidade) : null;
+            var conteudoProfessorViewModel = new ConteudoProfessorViewModel(unidadeViewModel, _arquivos);
             return View(conteudoProfessorViewModel);
         }
 
@@ -79,24 +73,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             if (diretorioDaUnidade == null) return Redirect("Conteudo");
             var urlEncode = _encoder.Encode(diretorioDaUnidade);
             await _enviarAquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
-            return Redirect("Conteudo?DiretorioDaUnidade=" + urlEncode);
-        }
-
-        [HttpGet("Download")]
-        public FileResult DownloadFile(string caminhoDoArquivo)
-        {
-            var file = _lerArquivoAppService.LerArquivoApp(caminhoDoArquivo);
-            var fileBytes = _lerArquivoEmBytesAppService.LerArquivoEmBytes(file);
-            return File(fileBytes, "application/pdf", file.Name);
-        }
-
-        [HttpGet("Deletar")]
-        public async Task<IActionResult> DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
-        {
-            await Task.Run(() => _deletarAppService.DeletarArquivoAsync(caminhoDoArquivo));
-
-            var caminhoDoDiretorio = caminhoDoArquivo.Replace(nomeDoArquivo, "");
-            var urlEncode = _encoder.Encode(caminhoDoDiretorio);
             return Redirect("Conteudo?DiretorioDaUnidade=" + urlEncode);
         }
     }

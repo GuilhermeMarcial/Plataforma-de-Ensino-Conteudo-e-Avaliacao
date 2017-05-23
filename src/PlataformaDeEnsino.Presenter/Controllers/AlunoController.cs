@@ -44,20 +44,12 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             var alunoUsuario = AlunoUsuario();
             _alunoUsuario = await alunoUsuario;
             
-            ViewBag.UserName = _alunoUsuario.NomeDoAluno + " " + _alunoUsuario.SobrenomeDoAluno;
+            ViewBag.UserName = _alunoUsuario.NomeDaPessoa + " " + _alunoUsuario.SobrenomeDaPessoa;
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_alunoUsuario.IdDoCurso, _alunoUsuario.NivelDoAluno));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
             arquivos = DiretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(DiretorioDaUnidade) : null;
             var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel, arquivos);
             return View(ConteudoAlunoViewModel);
-        }
-
-        [HttpGet("Download")]
-        public FileResult DownloadFile(string caminhoDoArquivo)
-        {
-            var file = new FileInfo(caminhoDoArquivo);
-            byte[] fileBytes =  System.IO.File.ReadAllBytes(file.FullName);
-            return File(fileBytes, "application/pdf", file.Name);
         }
     }
 }

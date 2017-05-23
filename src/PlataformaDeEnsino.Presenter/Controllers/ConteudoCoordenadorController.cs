@@ -24,11 +24,8 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         private readonly IModuloAppService _moduloAppService;
         private readonly IUnidadeAppService _unidadeAppService;
         private readonly IRecuperarArquivosAppService _recuperarArquivoAppService;
-        private readonly IDelecaoDeArquivosAppService _deletarArquivoAppService;
         private readonly IEnviarArquivosAppService _enviarArquivoAppService;
         private Coordenador _coordenadorUsuario;
-        private ILerArquivoAppService _lerArquivoAppService;
-        private ILerArquivoEmBytesAppService _lerArquivoEmBytesAppService;
 
 
         public ConteudoCoordenadorController(IMapper mapper, IModuloAppService moduloAppService, IUnidadeAppService unidadeAppService, 
@@ -40,11 +37,8 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _moduloAppService = moduloAppService;
             _unidadeAppService = unidadeAppService;
             _recuperarArquivoAppService = recuperarArquivoAppService;
-            _deletarArquivoAppService = deletarArquivoAppService;
             _enviarArquivoAppService = enviarArquivoAppService;
             _coordenadorAppService = coordenadorAppService;
-            _lerArquivoAppService = lerArquivoAppService;
-            _lerArquivoEmBytesAppService = lerArquivoEmBytesAppService;
             _encoder = UrlEncoder.Create();
             
         }
@@ -60,7 +54,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
             
-            ViewBag.UserName = _coordenadorUsuario.NomeDoCoordenador + " " + _coordenadorUsuario.SobrenomeDoCoordenador;
+            ViewBag.UserName = _coordenadorUsuario.NomeDaPessoa + " " + _coordenadorUsuario.SobrenomeDaPessoa;
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
             _arquivos = diretorioDaUnidade != null ? await _recuperarArquivoAppService.RecuperarArquivosAsync(diretorioDaUnidade) : null;
@@ -90,24 +84,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers
                 return Redirect("ConteudoCoordenador?DiretorioDaUnidade=" + urlEncode);
             }
             return Redirect("ConteudoCoordenador");
-        }
-
-        [HttpGet("DownloadCoordenador")]
-        public FileResult DownloadFile(string caminhoDoArquivo)
-        {
-            var file = _lerArquivoAppService.LerArquivoApp(caminhoDoArquivo);
-            var fileBytes = _lerArquivoEmBytesAppService.LerArquivoEmBytes(file);
-            return File(fileBytes, "application/pdf", file.Name);
-        }
-
-        [HttpGet("DeletarCoordenador")]
-        public async Task<IActionResult> DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
-        {
-            await Task.Run(() => _deletarArquivoAppService.DeletarArquivoAsync(caminhoDoArquivo));
-
-            var caminhoDoDiretorio = caminhoDoArquivo.Replace(nomeDoArquivo, "");
-            var urlEncode = _encoder.Encode(caminhoDoDiretorio);
-            return Redirect("ConteudoCoordenador?DiretorioDaUnidade=" + urlEncode);
         }
     }
 }

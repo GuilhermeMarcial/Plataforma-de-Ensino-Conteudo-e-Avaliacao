@@ -7,7 +7,7 @@ namespace PlataformaDeEnsino.Core.Repositories.InstituicaoRepositories
 {
     public interface IAlunoRepository : IRepositoryBase<Aluno>, IDisposable
     {
-        Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDoAluno);
+        Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDaPessoa);
         Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso);
     }
 }

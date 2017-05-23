@@ -9,9 +9,9 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class CoordenadorRepository : RepositoryBase<Coordenador>, ICoordenadorRepository
     {
-       public async Task<Coordenador> ConsultarPeloCpfAsync(string cpfDoCoordenador)
+       public async Task<Coordenador> ConsultarPeloCpfAsync(string cpfDaPessoa)
        {
-           return await Context.Coordenadores.Where(c => c.CpfDoCoordenador == cpfDoCoordenador).FirstAsync();
+           return await Context.Coordenadores.Where(c => c.CpfDaPessoa == cpfDaPessoa).FirstAsync();
        }
     }
 }
