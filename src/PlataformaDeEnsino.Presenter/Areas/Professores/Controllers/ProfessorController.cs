@@ -1,20 +1,20 @@
 using System.Collections.Generic;
-using System.Text.Encodings.Web;
 using System.IO;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Presenter.ViewModels;
-using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
-using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
 
-namespace PlataformaDeEnsino.Presenter.Controllers
+namespace PlataformaDeEnsino.Presenter.Areas.Professores.Controllers
 {
     [Route("Professor")]
-    [Authorize(Roles = "Coordenador")]
+    [Authorize(Roles = "Professor")]
     [AutoValidateAntiforgeryToken]
     public class ProfessorController : Controller
     {
@@ -43,11 +43,11 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return await _professorAppService.ConsultarPeloCpfAsync(User.Identity.Name);
         }
 
-        [HttpGet("EnviarArquivo")]
+        [HttpGet("SelecionarArquivo")]
         public async Task<IActionResult> SelecionarArquivoProfessor()
         {
             var professorUsuario = ProfessorUsuario();
-            _professorUsuario = await _professorAppService.ConsultarPeloCpfAsync(User.Identity.Name);
+            _professorUsuario = await professorUsuario;
             
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadesDoProfessorAsync(_professorUsuario.IdDoProfessor));
             var conteudoProfessorViewModel = new ConteudoProfessorViewModel(unidadeViewModel);
@@ -67,8 +67,8 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return View(conteudoProfessorViewModel);
         }
 
-        [HttpPost("EnviarArquivo")]
-        public async Task<IActionResult> SelecionarArquivoProfessor(string diretorioDaUnidade, IFormFile arquivo)
+        [HttpPost("SelecionarArquivo")]
+        public async Task<IActionResult> EnviarArquivoProfessor(string diretorioDaUnidade, IFormFile arquivo)
         {
             if (diretorioDaUnidade == null) return Redirect("Conteudo");
             var urlEncode = _encoder.Encode(diretorioDaUnidade);

@@ -1,15 +1,15 @@
-using System.IO;
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
+using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Presenter.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
-using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
-using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
 
-namespace PlataformaDeEnsino.Presenter.Controllers
+namespace PlataformaDeEnsino.Presenter.Areas.Alunos.Controllers
 {
     [Route("Aluno")]
     [Authorize(Roles = "Aluno")]
@@ -21,7 +21,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         private readonly IUnidadeAppService _unidadeAppService;
         private readonly IRecuperarArquivosAppService _arquivoAppService;
         private readonly IAlunoAppService _alunoAppService;
-        private IEnumerable<FileInfo> arquivos;
+        private IEnumerable<FileInfo> _arquivos;
         private  Aluno _alunoUsuario;
 
         public AlunoController(IMapper mapper, IModuloAppService moduloAppService, IUnidadeAppService unidadeAppService, IRecuperarArquivosAppService arquivoAppService, IAlunoAppService alunoAppService)
@@ -47,9 +47,9 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             ViewBag.UserName = _alunoUsuario.NomeDaPessoa + " " + _alunoUsuario.SobrenomeDaPessoa;
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_alunoUsuario.IdDoCurso, _alunoUsuario.NivelDoAluno));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
-            arquivos = DiretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(DiretorioDaUnidade) : null;
-            var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel, arquivos);
-            return View(ConteudoAlunoViewModel);
+            _arquivos = DiretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(DiretorioDaUnidade) : null;
+            var conteudoAlunoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel, _arquivos);
+            return View(conteudoAlunoViewModel);
         }
     }
 }

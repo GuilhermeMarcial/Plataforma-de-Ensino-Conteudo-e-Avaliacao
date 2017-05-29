@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
 using PlataformaDeEnsino.Core.Entities;
+using PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels;
 using PlataformaDeEnsino.Presenter.ViewModels;
 
-namespace PlataformaDeEnsino.Presenter.Controllers
+namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
 {
+    [Route("Coordenador")]
     [Authorize(Roles = "Coordenador")]
     [AutoValidateAntiforgeryToken]
     public class UnidadeCoordenadorController : Controller
@@ -45,7 +47,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             ViewBag.UserName = _coordenadorUsuario.NomeDaPessoa + " " + _coordenadorUsuario.SobrenomeDaPessoa;
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
-            var ConteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
+            var ConteudoAlunoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel);
             return View(ConteudoAlunoViewModel);
         }
 

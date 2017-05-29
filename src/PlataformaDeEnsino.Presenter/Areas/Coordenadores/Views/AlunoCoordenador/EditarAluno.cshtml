@@ -1,6 +1,7 @@
-
-@model PlataformaDeEnsino.Presenter.ViewModels.AlunoViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using PlataformaDeEnsino.Presenter.Areas.ViewModels
+@using PlataformaDeEnsino.Presenter.ViewModels
+@model PlataformaDeEnsino.Presenter.Areas.ViewModels.AlunoViewModel
 @{ Layout = "_Layout"; }
 
 <!DOCTYPE html>
@@ -18,35 +19,35 @@
                             <h4 class="modal-title text-center ">Cadastrar novo aluno</h4>
                             </div>
                         </div>
-                        <form method="Post" asp-action="NovoAluno">
+                        <form method="Post" asp-action="EditarAluno">
+                            <input hidden name="IdDoAluno" value="@Model.IdDoAluno">
+                            <input hidden name="IdDoUsuario" value="@Model.IdDoUsuario">
                             <input name="Role" value="Aluno" hidden>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Nome</label>
 
-                                <input name="NomeDoAluno" class="form-control" type="text" placeholder="Digite o nome">
-                                <span asp-validation-for="NomeDoAluno" class="text-danger"></span>
+                                <input name="NomeDaPessoa" class="form-control" type="text" value="@Model.NomeDaPessoa">
+                                <span asp-validation-for="NomeDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Sobrenome</label>
 
-                                <input class="form-control" type="text" name="SobreNomeDoAluno" placeholder="Digite o sobrenome">
-                                <span asp-validation-for="SobrenomeDoAluno" class="text-danger"></span>
+                                <input class="form-control" type="text" name="SobrenomeDaPessoa" value="@Model.SobrenomeDaPessoa">
+                                <span asp-validation-for="SobrenomeDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Email</label>
-
-                                <input class="form-control" type="text" name="EmailDoAluno" placeholder="Digite o email">
-                                <span asp-validation-for="EmailDoAluno" class="text-danger"></span>
+                                <input class="form-control" type="text" name="EmailDaPessoa" value="@Model.EmailDaPessoa">
+                                <span asp-validation-for="EmailDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">CPF</label>
-
-                                <input class="form-control" type="text" name="CpfDoAluno" placeholder="Digite o CPF">
-                                <span asp-validation-for="CpfDoAluno" class="text-danger"></span>
+                                <input class="form-control" type="text" name="CpfDaPessoa" value="@Model.CpfDaPessoa">
+                                <span asp-validation-for="CpfDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Codigo da turma</label>
-                                <input class="form-control" type="text" name="CodigoDaTurma" placeholder="Digite o codigo da turma">
+                                <input class="form-control" type="text" name="CodigoDaTurma" value="@Model.CodigoDaTurma">
                                 <span asp-validation-for="CodigoDaTurma" class="text-danger"></span>
                             </div>
                             <div class="modal-container">

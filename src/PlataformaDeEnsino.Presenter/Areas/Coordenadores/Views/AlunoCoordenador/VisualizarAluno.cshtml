@@ -1,5 +1,6 @@
-
-@model PlataformaDeEnsino.Presenter.ViewModels.AlunoViewModel
+@using PlataformaDeEnsino.Presenter.Areas.ViewModels
+@using PlataformaDeEnsino.Presenter.ViewModels
+@model PlataformaDeEnsino.Presenter.Areas.ViewModels.AlunoViewModel
 
 @{ Layout = "_Layout"; }
 
@@ -21,13 +22,13 @@
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">Nome</label>
 
-                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.NomeDoAluno">
+                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.NomeDaPessoa">
 
                         </div>
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">Sobrenome</label>
 
-                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.SobrenomeDoAluno">
+                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.SobrenomeDaPessoa">
 
                         </div>
                         <div class="modal-container">
@@ -39,7 +40,7 @@
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">CPF</label>
 
-                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.CpfDoAluno">
+                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.CpfDaPessoa">
 
                         </div>
                         <div class="modal-container">

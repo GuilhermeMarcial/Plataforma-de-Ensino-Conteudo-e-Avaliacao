@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
+using PlataformaDeEnsino.Presenter.ViewModels;
 
-namespace PlataformaDeEnsino.Presenter.ViewModels
+namespace PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels
 {
     public class ConteudoProfessorViewModel
     {

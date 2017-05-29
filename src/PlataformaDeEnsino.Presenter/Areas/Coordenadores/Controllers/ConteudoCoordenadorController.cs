@@ -6,13 +6,14 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PlataformaDeEnsino.Core.Entities;
-using PlataformaDeEnsino.Presenter.ViewModels;
 using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
 using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
+using PlataformaDeEnsino.Core.Entities;
+using PlataformaDeEnsino.Presenter.ViewModels;
 
-namespace PlataformaDeEnsino.Presenter.Controllers
+namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
 {
+    [Route("Coordenador")]
     [Authorize(Roles = "Coordenador")]
     [AutoValidateAntiforgeryToken]
     public class ConteudoCoordenadorController : Controller
@@ -48,7 +49,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return await _coordenadorAppService.ConsultarPeloCpfAsync(User.Identity.Name);
         }
 
-        [HttpGet("ConteudoCoordenador")]
+        [HttpGet("Conteudo")]
         public async Task<IActionResult> ConteudoCoordenador([FromQuery] int idDoModulo, string diretorioDaUnidade)
         {
             var coordenadorUsuario = CoodernadorUsuario();
@@ -58,7 +59,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
             _arquivos = diretorioDaUnidade != null ? await _recuperarArquivoAppService.RecuperarArquivosAsync(diretorioDaUnidade) : null;
-            var conteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel, _arquivos);
+            var conteudoAlunoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel, _arquivos);
             return View(conteudoAlunoViewModel);
         }
 
@@ -70,20 +71,18 @@ namespace PlataformaDeEnsino.Presenter.Controllers
 
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
-            var conteudoAlunoViewModel = new ConteudoAlunoViewModel(moduloViewModel, unidadeViewModel);
+            var conteudoAlunoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel);
             return View(conteudoAlunoViewModel);
         }
 
         [HttpPost("SelecionarConteudoCoordenador")]
-        public async Task<IActionResult> SelecionarArquivoCoordenador(string diretorioDaUnidade, IFormFile arquivo)
+        public async Task<IActionResult> SelecionarConteudoCoordenador(string diretorioDaUnidade, IFormFile arquivo)
         {
-            if (diretorioDaUnidade != null)
-            {
-                var urlEncode = _encoder.Encode(diretorioDaUnidade);
-                await _enviarArquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
-                return Redirect("ConteudoCoordenador?DiretorioDaUnidade=" + urlEncode);
-            }
-            return Redirect("ConteudoCoordenador");
+            if ((diretorioDaUnidade == null) || (arquivo == null)) return Redirect("Conteudo");
+            
+            var urlEncode = _encoder.Encode(diretorioDaUnidade);
+            await _enviarArquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
+            return Redirect("Conteudo?DiretorioDaUnidade=" + urlEncode);
         }
     }
 }

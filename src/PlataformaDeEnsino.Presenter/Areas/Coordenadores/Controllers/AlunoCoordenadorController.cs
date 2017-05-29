@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Identity.Models;
+using PlataformaDeEnsino.Presenter.Areas.ViewModels;
 using PlataformaDeEnsino.Presenter.ViewModels;
 
-namespace PlataformaDeEnsino.Presenter.Controllers
+namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
 {
+    [Route("Coordenador")]
     [Authorize(Roles = "Coordenador")]
     [AutoValidateAntiforgeryToken]
     public class AlunoCoordenadorController : Controller
@@ -64,8 +66,8 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             {
                 var aluno = _mapper.Map<AlunoViewModel, Aluno>(alunoViewModel);
                 _alunoAppService.InserirAsync(aluno);
-                var user = new AppUser { UserName = alunoViewModel.CpfDoAluno, Email = alunoViewModel.EmailDoAluno };
-                var resultCreate = await _userManager.CreateAsync(user, alunoViewModel.CpfDoAluno);
+                var user = new AppUser { UserName = alunoViewModel.CpfDaPessoa, Email = alunoViewModel.EmailDaPessoa };
+                var resultCreate = await _userManager.CreateAsync(user, alunoViewModel.CpfDaPessoa);
                 if (resultCreate.Succeeded)
                 {
                     var resultRole = await _userManager.AddToRoleAsync(user, alunoViewModel.Role);
@@ -90,7 +92,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             {
                 var idDoAluno = Convert.ToInt32(IdDoAluno);
                 var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(await _alunoAppService.ConsultarPeloIdAsync(idDoAluno));
-                alunoViewModel.Usuario = await _userManager.FindByNameAsync(alunoViewModel.CpfDoAluno);
+                alunoViewModel.Usuario = await _userManager.FindByNameAsync(alunoViewModel.CpfDaPessoa);
                 return View(alunoViewModel);
             }
             return View();
@@ -117,11 +119,11 @@ namespace PlataformaDeEnsino.Presenter.Controllers
                 var usuario = await _userManager.FindByIdAsync(alunoViewModel.IdDoUsuario);
                 if (usuario != null)
                 {
-                    var userChangePassword = await _userManager.ChangePasswordAsync(usuario, usuario.UserName, alunoViewModel.CpfDoAluno);
+                    var userChangePassword = await _userManager.ChangePasswordAsync(usuario, usuario.UserName, alunoViewModel.CpfDaPessoa);
                     if (userChangePassword.Succeeded)
                     {
-                        usuario.UserName = alunoViewModel.CpfDoAluno;
-                        usuario.Email = alunoViewModel.EmailDoAluno;
+                        usuario.UserName = alunoViewModel.CpfDaPessoa;
+                        usuario.Email = alunoViewModel.EmailDaPessoa;
                         var resultadoDaAtualizacaoDoUsuario = await _userManager.UpdateAsync(usuario);
                         if (resultadoDaAtualizacaoDoUsuario.Succeeded)
                         {

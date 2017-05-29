@@ -16,7 +16,7 @@
                                 <h4 class="modal-title text-center ">Enviar novo arquivo</h4>
                             </div>
                         </div>
-                        <form method="POST" enctype="multipart/form-data" asp-controller="Professor" asp-action="EnviarArquivo">
+                        <form method="POST" enctype="multipart/form-data" asp-controller="Professor" asp-action="SelecionarArquivo">
                             @Html.AntiForgeryToken()
                             <select name="diretorioDaUnidade" class="disciplina-professor-upload form-control form-group">
                                         <option value="" name="">Unidades</option>
