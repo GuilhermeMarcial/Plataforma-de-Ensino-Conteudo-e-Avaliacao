@@ -11,6 +11,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Areas.Alunos.Controllers
 {
+    [Area("Alunos")]
     [Route("Aluno")]
     [Authorize(Roles = "Aluno")]
     [AutoValidateAntiforgeryToken]
@@ -39,15 +40,18 @@ namespace PlataformaDeEnsino.Presenter.Areas.Alunos.Controllers
         }
 
         [HttpGet("Conteudo")]
-        public async Task<IActionResult> ConteudoAluno([FromQuery] int idDoModulo, string DiretorioDaUnidade)
+        public async Task<IActionResult> ConteudoAluno([FromQuery] int idDoModulo, string diretorioDaUnidade)
         {
             var alunoUsuario = AlunoUsuario();
             _alunoUsuario = await alunoUsuario;
             
-            ViewBag.UserName = _alunoUsuario.NomeDaPessoa + " " + _alunoUsuario.SobrenomeDaPessoa;
+            ViewBag.UserName = $"{_alunoUsuario.NomeDaPessoa} {_alunoUsuario.SobrenomeDaPessoa}";
+            
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_alunoUsuario.IdDoCurso, _alunoUsuario.NivelDoAluno));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
-            _arquivos = DiretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(DiretorioDaUnidade) : null;
+            
+            _arquivos = diretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(diretorioDaUnidade) : null;
+            
             var conteudoAlunoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel, _arquivos);
             return View(conteudoAlunoViewModel);
         }

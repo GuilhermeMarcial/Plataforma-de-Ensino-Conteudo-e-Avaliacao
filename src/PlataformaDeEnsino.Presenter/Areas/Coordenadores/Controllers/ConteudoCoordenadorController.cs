@@ -13,6 +13,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
 {
+    [Area("Coordenadores")]
     [Route("Coordenador")]
     [Authorize(Roles = "Coordenador")]
     [AutoValidateAntiforgeryToken]
@@ -55,7 +56,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
             
-            ViewBag.UserName = _coordenadorUsuario.NomeDaPessoa + " " + _coordenadorUsuario.SobrenomeDaPessoa;
+            ViewBag.UserName = $"{_coordenadorUsuario.NomeDaPessoa} {_coordenadorUsuario.SobrenomeDaPessoa}";
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
             _arquivos = diretorioDaUnidade != null ? await _recuperarArquivoAppService.RecuperarArquivosAsync(diretorioDaUnidade) : null;
@@ -82,7 +83,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
             
             var urlEncode = _encoder.Encode(diretorioDaUnidade);
             await _enviarArquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
-            return Redirect("Conteudo?DiretorioDaUnidade=" + urlEncode);
+            return Redirect($"Conteudo?DiretorioDaUnidade={urlEncode}");
         }
     }
 }

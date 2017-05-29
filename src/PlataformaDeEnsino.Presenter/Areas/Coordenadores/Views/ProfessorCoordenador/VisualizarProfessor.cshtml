@@ -1,5 +1,6 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model PlataformaDeEnsino.Presenter.ViewModels.ProfessorViewModel
+@using PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels
+@model PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels.ProfessorViewModel
 @{ Layout = "_Layout"; }
 
 <!DOCTYPE html>
@@ -22,25 +23,25 @@
                     <div class="modal-container">
                         <label class="col-2 col-form-label text-modal-title">Nome</label>
 
-                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.NomeDoProfessor">
+                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.NomeDaPessoa">
 
                     </div>
                     <div class="modal-container">
                         <label class="col-2 col-form-label text-modal-title">Sobrenome</label>
 
-                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.SobrenomeDoProfessor">
+                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.SobrenomeDaPessoa">
 
                     </div>
                     <div class="modal-container">
                         <label class="col-2 col-form-label text-modal-title">Email</label>
 
-                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.EmailDoProfessor">
+                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.EmailDaPessoa">
 
                     </div>
                     <div class="modal-container">
                         <label class="col-2 col-form-label text-modal-title">CPF</label>
 
-                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.CpfDoProfessor">
+                        <input class="form-control" type="text" disabled="disabled" placeholder="@Model.CpfDaPessoa">
 
                     </div>
                     <div class="modal-footer footer-modal">

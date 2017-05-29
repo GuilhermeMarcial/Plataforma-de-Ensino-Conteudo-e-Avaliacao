@@ -1,4 +1,4 @@
-@model IEnumerable<PlataformaDeEnsino.Presenter.ViewModels.AlunoViewModel>
+@model IEnumerable<PlataformaDeEnsino.Presenter.Areas.ViewModels.AlunoViewModel>
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -29,7 +29,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                <div class="collapse navbar-collapse largura-div " id="bs-example-navbar-collapse-1">
+                <div class="collapse navbar-collapse largura-div" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
 
                         <li><a class="navbar-brand estilo-navbar-brand bordas-a" href="">Plataforma de Conteúdo</a></li>
@@ -85,9 +85,8 @@
                     <p class="conteudo text-center">Aluno</p>
                     <a href="NovoAluno" ><button class="btn btn-default botaoupar">Novo Aluno</button></a>
                 </div>
-                    <div class="container">
+                <div class="container">
                         <table class="table table-bordered table-overflow">
-
                             <thead>
                                 <th class="text-center">Aluno</th>
                                 <th class="text-center">Turma</th>
@@ -97,28 +96,26 @@
                             <tbody>
                                 @if(Model != null)
                                 {
-                                @foreach(var aluno in Model)
-                                {
-                                <tbody>
-                                <td>
-                                    @aluno.NomeDoAluno @aluno.SobrenomeDoAluno
-                                </td>
-                                <td>
-                                    @aluno.CodigoDaTurma
-                                </td>
-                                <td>
-                                    <a href="VisualizarAluno?IdDoAluno=@aluno.IdDoAluno&IdDoCurso=@aluno.IdDoCurso"><button class=" btn btn-warning botaovizualizar "><i class="glyphicon glyphicon-eye-open"></i></button></a>
-                                    <a href="DeletarAluno?IdDoAluno=@aluno.IdDoAluno"><button class=" btn btn-danger botaodeletar "><i class="glyphicon glyphicon-trash"></i></button></a>
-                                </td>
-                                </tbody>
-                                }
-                                }
-                                </div>
-                            </tbody>
-                        </table>
-                    </div>
+                                    foreach(var aluno in Model)
+                                    {
+                                        <tbody>
+                                            <td>
+                                                @aluno.NomeDaPessoa @aluno.SobrenomeDaPessoa
+                                            </td>
+                                            <td>
+                                                @aluno.CodigoDaTurma
+                                            </td>
+                                            <td>
+                                                <a href="VisualizarAluno?IdDoAluno=@aluno.IdDoAluno&IdDoCurso=@aluno.IdDoCurso"><button class=" btn btn-warning botaovizualizar "><i class="glyphicon glyphicon-eye-open"></i></button></a>
+                                                <a href="DeletarAluno?IdDoAluno=@aluno.IdDoAluno"><button class=" btn btn-danger botaodeletar "><i class="glyphicon glyphicon-trash"></i></button></a>
+                                            </td>
+                                        </tbody>
+                                    }
+                        }</table>
                 </div>
             </div>
+        </div>
+    </div>
             <footer>
                 <div class="container ">
 
@@ -126,7 +123,6 @@
                     <article class="direita">Versão 1.0.0 </article>
                 </div>
             </footer>
-        </div>
 </body>
 
 </html>

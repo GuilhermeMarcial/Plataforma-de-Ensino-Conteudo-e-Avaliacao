@@ -7,24 +7,28 @@ namespace PlataformaDeEnsino.Core.Services.ArquivoServices
     public class ArquivoValidoService : IArquivoValidoService
     {
         private readonly IDiretorioExisteService _diretorioExisteService;
-        private readonly IArquivoNulloOuVazioService _arquivoNulloOuVazioService;
         private readonly ITamanhoDoArquivoValidoService _tamanhoDoArquivoValidoService;
         private readonly IExtesaoValidaDoArquivoService _extesaoValidaDoArquivoService;
+        private readonly IArquivoNulloOuVazioService _arquivoNulloOuVazio;
 
-        public ArquivoValidoService(IDiretorioExisteService diretorioExisteService, IArquivoNulloOuVazioService arquivoNulloOuVazioService, ITamanhoDoArquivoValidoService tamanhoDoArquivoValidoService, IExtesaoValidaDoArquivoService extesaoValidaDoArquivoService)
+        public ArquivoValidoService(IDiretorioExisteService diretorioExisteService, IArquivoNulloOuVazioService arquivoNulloOuVazio, 
+            ITamanhoDoArquivoValidoService tamanhoDoArquivoValidoService, IExtesaoValidaDoArquivoService extesaoValidaDoArquivoService)
         {
             _diretorioExisteService = diretorioExisteService;
-            _arquivoNulloOuVazioService = arquivoNulloOuVazioService;
             _tamanhoDoArquivoValidoService = tamanhoDoArquivoValidoService;
+            _arquivoNulloOuVazio = arquivoNulloOuVazio;
             _extesaoValidaDoArquivoService = extesaoValidaDoArquivoService;
         }
 
         public async Task<bool> ArquivoValido(string caminhoDoArquivo, IFormFile file)
         {
             if (!_diretorioExisteService.DiretorioExiste(caminhoDoArquivo)) return false;
-            if ((!_arquivoNulloOuVazioService.ArquivoNulloOuVazio(file)) ||
-                (!_tamanhoDoArquivoValidoService.TamanhoDoArquivoValido(file))) return false;
-            return await _extesaoValidaDoArquivoService.ExtensaoValidaDoArquivo(file);
+            if (_arquivoNulloOuVazio.ArquivoNulloOuVazio(file) && _tamanhoDoArquivoValidoService.TamanhoDoArquivoValido(file))
+            {
+                return await _extesaoValidaDoArquivoService.ExtensaoValidaDoArquivo(file);   
+            }
+
+            return false;
         }
     }
 }

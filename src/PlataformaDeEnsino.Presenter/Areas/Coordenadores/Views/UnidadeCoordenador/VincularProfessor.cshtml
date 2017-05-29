@@ -1,6 +1,6 @@
 @model PlataformaDeEnsino.Presenter.ViewModels.VincularProfessorViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{ Layout = "_Layout"; }
+@{ Layout = $"_Layout"; }
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,9 +33,9 @@
                             <option>Professores</option>
                             @if(Model.professoresViewModel != null)
                             {
-                                @foreach(var professor in Model.professoresViewModel)
+                                foreach(var professor in Model.professoresViewModel)
                                 {
-                                    <option value="@professor.IdDoProfessor">@professor.NomeDoProfessor</option>
+                                    <option value="@professor.IdDoProfessor">@professor.NomeDaPessoa</option>
                                 }
                             }
                             </select>
@@ -51,7 +51,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 

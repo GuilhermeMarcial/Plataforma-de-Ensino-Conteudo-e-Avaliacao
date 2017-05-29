@@ -2,8 +2,9 @@ using System;
 using System.Text.RegularExpressions;
 using FluentValidation;
 using PlataformaDeEnsino.Presenter.Areas.ViewModels;
+using PlataformaDeEnsino.Presenter.ViewModels;
 
-namespace PlataformaDeEnsino.Presenter.Areas.ViewModelValidators
+namespace PlataformaDeEnsino.Presenter.ViewModelValidators
 {
     public class AlunoViewModelValidator : AbstractValidator<AlunoViewModel>
     {

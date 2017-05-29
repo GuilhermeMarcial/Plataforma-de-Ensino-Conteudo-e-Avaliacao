@@ -1,5 +1,5 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model IEnumerable<PlataformaDeEnsino.Presenter.ViewModels.ProfessorViewModel>
+@model IEnumerable<PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels.ProfessorViewModel>
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -98,10 +98,10 @@
                         <tbody>
                             @if(Model != null)
                             {
-                                @foreach(var professor in Model)
+                                foreach(var professor in Model)
                                 {
                                     <tbody>
-                                    <td>@professor.NomeDoProfessor @professor.SobrenomeDoProfessor</td>
+                                    <td>@professor.NomeDaPessoa @professor.SobrenomeDaPessoa</td>
                                     <td>
                                         <a href="VisualizarProfessor?IdDoProfessor=@professor.IdDoProfessor"><button class=" btn btn-warning botaovizualizar "><i class="glyphicon glyphicon-eye-open"></i></button></a>
                                         <a href="DeletarProfessor?IdDoProfessor=@professor.IdDoProfessor"><button class=" btn btn-danger botaodeletar "><i class="glyphicon glyphicon-trash"></i></button></a>

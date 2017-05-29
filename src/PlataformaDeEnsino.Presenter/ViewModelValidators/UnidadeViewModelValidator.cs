@@ -13,11 +13,12 @@ namespace PlataformaDeEnsino.Presenter.ViewModelValidators
             .NotEmpty().WithMessage("Selecione o professor dessa unidade")
             .Must(SomenteNumeros).WithMessage("Valor invalido");
         }
-        public static bool SomenteNumeros(int? input)
+
+        private static bool SomenteNumeros(int? input)
         {   
             var inputString = Convert.ToString(input);
-            var padraoNumeros = "^[0-9]{1,}$";
-            Match resultado = Regex.Match(inputString, padraoNumeros);
+            const string padraoNumeros = "^[0-9]{1,}$";
+            var resultado = Regex.Match(inputString, padraoNumeros);
             return (resultado.Success) ? true : false;
         }
     }

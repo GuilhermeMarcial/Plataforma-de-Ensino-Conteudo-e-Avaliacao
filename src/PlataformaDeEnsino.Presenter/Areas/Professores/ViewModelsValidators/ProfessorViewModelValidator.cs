@@ -1,7 +1,8 @@
 using FluentValidation;
 using PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels;
+using PlataformaDeEnsino.Presenter.ViewModels;
 
-namespace PlataformaDeEnsino.Presenter.Areas.Professores.ViewModelsValidators
+namespace PlataformaDeEnsino.Presenter.ViewModelValidators
 {
     public class ProfessorViewModelValidator : AbstractValidator<ProfessorViewModel>
     {

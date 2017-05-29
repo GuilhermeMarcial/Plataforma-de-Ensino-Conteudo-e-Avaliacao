@@ -1,11 +1,11 @@
-@model PlataformaDeEnsino.Presenter.ViewModels.ConteudoAlunoViewModel
+@model PlataformaDeEnsino.Presenter.ViewModels.ConteudoViewModel
 
 <!DOCTYPE html>
 <html lang="pt">
 
 <head>
     <meta charset="utf-8">
-    <meta ="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1">
 
     <title>Plataforma de Conteudo</title>
     <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -93,7 +93,7 @@
                                 <option value="@modulo.IdDoModulo">@modulo.NomeDoModulo</option>
                             }
                         </select>
-                        </form>
+                        </form></form>
                     </div>
                     <div class="container">
                         <table class="table table-bordered table-overflow">
@@ -106,7 +106,7 @@
                             <tbody>
                                 @if(Model.UnidadeViewModel != null)
                                 {
-                                    @foreach(var unidade in Model.UnidadeViewModel)
+                                    foreach(var unidade in Model.UnidadeViewModel)
                                     {
                                         <tbody>
                                             <td>@unidade.NomeDaUnidade</td>
@@ -116,7 +116,6 @@
                                 }
                             </tbody>
                         </table>
-                        </form>
                     </div>
                 </div>
             </div>

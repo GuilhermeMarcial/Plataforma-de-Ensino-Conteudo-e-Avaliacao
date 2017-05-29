@@ -1,5 +1,8 @@
 using AutoMapper;
 using PlataformaDeEnsino.Core.Entities;
+using PlataformaDeEnsino.Presenter.Areas.Coordenadores.ViewModels;
+using PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels;
+using PlataformaDeEnsino.Presenter.Areas.ViewModels;
 using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Mapper

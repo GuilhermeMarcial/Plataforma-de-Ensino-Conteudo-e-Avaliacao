@@ -1,6 +1,6 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model PlataformaDeEnsino.Presenter.ViewModels.ProfessorViewModel
-@{ Layout = "_Layout"; }
+@model PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels.ProfessorViewModel
+@{ Layout = $"_Layout"; }
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -24,28 +24,28 @@
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">Nome</label>
 
-                            <input class="form-control" type="text" name="NomeDoProfessor" value="@Model.NomeDoProfessor">
-                            <span asp-validation-for="NomeDoProfessor" class="text-danger"></span>
+                            <input class="form-control" type="text" name="NomeDaPessoa" value="@Model.NomeDaPessoa">
+                            <span asp-validation-for="NomeDaPessoa" class="text-danger"></span>
 
                         </div>
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">Sobrenome</label>
 
-                            <input class="form-control" type="text" name="SobrenomeDoProfessor" value="@Model.SobrenomeDoProfessor">
-                            <span asp-validation-for="SobrenomeDoProfessor" class="text-danger"></span>
+                            <input class="form-control" type="text" name="SobrenomeDaPessoa" value="@Model.SobrenomeDaPessoa">
+                            <span asp-validation-for="SobrenomeDaPessoa" class="text-danger"></span>
 
                         </div>
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">Email</label>
 
-                            <input class="form-control" type="text" name="EmailDoProfessor" value="@Model.EmailDoProfessor">
-                            <span asp-validation-for="EmailDoProfessor" class="text-danger"></span>
+                            <input class="form-control" type="text" name="EmailDaPessoa" value="@Model.EmailDaPessoa">
+                            <span asp-validation-for="EmailDaPessoa" class="text-danger"></span>
                         </div>
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">CPF</label>
 
-                            <input class="form-control" type="text" name="CpfDoProfessor" value="@Model.CpfDoProfessor">
-                            <span asp-validation-for="CpfDoProfessor" class="text-danger"></span>
+                            <input class="form-control" type="text" name="CpfDaPessoa" value="@Model.CpfDaPessoa">
+                            <span asp-validation-for="CpfDaPessoa" class="text-danger"></span>
 
                         </div>
                         

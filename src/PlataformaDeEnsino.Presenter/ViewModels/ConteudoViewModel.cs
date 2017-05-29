@@ -3,14 +3,14 @@ using System.IO;
 
 namespace PlataformaDeEnsino.Presenter.ViewModels
 {
-    public class ConteudoAlunoViewModel
+    public class ConteudoViewModel
     {
-        public ConteudoAlunoViewModel(IEnumerable<ModuloViewModel> modulo, IEnumerable<UnidadeViewModel> unidade)
+        public ConteudoViewModel(IEnumerable<ModuloViewModel> modulo, IEnumerable<UnidadeViewModel> unidade)
         {
             ModuloViewModel = modulo;
             UnidadeViewModel = unidade;
         }
-        public ConteudoAlunoViewModel(IEnumerable<ModuloViewModel> modulo, IEnumerable<UnidadeViewModel> unidade, IEnumerable<FileInfo> arquivos)
+        public ConteudoViewModel(IEnumerable<ModuloViewModel> modulo, IEnumerable<UnidadeViewModel> unidade, IEnumerable<FileInfo> arquivos)
         {
             ModuloViewModel = modulo;
             UnidadeViewModel = unidade;

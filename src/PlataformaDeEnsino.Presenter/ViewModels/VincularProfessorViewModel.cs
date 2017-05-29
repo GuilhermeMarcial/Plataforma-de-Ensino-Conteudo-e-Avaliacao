@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.ViewModels
 {

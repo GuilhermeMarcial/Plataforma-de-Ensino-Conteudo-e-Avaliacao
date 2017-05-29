@@ -3,9 +3,9 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.ViewModelValidators
 {
-    public class ConteudoAlunoViewModelValidator : AbstractValidator<ConteudoViewModel>
+    public class ConteudoViewModelValidator : AbstractValidator<ConteudoViewModel>
     {
-        public ConteudoAlunoViewModelValidator()
+        public ConteudoViewModelValidator()
         {
             RuleFor(a => a.ModuloViewModel)
                 .NotEmpty()

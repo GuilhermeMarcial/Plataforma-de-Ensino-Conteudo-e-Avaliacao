@@ -6,7 +6,9 @@ using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
 
 namespace PlataformaDeEnsino.Presenter.Controllers
 {
-    
+    [Route("Aluno")]
+    [Route("Professor")]
+    [Route("Coordenador")]
     public class ArquivoController : Controller
     {
         private readonly ILerArquivoAppService _lerArquivoAppService;
@@ -22,8 +24,8 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             _lerArquivoEmBytesAppService = lerArquivoEmBytesAppService;
         }
 
-        [Authorize]
         [HttpGet("Download")]
+        [Authorize]
         public FileResult DownloadFile(string caminhoDoArquivo)
         {
             var file = _lerArquivoAppService.LerArquivoApp(caminhoDoArquivo);
@@ -31,15 +33,15 @@ namespace PlataformaDeEnsino.Presenter.Controllers
             return File(fileBytes, "application/pdf", file.Name);
         }
         
-        [Authorize(Roles = "Coordenador, Professor")]
         [HttpGet("Deletar")]
+        [Authorize(Roles = "Coordenador, Professor")]
         public async Task<IActionResult> DeletarArquivo(string caminhoDoArquivo, string nomeDoArquivo)
         {
             await Task.Run(() => _deletarArquivoAppService.DeletarArquivoAsync(caminhoDoArquivo));
 
             var caminhoDoDiretorio = caminhoDoArquivo.Replace(nomeDoArquivo, "");
             var urlEncode = _encoder.Encode(caminhoDoDiretorio);
-            return Redirect("ConteudoCoordenador?DiretorioDaUnidade=" + urlEncode);
+            return Redirect("Conteudo?DiretorioDaUnidade=" + urlEncode);
         }
     }
 }

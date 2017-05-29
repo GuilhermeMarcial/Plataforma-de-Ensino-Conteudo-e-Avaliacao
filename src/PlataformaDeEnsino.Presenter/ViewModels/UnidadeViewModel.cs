@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.ViewModels
 {

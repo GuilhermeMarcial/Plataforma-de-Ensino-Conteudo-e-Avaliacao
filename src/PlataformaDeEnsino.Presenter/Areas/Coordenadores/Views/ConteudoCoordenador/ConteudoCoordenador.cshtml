@@ -1,4 +1,4 @@
-@model PlataformaDeEnsino.Presenter.ViewModels.ConteudoAlunoViewModel
+@model PlataformaDeEnsino.Presenter.ViewModels.ConteudoViewModel
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -116,7 +116,7 @@
 
                             <tbody>
                                 <tbody>
-                                    @if(Model.Arquivos != null) { @foreach(var arquivo in Model.Arquivos) {
+                                    @if(Model.Arquivos != null) { foreach(var arquivo in Model.Arquivos) {
                                     <tbody>
                                         <td><a href="Download?caminhoDoArquivo=@arquivo.FullName" target="_blank">@arquivo.Name</a></td>
                                         <td>@arquivo.LastAccessTime.ToString("dd/MM/yyyy")</td>

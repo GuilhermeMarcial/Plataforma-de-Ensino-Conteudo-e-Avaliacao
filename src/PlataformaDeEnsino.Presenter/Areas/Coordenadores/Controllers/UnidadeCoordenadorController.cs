@@ -11,6 +11,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
 {
+    [Area("Coordenadores")]
     [Route("Coordenador")]
     [Authorize(Roles = "Coordenador")]
     [AutoValidateAntiforgeryToken]
@@ -44,11 +45,11 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
 
-            ViewBag.UserName = _coordenadorUsuario.NomeDaPessoa + " " + _coordenadorUsuario.SobrenomeDaPessoa;
+            ViewBag.UserName = $"{_coordenadorUsuario.NomeDaPessoa} {_coordenadorUsuario.SobrenomeDaPessoa}";
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
-            var ConteudoAlunoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel);
-            return View(ConteudoAlunoViewModel);
+            var conteudoAlunoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel);
+            return View(conteudoAlunoViewModel);
         }
 
         [HttpGet("VisualizarUnidade")]
@@ -56,8 +57,8 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         {
             var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(await _unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
             var professorViewModel = _mapper.Map<Professor, ProfessorViewModel>(await _professorAppService.ConsultarPeloIdAsync(Convert.ToInt32(unidadeViewModel.IdDoProfessor)));
-            var VincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professorViewModel);
-            return View(VincularProfessorViewModel);
+            var vincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professorViewModel);
+            return View(vincularProfessorViewModel);
         }
 
         [HttpGet("VincularProfessor")]
@@ -65,8 +66,8 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         {
             var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(await _unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
             var professoresViewModel = _mapper.Map<IEnumerable<Professor>, IEnumerable<ProfessorViewModel>>(await _professorAppService.ConsultarTodosAsync());
-            var VincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professoresViewModel);
-            return View(VincularProfessorViewModel);
+            var vincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professoresViewModel);
+            return View(vincularProfessorViewModel);
         }
 
         [HttpPost("VincularProfessor")]
@@ -74,7 +75,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         {
             var unidade = _mapper.Map<UnidadeViewModel, Unidade>(unidadeViewModel);
             _unidadeAppService.AtualizarAsync(unidade);
-            return Redirect("VisualizarUnidade?IdDaUnidade=" + unidadeViewModel.IdDaUnidade);
+            return Redirect($"VisualizarUnidade?IdDaUnidade={unidadeViewModel.IdDaUnidade}");
         }
     }
 }

@@ -1,6 +1,6 @@
 @model PlataformaDeEnsino.Presenter.ViewModels.VincularProfessorViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{ Layout = "_Layout"; }
+@{ Layout = $"_Layout"; }
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +28,7 @@
                             <select disabled class="form-control">
                                 @if(Model.professorViewModel != null)
                                 {
-                                    <option selected>@Model.professorViewModel.NomeDoProfessor</option>
+                                    <option selected>@Model.professorViewModel.NomeDaPessoa</option>
                                 }
                             </select>
                         </div>
@@ -42,7 +42,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 

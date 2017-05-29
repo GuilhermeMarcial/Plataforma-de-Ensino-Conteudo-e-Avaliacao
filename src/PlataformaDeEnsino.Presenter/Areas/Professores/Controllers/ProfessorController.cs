@@ -9,10 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
 using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
 using PlataformaDeEnsino.Core.Entities;
+using PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels;
 using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.Areas.Professores.Controllers
 {
+    [Area("Professores")]
     [Route("Professor")]
     [Authorize(Roles = "Professor")]
     [AutoValidateAntiforgeryToken]

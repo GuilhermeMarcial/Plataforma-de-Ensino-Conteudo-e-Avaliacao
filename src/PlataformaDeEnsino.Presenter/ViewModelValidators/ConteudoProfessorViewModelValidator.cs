@@ -1,4 +1,5 @@
 using FluentValidation;
+using PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels;
 using PlataformaDeEnsino.Presenter.ViewModels;
 
 namespace PlataformaDeEnsino.Presenter.ViewModelValidators
