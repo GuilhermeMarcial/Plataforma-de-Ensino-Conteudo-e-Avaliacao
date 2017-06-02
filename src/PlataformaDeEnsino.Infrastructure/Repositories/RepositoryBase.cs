@@ -11,42 +11,42 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
-        protected ConteudoDbContext Context = new ConteudoDbContext();
+        protected ConteudoDbContext context = new ConteudoDbContext();
         
         public void AtualizarAsync(TEntity obj)
         {
-            Context.Entry(obj).State = EntityState.Modified;
-            Context.SaveChanges();
+            context.Entry(obj).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         public async Task<TEntity> ConsultarPeloIdAsync(int id)
         {
-            return await Context.Set<TEntity>().FindAsync(id);
+            return await context.Set<TEntity>().FindAsync(id);
         }
 
         public async Task<IEnumerable<TEntity>> ConsultarTodosAsync()
         {
-            return await Context.Set<TEntity>().ToListAsync();
+            return await context.Set<TEntity>().ToListAsync();
         }
 
         public async void DeletarAsync(int id)
         {
-            TEntity obj = await Context.Set<TEntity>().FindAsync(id);
-            Context.Set<TEntity>().Remove(obj);
-            Context.SaveChanges();
+            TEntity obj = await context.Set<TEntity>().FindAsync(id);
+            context.Set<TEntity>().Remove(obj);
+            context.SaveChanges();
         }
 
         public void Dispose()
         {
-            if (Context != null)
-                Context.Dispose();
+            if (context != null)
+                context.Dispose();
             GC.SuppressFinalize(this);
         }
 
         public async void InserirAsync(TEntity obj)
         {
-            await Context.Set<TEntity>().AddAsync(obj);
-            Context.SaveChanges();
+            await context.Set<TEntity>().AddAsync(obj);
+            context.SaveChanges();
         }
     }
 }

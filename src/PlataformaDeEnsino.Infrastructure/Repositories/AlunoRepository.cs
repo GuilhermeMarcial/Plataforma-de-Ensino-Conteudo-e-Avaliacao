@@ -13,12 +13,12 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
     {
         public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDaPessoa)
         {
-            return await Context.Alunos.SingleAsync(a => a.CpfDaPessoa == cpfDaPessoa);
+            return await context.Alunos.SingleAsync(a => a.CpfDaPessoa == cpfDaPessoa);
         }
 
         public async Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso)
         {
-            return await Context.Alunos.Where(a => a.IdDoCurso == idDoCurso).ToListAsync();
+            return await context.Alunos.Where(a => a.IdDoCurso == idDoCurso).ToListAsync();
         }
     }
 }

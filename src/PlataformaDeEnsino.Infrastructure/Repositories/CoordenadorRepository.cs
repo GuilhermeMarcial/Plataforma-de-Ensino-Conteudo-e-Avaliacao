@@ -11,7 +11,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
     {
        public async Task<Coordenador> ConsultarPeloCpfAsync(string cpfDaPessoa)
        {
-           return await Context.Coordenadores.Where(c => c.CpfDaPessoa == cpfDaPessoa).FirstAsync();
+           return await context.Coordenadores.Where(c => c.CpfDaPessoa == cpfDaPessoa).FirstAsync();
        }
     }
 }
