@@ -13,8 +13,6 @@ namespace PlataformaDeEnsino.Core.Services.InstituicaoServices
         public CursoService(ICursoRepository cursoRepository) : base(cursoRepository)
         {
             _cursoRepository = cursoRepository;
-        }
-
-        
+        }        
     }
 }

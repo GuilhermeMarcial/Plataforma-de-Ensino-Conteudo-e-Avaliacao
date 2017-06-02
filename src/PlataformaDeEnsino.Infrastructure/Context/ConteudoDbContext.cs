@@ -13,7 +13,6 @@ namespace PlataformaDeEnsino.Infrastructure.Context
         public DbSet<Professor> Professores { get; set; }
         public DbSet<Coordenador> Coordenadores { get; set; }
         
-
         public ConteudoDbContext() : base()
         {
         }

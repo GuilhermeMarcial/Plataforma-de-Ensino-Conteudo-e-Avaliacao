@@ -38,7 +38,6 @@ namespace PlataformaDeEnsino.Presenter.ViewModelValidators
                 .Must(SomenteNumeros);
             RuleFor(t => t.Role)
                 .NotEmpty().Matches("[a-zA-Z\u00C0-\u00FF]+");
-
         }
 
         private static bool SomenteNumeros(int input)
@@ -46,7 +45,7 @@ namespace PlataformaDeEnsino.Presenter.ViewModelValidators
             var inputString = Convert.ToString(input);
             var padraoNumeros = "^[0-9]{1,}$";
             Match resultado = Regex.Match(inputString, padraoNumeros);
-            return (resultado.Success) ? true : false;
+            return resultado.Success ? true : false;
         }
     }
 }

@@ -13,6 +13,5 @@ namespace PlataformaDeEnsino.Application.AppServices.InstituicaoAppServices
         {
             _cursoService = cursoService;
         }
-
     }
 }

@@ -19,14 +19,14 @@ namespace PlataformaDeEnsino.Presenter
 {
     public class Startup
     {
-        IConfigurationRoot Configuration;
+        IConfigurationRoot configuration;
         public Startup(IHostingEnvironment env)
         {
-            Configuration = new ConfigurationBuilder()
+            configuration = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
             .AddJsonFile("appsettings.json").Build();
         }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()))
@@ -34,18 +34,17 @@ namespace PlataformaDeEnsino.Presenter
 
             services.AddDbContext<AppIdentityDbContext>(options =>
             options.UseMySql(
-            Configuration["Data:ConteudoDBA:ConnectionString"]));
+            configuration["Data:ConteudoDBA:ConnectionString"]));
 
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
-            
+
             services.RegistrarDependenciasIdentity();
             services.RegistrarDependenciasMapper();
             services.RegistrarDependenciasInfrastructure();
             services.RegistrarDependenciasServices();
             services.RegistrarDependenciasApplicationService();
-        
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
@@ -54,11 +53,7 @@ namespace PlataformaDeEnsino.Presenter
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseMvc();
-            app.Use(async(contex, next) =>
-            {
-                contex.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
-                await next();
-            });
+            app.Use(async (contex, next) => { contex.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN"); await next(); });
         }
     }
 }

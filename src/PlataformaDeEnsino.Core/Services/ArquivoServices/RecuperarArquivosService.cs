@@ -11,7 +11,7 @@ namespace PlataformaDeEnsino.Core.Services.ArquivoServices
         public async Task<IEnumerable<FileInfo>> RecuperarArquivosAsync(string caminhoDoArquivo)
         {
             var diretorio = new DirectoryInfo(caminhoDoArquivo);
-            return (diretorio.Exists) ? await Task.Run(() => diretorio.EnumerateFiles()) : null;
+            return diretorio.Exists ? await Task.Run(() => diretorio.EnumerateFiles()) : null;
         }
     }
 }

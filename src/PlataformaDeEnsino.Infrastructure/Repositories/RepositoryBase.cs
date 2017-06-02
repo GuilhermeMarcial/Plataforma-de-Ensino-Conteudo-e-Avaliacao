@@ -12,7 +12,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
     public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
         protected ConteudoDbContext Context = new ConteudoDbContext();
-
+        
         public void AtualizarAsync(TEntity obj)
         {
             Context.Entry(obj).State = EntityState.Modified;
@@ -31,7 +31,6 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 
         public async void DeletarAsync(int id)
         {
-
             TEntity obj = await Context.Set<TEntity>().FindAsync(id);
             Context.Set<TEntity>().Remove(obj);
             Context.SaveChanges();

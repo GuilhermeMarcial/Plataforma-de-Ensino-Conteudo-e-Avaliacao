@@ -16,8 +16,7 @@ namespace PlataformaDeEnsino.Infrastructure.ContextConfig
                 c.Property(s => s.SobrenomeDaPessoa).IsRequired().HasColumnType("varchar(100)").HasMaxLength(100);
                 c.Property(cp => cp.CpfDaPessoa).IsRequired().HasColumnType("varchar(12)").HasMaxLength(12);
                 c.Property(e => e.EmailDaPessoa).IsRequired().HasColumnType("varchar(50)").HasMaxLength(50);
-                c.HasOne(cr => cr.Curso).WithOne(cr => cr.Coordenador).HasForeignKey<Coordenador>(cr => cr.IdDoCurso).IsRequired();
-                
+                c.HasOne(cr => cr.Curso).WithOne(cr => cr.Coordenador).HasForeignKey<Coordenador>(cr => cr.IdDoCurso).IsRequired();              
             });
         }
     }

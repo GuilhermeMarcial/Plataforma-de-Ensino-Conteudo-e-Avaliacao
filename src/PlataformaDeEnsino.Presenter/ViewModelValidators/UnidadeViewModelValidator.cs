@@ -19,7 +19,7 @@ namespace PlataformaDeEnsino.Presenter.ViewModelValidators
             var inputString = Convert.ToString(input);
             const string padraoNumeros = "^[0-9]{1,}$";
             var resultado = Regex.Match(inputString, padraoNumeros);
-            return (resultado.Success) ? true : false;
+            return resultado.Success ? true : false;
         }
     }
 }

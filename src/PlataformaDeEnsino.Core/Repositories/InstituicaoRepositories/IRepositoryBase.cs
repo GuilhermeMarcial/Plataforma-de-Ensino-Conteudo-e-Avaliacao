@@ -11,6 +11,5 @@ namespace PlataformaDeEnsino.Core.Repositories.InstituicaoRepositories
         void DeletarAsync(int id);
         void AtualizarAsync(TEntity obj);
         void Dispose();
-
     }
 }

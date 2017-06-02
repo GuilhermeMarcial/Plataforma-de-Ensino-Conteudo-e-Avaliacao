@@ -7,7 +7,7 @@ namespace PlataformaDeEnsino.Infrastructure.ContextConfig
     {
         public static void Curso(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Curso>(c=>{
+            modelBuilder.Entity<Curso>(c => {
                 c.ToTable("Curso");
                 c.HasKey(i => i.IdDoCurso);
                 c.Property(i => i.IdDoCurso).IsRequired().ValueGeneratedOnAdd();

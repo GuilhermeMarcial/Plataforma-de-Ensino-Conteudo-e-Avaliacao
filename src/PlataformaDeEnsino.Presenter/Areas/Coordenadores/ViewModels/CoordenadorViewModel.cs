@@ -4,8 +4,7 @@ using PlataformaDeEnsino.Presenter.ViewModels;
 namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.ViewModels
 {
     public class CoordenadorViewModel : PessoaViewModel
-    {
-        
+    { 
         [Key]
         public int IdDoCoordenador { get; set; }
         

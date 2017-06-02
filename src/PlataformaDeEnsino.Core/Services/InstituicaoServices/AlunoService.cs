@@ -12,14 +12,15 @@ namespace PlataformaDeEnsino.Core.Services.InstituicaoServices
     public class AlunoService : ServiceBase<Aluno>, IAlunoService
     {
         private readonly IAlunoRepository _alunoRepository;
+
         public AlunoService(IAlunoRepository alunoRepository) : base(alunoRepository)
         {
             _alunoRepository = alunoRepository;
         }
 
-        public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string CpfDoAluno)
+        public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDoAluno)
         {
-            return await _alunoRepository.ConsultarAlunoPeloCpfAsync(CpfDoAluno);
+            return await _alunoRepository.ConsultarAlunoPeloCpfAsync(cpfDoAluno);
         }
 
         public async Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso)

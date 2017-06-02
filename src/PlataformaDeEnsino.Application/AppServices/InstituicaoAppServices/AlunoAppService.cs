@@ -12,14 +12,15 @@ namespace PlataformaDeEnsino.Application.AppServices.InstituicaoAppServices
     public class AlunoAppService : AppServiceBase<Aluno>, IAlunoAppService
     {
         private readonly IAlunoService _alunoService;
+
         public AlunoAppService(IAlunoService alunoService) : base(alunoService)
         {
             _alunoService = alunoService;
         }
 
-        public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string CpfDoAluno)
+        public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDoAluno)
         {
-            return await  _alunoService.ConsultarAlunoPeloCpfAsync(CpfDoAluno);
+            return await  _alunoService.ConsultarAlunoPeloCpfAsync(cpfDoAluno);
         }
         public async Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso)
         {

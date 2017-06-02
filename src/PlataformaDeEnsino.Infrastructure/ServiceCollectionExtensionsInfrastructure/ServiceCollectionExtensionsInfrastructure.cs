@@ -17,6 +17,5 @@ namespace PlataformaDeEnsino.Infrastructure.ServiceCollectionExtensionsInfrastru
                 serviceCollection.AddScoped<IProfessorRepository, ProfessorRepository>();
                 serviceCollection.AddScoped<IUnidadeRepository, UnidadeRepository>();
             }
-        
     }
 }

@@ -59,7 +59,6 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         [HttpPost("NovoAluno")]
         public async Task<IActionResult> NovoAluno(AlunoViewModel alunoViewModel)
         {
-
             if (ModelState.IsValid)
             {
                 var aluno = _mapper.Map<AlunoViewModel, Aluno>(alunoViewModel);
@@ -93,13 +92,11 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         [HttpGet("EditarAluno")]
         public async Task<ViewResult> EditarAluno(int idDoAluno, string idDoUsuario)
         {
-            
              var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(await _alunoAppService.ConsultarPeloIdAsync(idDoAluno));
              alunoViewModel.IdDoUsuario = idDoUsuario;
              alunoViewModel.Usuario = await _userManager.FindByIdAsync(idDoUsuario);
              
-             return View(alunoViewModel);
-            
+             return View(alunoViewModel);   
         }
         
         [HttpPost("EditarAluno")]

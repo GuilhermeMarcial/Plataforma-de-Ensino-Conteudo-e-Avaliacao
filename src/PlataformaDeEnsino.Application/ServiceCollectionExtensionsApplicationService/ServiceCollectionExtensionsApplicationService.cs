@@ -23,8 +23,7 @@ namespace PlataformaDeEnsino.Application.ServiceCollectionExtensionsApplicationS
             serviceCollection.AddScoped<IRecuperarArquivosAppService, RecuperarArquivosAppService>();
             serviceCollection.AddScoped<IDelecaoDeArquivosAppService, DelecaoDeArquivosAppService>();
             serviceCollection.AddScoped<ILerArquivoAppService, LerArquivoAppService>();
-            serviceCollection.AddScoped<ILerArquivoEmBytesAppService, LerArquivoEmBytesAppService>();
-            
+            serviceCollection.AddScoped<ILerArquivoEmBytesAppService, LerArquivoEmBytesAppService>();         
         }
     }
 }

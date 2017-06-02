@@ -28,12 +28,11 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         private readonly IRecuperarArquivosAppService _recuperarArquivoAppService;
         private readonly IEnviarArquivosAppService _enviarArquivoAppService;
         private Coordenador _coordenadorUsuario;
-
-
-        public ConteudoCoordenadorController(IMapper mapper, IModuloAppService moduloAppService, IUnidadeAppService unidadeAppService, 
-        IRecuperarArquivosAppService recuperarArquivoAppService, IDelecaoDeArquivosAppService deletarArquivoAppService, 
-        IEnviarArquivosAppService enviarArquivoAppService, ICoordenadorAppService coordenadorAppService, ILerArquivoEmBytesAppService lerArquivoEmBytesAppService
-        , ILerArquivoAppService lerArquivoAppService)
+        
+        public ConteudoCoordenadorController(IMapper mapper, IModuloAppService moduloAppService, IUnidadeAppService unidadeAppService,
+        IRecuperarArquivosAppService recuperarArquivoAppService, IDelecaoDeArquivosAppService deletarArquivoAppService,
+        IEnviarArquivosAppService enviarArquivoAppService, ICoordenadorAppService coordenadorAppService, 
+        ILerArquivoEmBytesAppService lerArquivoEmBytesAppService, ILerArquivoAppService lerArquivoAppService)
         {
             _mapper = mapper;
             _moduloAppService = moduloAppService;
@@ -42,7 +41,6 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
             _enviarArquivoAppService = enviarArquivoAppService;
             _coordenadorAppService = coordenadorAppService;
             _encoder = UrlEncoder.Create();
-            
         }
 
         private async Task<Coordenador> CoodernadorUsuario()
@@ -55,7 +53,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         {
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
-            
+
             ViewBag.UserName = $"{_coordenadorUsuario.NomeDaPessoa} {_coordenadorUsuario.SobrenomeDaPessoa}";
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
@@ -80,7 +78,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         public async Task<IActionResult> SelecionarConteudoCoordenador(string diretorioDaUnidade, IFormFile arquivo)
         {
             if ((diretorioDaUnidade == null) || (arquivo == null)) return Redirect("Conteudo");
-            
+
             var urlEncode = _encoder.Encode(diretorioDaUnidade);
             await _enviarArquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
             return Redirect($"Conteudo?DiretorioDaUnidade={urlEncode}");

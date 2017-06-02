@@ -18,6 +18,5 @@ namespace PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels
         public IEnumerable<UnidadeViewModel> UnidadeViewModel { get; set; }
         public IEnumerable<FileInfo> Arquivos { get; set; }
         public FileInfo Arquivo { get; set; }
-
     }
 }

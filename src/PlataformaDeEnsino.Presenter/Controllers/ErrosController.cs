@@ -6,9 +6,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
     public class ErrosController : Controller
     {
         public ErrosController()
-        {
-
-        }
+        {}
 
         [Route("Erro")]
         public ViewResult Erro()
