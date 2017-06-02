@@ -7,8 +7,8 @@ namespace PlataformaDeEnsino.Presenter.ViewModels
     {
         [Key]
         public int IdDaUnidade { get; set; }
-        private string NomeDaUnidade { get; set; }
-        private string DiretorioDaUnidade { get; set; }
+        public string NomeDaUnidade { get; set; }
+        public string DiretorioDaUnidade { get; set; }
 
         public int IdDoModulo { get; set; }
         public ModuloViewModel Modulo { get; set; }

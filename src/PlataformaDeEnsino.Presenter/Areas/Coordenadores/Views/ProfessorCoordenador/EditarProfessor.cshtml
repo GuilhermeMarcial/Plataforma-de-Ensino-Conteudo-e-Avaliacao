@@ -18,8 +18,10 @@
                             </div>
                         </div>
                         <form method="Post" asp-action="EditarProfessor">
-                        <input hidden name="IdDoProfessor" value="@Model.IdDoProfessor">
-                        <input hidden name="IdDoUsuario" value="@Model.IdDoUsuario">
+                        @Html.HiddenFor(i => i.IdDoProfessor)
+                        @Html.HiddenFor(i => i.IdDoUsuario)
+                       <!-- <input hidden name="IdDoProfessor" value="@Model.IdDoProfessor">
+                        <input hidden name="IdDoUsuario" value="@Model.IdDoUsuario">  -->
                         <input name="Role" value="Professor" hidden>
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">Nome</label>

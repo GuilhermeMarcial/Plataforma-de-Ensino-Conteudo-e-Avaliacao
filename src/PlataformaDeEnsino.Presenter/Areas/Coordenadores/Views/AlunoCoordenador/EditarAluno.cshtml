@@ -18,8 +18,10 @@
                             </div>
                         </div>
                         <form method="Post" asp-action="EditarAluno">
-                            <input hidden name="IdDoAluno" value="@Model.IdDoAluno">
-                            <input hidden name="IdDoUsuario" value="@Model.IdDoUsuario">
+                            @Html.HiddenFor(i => i.IdDoAluno)
+                            @Html.HiddenFor(i => i.IdDoUsuario)
+                    
+                            <span asp-validation-for="Role" class="text-danger"></span>
                             <input name="Role" value="Aluno" hidden>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Nome</label>
