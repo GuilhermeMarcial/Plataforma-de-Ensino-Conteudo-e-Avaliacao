@@ -7,7 +7,7 @@ namespace PlataformaDeEnsino.Core.Services.Interfaces.InstituicaoInterfaces
 {
     public interface IAlunoService : IServiceBase<Aluno>, IDisposable
     {
-       Task<Aluno> ConsultarAlunoPeloCpfAsync(string CpfDoAluno);
+       Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDoAluno);
        Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso); 
     }
 }

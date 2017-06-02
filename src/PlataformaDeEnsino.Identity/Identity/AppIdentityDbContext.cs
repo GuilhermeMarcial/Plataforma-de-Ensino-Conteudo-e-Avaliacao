@@ -8,7 +8,8 @@ namespace PlataformaDeEnsino.Core.Identity
     public class AppIdentityDbContext : IdentityDbContext<AppUser>, IDisposable
     {
         public AppIdentityDbContext() 
-        { }
+        {  
+        }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

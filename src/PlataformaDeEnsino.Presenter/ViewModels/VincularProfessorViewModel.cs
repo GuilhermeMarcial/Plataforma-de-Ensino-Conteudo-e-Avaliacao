@@ -9,16 +9,15 @@ namespace PlataformaDeEnsino.Presenter.ViewModels
         private IEnumerable<ProfessorViewModel> professoresViewModel;
         private ProfessorViewModel professorViewModel;
 
-        public VincularProfessorViewModel(UnidadeViewModel UnidadeViewModel, IEnumerable<ProfessorViewModel> ProfessoresViewModel)
+        public VincularProfessorViewModel(UnidadeViewModel unidadeViewModel, IEnumerable<ProfessorViewModel> professoresViewModel)
         {
-            unidadeViewModel = UnidadeViewModel;
-            professoresViewModel = ProfessoresViewModel;
+            this.unidadeViewModel = unidadeViewModel;
+            this.professoresViewModel = professoresViewModel;
         }
-        public VincularProfessorViewModel(UnidadeViewModel UnidadeViewModel, ProfessorViewModel ProfessorViewModel)
+        public VincularProfessorViewModel(UnidadeViewModel unidadeViewModel, ProfessorViewModel professorViewModel)
         {
-            unidadeViewModel = UnidadeViewModel;
-            professorViewModel = ProfessorViewModel;
+            this.unidadeViewModel = unidadeViewModel;
+            this.professorViewModel = professorViewModel;
         }
-
     }
 }

@@ -6,5 +6,6 @@ using PlataformaDeEnsino.Core.Repositories.InstituicaoRepositories;
 namespace PlataformaDeEnsino.Infrastructure.Repositories
 {
     public class CursoRepository : RepositoryBase<Curso>, ICursoRepository
-    {}
+    { 
+    }
 }

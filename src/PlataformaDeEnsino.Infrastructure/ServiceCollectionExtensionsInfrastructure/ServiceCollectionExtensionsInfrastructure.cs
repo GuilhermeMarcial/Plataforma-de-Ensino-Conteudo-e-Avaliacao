@@ -6,7 +6,6 @@ namespace PlataformaDeEnsino.Infrastructure.ServiceCollectionExtensionsInfrastru
 {
     public static class ServiceCollectionExtensionsInfrastructure
     {
-        
             public static void RegistrarDependenciasInfrastructure(this IServiceCollection serviceCollection)
             {
                 serviceCollection.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
