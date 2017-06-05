@@ -5,9 +5,9 @@ namespace PlataformaDeEnsino.Presenter.ViewModels
 {
     public class VincularProfessorViewModel
     {
-        private UnidadeViewModel unidadeViewModel;
-        private IEnumerable<ProfessorViewModel> professoresViewModel;
-        private ProfessorViewModel professorViewModel;
+        public UnidadeViewModel unidadeViewModel;
+        public IEnumerable<ProfessorViewModel> professoresViewModel;
+        public ProfessorViewModel professorViewModel;
 
         public VincularProfessorViewModel(UnidadeViewModel unidadeViewModel, IEnumerable<ProfessorViewModel> professoresViewModel)
         {

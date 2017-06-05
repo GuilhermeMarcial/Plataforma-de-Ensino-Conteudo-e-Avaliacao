@@ -37,7 +37,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
             return await _coordenadorAppService.ConsultarPeloCpfAsync(User.Identity.Name);
         }
 
-        [HttpGet("ProfessorCoordenador")]
+        [HttpGet("Professores")]
         public async Task<IActionResult> ProfessorCoordenador()
         {
             var coordenadorUsuario = CoodernadorUsuario();

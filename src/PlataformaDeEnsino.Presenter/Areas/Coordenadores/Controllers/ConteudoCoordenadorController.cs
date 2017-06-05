@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfaces;
 using PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInterfaces;
 using PlataformaDeEnsino.Core.Entities;
@@ -49,7 +50,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         }
 
         [HttpGet("Conteudo")]
-        public async Task<IActionResult> ConteudoCoordenador([FromQuery] int idDoModulo, string diretorioDaUnidade)
+        public async Task<IActionResult> ConteudoCoordenador(int idDoModulo, string diretorioDaUnidade)
         {
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
@@ -70,14 +71,14 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
 
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
-            var conteudoAlunoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel);
-            return View(conteudoAlunoViewModel);
+            var conteudoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel);
+            return View(conteudoViewModel);
         }
 
         [HttpPost("SelecionarConteudoCoordenador")]
         public async Task<IActionResult> SelecionarConteudoCoordenador(string diretorioDaUnidade, IFormFile arquivo)
         {
-            if ((diretorioDaUnidade == null) || (arquivo == null)) return Redirect("Conteudo");
+            if ((diretorioDaUnidade == null) || (arquivo == null))  return Redirect("SelecionarConteudoCoordenador");
 
             var urlEncode = _encoder.Encode(diretorioDaUnidade);
             await _enviarArquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);

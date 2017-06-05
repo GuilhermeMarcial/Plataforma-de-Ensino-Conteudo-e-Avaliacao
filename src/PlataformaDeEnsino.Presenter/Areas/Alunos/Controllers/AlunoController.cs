@@ -40,7 +40,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Alunos.Controllers
         }
 
         [HttpGet("Conteudo")]
-        public async Task<IActionResult> ConteudoAluno([FromQuery] int idDoModulo, string diretorioDaUnidade)
+        public async Task<IActionResult> ConteudoAluno(int idDoModulo, string diretorioDaUnidade)
         {
             var alunoUsuario = AlunoUsuario();
             _alunoUsuario = await alunoUsuario;

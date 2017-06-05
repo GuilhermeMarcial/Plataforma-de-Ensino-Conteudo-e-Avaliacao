@@ -42,10 +42,13 @@ namespace PlataformaDeEnsino.Presenter.Controllers
                 if (usuario != null)
                 {
                     var result = await _signInManager.PasswordSignInAsync(usuario, model.cpfDoUsuario, false, false);
-                    if (result.Succeeded)
+                    if (!result.Succeeded)
                     {
-                        return RedirectToAction("RedirecionarUsuario");
+                        ModelState.AddModelError("All", "CPF incorreto");
+                        return View(model);
                     }
+                    
+                    return RedirectToAction("RedirecionarUsuario");
                 }
                 else
                 {

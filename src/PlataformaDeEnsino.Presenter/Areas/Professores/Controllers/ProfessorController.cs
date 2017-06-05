@@ -57,7 +57,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Professores.Controllers
         }
 
         [HttpGet("Conteudo")]
-        public async Task<IActionResult> ConteudoProfessor([FromQuery] string diretorioDaUnidade)
+        public async Task<IActionResult> ConteudoProfessor(string diretorioDaUnidade)
         {
             var professorUsuario = ProfessorUsuario();
             _professorUsuario = await professorUsuario;
@@ -72,7 +72,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Professores.Controllers
         [HttpPost("SelecionarArquivo")]
         public async Task<IActionResult> EnviarArquivoProfessor(string diretorioDaUnidade, IFormFile arquivo)
         {
-            if (diretorioDaUnidade == null) return Redirect("Conteudo");
+            if ((diretorioDaUnidade == null) || (arquivo == null))  return Redirect("SelecionarConteudoCoordenador");
             var urlEncode = _encoder.Encode(diretorioDaUnidade);
             await _enviarAquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
             return Redirect("Conteudo?DiretorioDaUnidade=" + urlEncode);
