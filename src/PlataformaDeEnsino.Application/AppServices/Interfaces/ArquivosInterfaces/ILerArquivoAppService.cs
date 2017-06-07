@@ -4,6 +4,6 @@ namespace PlataformaDeEnsino.Application.AppServices.Interfaces.ArquivosInterfac
 {
     public interface ILerArquivoAppService
     {
-        FileInfo LerArquivoApp(string caminhoDoArquivo);
+        FileInfo LerArquivo(string caminhoDoArquivo);
     }
 }

@@ -28,7 +28,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers
         [Authorize]
         public FileResult DownloadFile(string caminhoDoArquivo)
         {
-            var file = _lerArquivoAppService.LerArquivoApp(caminhoDoArquivo);
+            var file = _lerArquivoAppService.LerArquivo(caminhoDoArquivo);
             var fileBytes = _lerArquivoEmBytesAppService.LerArquivoEmBytes(file);
             return File(fileBytes, "application/pdf", file.Name);
         }

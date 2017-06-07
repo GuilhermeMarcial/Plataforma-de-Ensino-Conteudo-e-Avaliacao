@@ -13,7 +13,7 @@ namespace PlataformaDeEnsino.Application.AppServices.ArquivosAppServices
             _lerArquivoService = lerArquivoService;
         }
 
-        public FileInfo LerArquivoApp(string caminhoDoArquivo)
+        public FileInfo LerArquivo(string caminhoDoArquivo)
         {
             return _lerArquivoService.LerArquivo(caminhoDoArquivo);
         }
