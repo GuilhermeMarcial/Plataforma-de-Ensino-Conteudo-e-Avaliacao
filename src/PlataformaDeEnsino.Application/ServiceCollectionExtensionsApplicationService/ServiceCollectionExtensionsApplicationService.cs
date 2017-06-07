@@ -17,8 +17,6 @@ namespace PlataformaDeEnsino.Application.ServiceCollectionExtensionsApplicationS
             serviceCollection.AddScoped<IModuloAppService, ModuloAppService>();
             serviceCollection.AddScoped<IProfessorAppService, ProfessorAppService>();
             serviceCollection.AddScoped<IUnidadeAppService, UnidadeAppService>();
-            serviceCollection.AddScoped<ICriacaoDoDiretorioAppService, CriacaoDoDiretorioAppService>();
-            serviceCollection.AddScoped<IDelecaoDeDiretoriosAppService, DelecaoDeDiretoriosAppService>();
             serviceCollection.AddScoped<IEnviarArquivosAppService, EnviarArquivosAppService>();
             serviceCollection.AddScoped<IRecuperarArquivosAppService, RecuperarArquivosAppService>();
             serviceCollection.AddScoped<IDelecaoDeArquivosAppService, DelecaoDeArquivosAppService>();

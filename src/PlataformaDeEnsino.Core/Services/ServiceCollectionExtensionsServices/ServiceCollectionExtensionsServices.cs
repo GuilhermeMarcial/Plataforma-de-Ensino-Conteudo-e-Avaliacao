@@ -18,8 +18,6 @@ namespace PlataformaDeEnsino.Core.Services.ServiceCollectionExtensionsServices
             serviceCollection.AddScoped<IModuloService, ModuloService>();
             serviceCollection.AddScoped<IProfessorService, ProfessorService>();
             serviceCollection.AddScoped<IUnidadeService, UnidadeService>();
-            serviceCollection.AddScoped<ICriacaoDoDiretorioService, CriacaoDoDiretorioService>();
-            serviceCollection.AddScoped<IDelecaoDeDiretoriosService, DelecaoDeDiretoriosService>();
             serviceCollection.AddScoped<IEnviarArquivosService, EnviarArquivosService>();
             serviceCollection.AddScoped<IRecuperarArquivosService, RecuperarArquivosService>();
             serviceCollection.AddScoped<IDelecaoDeArquivosService, DelecaoDeArquivosService>();
