@@ -44,7 +44,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         {
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
-            
+
             ViewBag.UserName = $"{_coordenadorUsuario.NomeDaPessoa} {_coordenadorUsuario.SobrenomeDaPessoa}";
             var alunosViewModel = _mapper.Map<IEnumerable<Aluno>, IEnumerable<AlunoViewModel>>(await _alunoAppService.SelecionarAlunosPeloCursoAsync(_coordenadorUsuario.IdDoCurso));
             return View(alunosViewModel);
@@ -65,7 +65,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
                 _alunoAppService.InserirAsync(aluno);
                 var user = new AppUser { UserName = alunoViewModel.CpfDaPessoa, Email = alunoViewModel.EmailDaPessoa };
                 var resultCreate = await _userManager.CreateAsync(user, alunoViewModel.CpfDaPessoa);
-                
+
                 if (resultCreate.Succeeded)
                 {
                     var resultRole = await _userManager.AddToRoleAsync(user, alunoViewModel.Role);
@@ -82,29 +82,37 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         public async Task<IActionResult> VisualizarAluno(int idDoAluno, int idDoCurso)
         {
             ViewBag.Curso = _mapper.Map<Curso, CursoViewModel>(await _cursoAppService.ConsultarPeloIdAsync(idDoCurso));
-            
+
             var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(await _alunoAppService.ConsultarPeloIdAsync(idDoAluno));
             alunoViewModel.Usuario = await _userManager.FindByNameAsync(alunoViewModel.CpfDaPessoa);
-            
+
             return View(alunoViewModel);
         }
 
         [HttpGet("EditarAluno")]
         public async Task<ViewResult> EditarAluno(int idDoAluno, string idDoUsuario)
         {
-             var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(await _alunoAppService.ConsultarPeloIdAsync(idDoAluno));
-             alunoViewModel.IdDoUsuario = idDoUsuario;
-             alunoViewModel.Usuario = await _userManager.FindByIdAsync(idDoUsuario);
-             
-             return View(alunoViewModel);   
-        }
+            TempData["idDoAluno"] = idDoAluno;
+            TempData["idDoUsuario"] = idDoUsuario;
+            TempData["Role"] = "Aluno";
+            
+            var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(await _alunoAppService.ConsultarPeloIdAsync(idDoAluno));
         
+            alunoViewModel.Usuario = await _userManager.FindByIdAsync(idDoUsuario);
+
+            return View(alunoViewModel);
+        }
+
         [HttpPost("EditarAluno")]
         public async Task<IActionResult> EditarAluno(AlunoViewModel alunoViewModel)
         {
+            var idDoUsuario = TempData["idDoUsuario"] as string;
+            var idDoAluno = TempData["idDoAluno"] as int?;
+            var role = TempData["Role"] as string;
+
             if (ModelState.IsValid)
             {
-                var usuario = await _userManager.FindByIdAsync(alunoViewModel.IdDoUsuario);
+                var usuario = await _userManager.FindByIdAsync(idDoUsuario);
                 if (usuario != null)
                 {
                     var userChangePassword = await _userManager.ChangePasswordAsync(usuario, usuario.UserName, alunoViewModel.CpfDaPessoa);
@@ -115,6 +123,9 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
                         var resultadoDaAtualizacaoDoUsuario = await _userManager.UpdateAsync(usuario);
                         if (resultadoDaAtualizacaoDoUsuario.Succeeded)
                         {
+                            alunoViewModel.IdDoAluno = idDoAluno;
+                            alunoViewModel.Role = role;
+                            
                             var aluno = _mapper.Map<AlunoViewModel, Aluno>(alunoViewModel);
                             _alunoAppService.AtualizarAsync(aluno);
                             return Redirect(
@@ -132,12 +143,12 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
             var aluno = await alunoAsync;
             var usuario = await _userManager.FindByNameAsync(aluno.CpfDaPessoa);
             var deletandoUsuario = await _userManager.DeleteAsync(usuario);
-            
+
             if (deletandoUsuario.Succeeded)
             {
                 _alunoAppService.DeletarAsync(aluno.IdDoAluno);
             }
-            
+
             return Redirect("AlunoCoordenador");
         }
     }

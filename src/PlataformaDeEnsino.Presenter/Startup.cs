@@ -38,6 +38,8 @@ namespace PlataformaDeEnsino.Presenter
 
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 
+            services.AddSession();
+
             services.RegistrarDependenciasIdentity();
             services.RegistrarDependenciasMapper();
             services.RegistrarDependenciasInfrastructure();
@@ -52,7 +54,9 @@ namespace PlataformaDeEnsino.Presenter
             app.UseStatusCodePagesWithRedirects("/Erro/{0}");
             app.UseStaticFiles();
             app.UseIdentity();
+            app.UseSession();
             app.UseMvc();
+            
             app.Use(async (contex, next) => { contex.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN"); await next(); });
         }
     }

@@ -7,7 +7,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.ViewModels
     public class AlunoViewModel : PessoaViewModel
     {
         [Key]
-        public int IdDoAluno { get; set; }
+        public int? IdDoAluno { get; set; }
         public string IdDoUsuario { get; set; }
         public int NivelDoAluno { get; set; }
         public string CodigoDaTurma { get; set; }

@@ -8,7 +8,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Professores.ViewModels
     public class ProfessorViewModel : PessoaViewModel
     {
         [Key]
-        public int IdDoProfessor { get; set; }
+        public int? IdDoProfessor { get; set; }
         public string IdDoUsuario { get; set; }
         public string Role { get; set; }
         public AppUser Usuario { get; set; }

@@ -86,8 +86,12 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         [HttpGet("EditarProfessor")]
         public async Task<ViewResult> EditarProfessor(int idDoProfessor, string idDoUsuario)
         {
+            TempData["idDoProfessor"] = idDoProfessor;
+            TempData["idDoUsuario"] = idDoUsuario;
+            TempData["Role"] = "Professor";
+            
             var professorViewModel = _mapper.Map<Professor, ProfessorViewModel>(await _professorAppService.ConsultarPeloIdAsync(idDoProfessor));
-            professorViewModel.IdDoUsuario = idDoUsuario;
+            
             professorViewModel.Usuario = await _userManager.FindByIdAsync(idDoUsuario);
             return View(professorViewModel);
         }
@@ -95,9 +99,13 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         [HttpPost("EditarProfessor")]
         public async Task<IActionResult> EditarProfessor(ProfessorViewModel professorViewModel)
         {
+            var idDoUsuario = TempData["idDoUsuario"] as string;
+            var idDoProfessor = TempData["idDoProfessor"] as int?;
+            var role = TempData["Role"] as string;
+
             if (ModelState.IsValid)
             {
-                var usuario = await _userManager.FindByIdAsync(professorViewModel.IdDoUsuario);
+                var usuario = await _userManager.FindByIdAsync(idDoUsuario);
                 if (usuario != null)
                 {
                     var userChangePassword = await _userManager.ChangePasswordAsync(usuario, usuario.UserName, professorViewModel.CpfDaPessoa);
@@ -108,6 +116,9 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
                         var resultadoDaAtualizacaoDoUsuario = await _userManager.UpdateAsync(usuario);
                         if (resultadoDaAtualizacaoDoUsuario.Succeeded)
                         {
+                            professorViewModel.IdDoProfessor = idDoProfessor;
+                            professorViewModel.Role = role;
+                            
                             var professor = _mapper.Map<ProfessorViewModel, Professor>(professorViewModel);
                             _professorAppService.AtualizarAsync(professor);
                             return Redirect($"VisualizarProfessor?IdDoProfessor={professorViewModel.IdDoProfessor}");

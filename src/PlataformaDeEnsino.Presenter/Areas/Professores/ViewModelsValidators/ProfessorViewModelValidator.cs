@@ -24,8 +24,6 @@ namespace PlataformaDeEnsino.Presenter.ViewModelValidators
             .NotEmpty().WithMessage("Informe o Email")
             .Length(5, 50).WithMessage("Verifique o tamanho do email")
             .Matches("[A-Za-z0-9\\._-]+@[A-Za-z0-9]+(\\.[A-Za-z]+)*").WithMessage("Informe um email valido");
-            RuleFor(t => t.Role)
-            .NotEmpty().Matches("[a-zA-Z\u00C0-\u00FF]+");
         }
     }
 }

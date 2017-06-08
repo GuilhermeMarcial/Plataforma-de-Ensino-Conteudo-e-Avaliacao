@@ -36,8 +36,6 @@ namespace PlataformaDeEnsino.Presenter.ViewModelValidators
             RuleFor(t => t.IdDoCurso)
                 .NotEmpty().WithMessage("Selecione a turma que o aluno sera matriculado")
                 .Must(SomenteNumeros);
-            RuleFor(t => t.Role)
-                .NotEmpty().Matches("[a-zA-Z\u00C0-\u00FF]+").WithMessage("Hahaha");
         }
 
         private static bool SomenteNumeros(int input)
