@@ -51,7 +51,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
             var conteudoAlunoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel);
             return View(conteudoAlunoViewModel);
         }
-
+        
         [HttpGet("VisualizarUnidade")]
         public async Task<IActionResult> VisualizarUnidade(int idDaUnidade)
         {
@@ -65,6 +65,12 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         public async Task<IActionResult> VincularProfessor(int idDaUnidade)
         {
             var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(await _unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
+            
+            TempData["IdDaUnidade"] = unidadeViewModel.IdDaUnidade;
+            TempData["NomeDaUnidade"] = unidadeViewModel.NomeDaUnidade;
+            TempData["DiretorioDaUnidade"] = unidadeViewModel.DiretorioDaUnidade;
+            TempData["IdDoModulo"] = unidadeViewModel.IdDoModulo;
+            
             var professoresViewModel = _mapper.Map<IEnumerable<Professor>, IEnumerable<ProfessorViewModel>>(await _professorAppService.ConsultarTodosAsync());
             var vincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professoresViewModel);
             return View(vincularProfessorViewModel);
@@ -73,6 +79,11 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         [HttpPost("VincularProfessor")]
         public IActionResult VincularProfessor(UnidadeViewModel unidadeViewModel)
         {
+            unidadeViewModel.IdDaUnidade = (int)TempData["IdDaUnidade"];
+            unidadeViewModel.NomeDaUnidade = TempData["NomeDaUnidade"] as string ;
+            unidadeViewModel.DiretorioDaUnidade = TempData["DiretorioDaUnidade"] as string;
+            unidadeViewModel.IdDoModulo = (int)TempData["IdDoModulo"];
+
             var unidade = _mapper.Map<UnidadeViewModel, Unidade>(unidadeViewModel);
             _unidadeAppService.AtualizarAsync(unidade);
             return Redirect($"VisualizarUnidade?IdDaUnidade={unidadeViewModel.IdDaUnidade}");

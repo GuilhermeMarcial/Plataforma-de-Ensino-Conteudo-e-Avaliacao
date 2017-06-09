@@ -57,6 +57,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         [HttpPost("NovoProfessor")]
         public async Task<IActionResult> NovoProfessor(ProfessorViewModel professorViewModel)
         {
+            professorViewModel.Role = "Professor";
             if (ModelState.IsValid)
             {
                 var professor = _mapper.Map<ProfessorViewModel, Professor>(professorViewModel);
@@ -68,7 +69,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
                     var resultRole = await _userManager.AddToRoleAsync(user, professorViewModel.Role);
                     if (resultRole.Succeeded)
                     {
-                        return Redirect("ProfessorCoordenador");
+                        return Redirect("Professores");
                     }
                 }
             }
@@ -142,7 +143,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
                 _professorAppService.DeletarAsync(professor.IdDoProfessor);
             }
 
-            return Redirect("ProfessorCoordenador");
+            return Redirect("Professores");
         }
     }
 }

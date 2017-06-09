@@ -61,6 +61,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         {
             if (ModelState.IsValid)
             {
+                alunoViewModel.Role = "Aluno";
                 var aluno = _mapper.Map<AlunoViewModel, Aluno>(alunoViewModel);
                 _alunoAppService.InserirAsync(aluno);
                 var user = new AppUser { UserName = alunoViewModel.CpfDaPessoa, Email = alunoViewModel.EmailDaPessoa };
@@ -71,7 +72,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
                     var resultRole = await _userManager.AddToRoleAsync(user, alunoViewModel.Role);
                     if (resultRole.Succeeded)
                     {
-                        return Redirect("AlunoCoordenador");
+                        return Redirect("Alunos");
                     }
                 }
             }
@@ -110,9 +111,13 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
             var idDoAluno = TempData["idDoAluno"] as int?;
             var role = TempData["Role"] as string;
 
+            alunoViewModel.IdDoAluno = idDoAluno;
+            alunoViewModel.Role = role;
+
             if (ModelState.IsValid)
             {
                 var usuario = await _userManager.FindByIdAsync(idDoUsuario);
+
                 if (usuario != null)
                 {
                     var userChangePassword = await _userManager.ChangePasswordAsync(usuario, usuario.UserName, alunoViewModel.CpfDaPessoa);
@@ -122,10 +127,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
                         usuario.Email = alunoViewModel.EmailDaPessoa;
                         var resultadoDaAtualizacaoDoUsuario = await _userManager.UpdateAsync(usuario);
                         if (resultadoDaAtualizacaoDoUsuario.Succeeded)
-                        {
-                            alunoViewModel.IdDoAluno = idDoAluno;
-                            alunoViewModel.Role = role;
-                            
+                        {   
                             var aluno = _mapper.Map<AlunoViewModel, Aluno>(alunoViewModel);
                             _alunoAppService.AtualizarAsync(aluno);
                             return Redirect(
@@ -149,7 +151,7 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
                 _alunoAppService.DeletarAsync(aluno.IdDoAluno);
             }
 
-            return Redirect("AlunoCoordenador");
+            return Redirect("Alunos");
         }
     }
 }
