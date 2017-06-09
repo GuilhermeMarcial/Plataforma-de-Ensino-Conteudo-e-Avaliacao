@@ -12,11 +12,11 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
     {
         public async Task<IEnumerable<Modulo>> ConsultarModulosDoCursoAsync(int idDoCurso)
         {
-            return await context.Modulos.Where(m => m.IdDoCurso == idDoCurso).ToListAsync();
+            return await context.Modulos.AsNoTracking().Where(m => m.IdDoCurso == idDoCurso).ToListAsync();
         }
         public async Task<IEnumerable<Modulo>> ConsultarModulosDoCursoAsync(int idDoCurso, int nivelDoAluno)
         {
-            return await context.Modulos.Where(m => m.IdDoCurso == idDoCurso).Where(c => c.NivelDoModulo <= nivelDoAluno).ToListAsync();
+            return await context.Modulos.AsNoTracking().Where(m => m.IdDoCurso == idDoCurso).Where(c => c.NivelDoModulo <= nivelDoAluno).ToListAsync();
         }
     }
 }

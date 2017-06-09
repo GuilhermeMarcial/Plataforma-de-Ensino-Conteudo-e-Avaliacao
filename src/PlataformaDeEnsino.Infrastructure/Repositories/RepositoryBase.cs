@@ -26,7 +26,7 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
 
         public async Task<IEnumerable<TEntity>> ConsultarTodosAsync()
         {
-            return await context.Set<TEntity>().ToListAsync();
+            return await context.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
         public async void DeletarAsync(int id)
