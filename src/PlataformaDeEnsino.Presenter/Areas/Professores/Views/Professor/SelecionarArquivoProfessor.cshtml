@@ -14,9 +14,10 @@
                         <div class="modal-header">
                             <div class="text-center estilo-noticia-margin-bottom">
                                 <i class="fa fa-book fa-5x icone-book"></i>
-                                <h4 class="modal-title text-center ">Enviar novo arquivo</h4>
+                                <h4 class="modal-title text-center">Enviar novo arquivo</h4>
                             </div>
                         </div>
+                        <div class="text-center"><span class="text-danger">@TempData["erroAoEnviarArquivo"]</span></div>
                         <form method="POST" enctype="multipart/form-data" asp-controller="Professor" asp-action="SelecionarArquivo">
                             @Html.AntiForgeryToken()
                             <select name="diretorioDaUnidade" class="disciplina-professor-upload form-control form-group">

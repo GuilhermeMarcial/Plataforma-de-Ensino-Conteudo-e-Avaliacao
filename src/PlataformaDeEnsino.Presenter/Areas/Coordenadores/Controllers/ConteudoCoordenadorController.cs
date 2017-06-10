@@ -78,7 +78,11 @@ namespace PlataformaDeEnsino.Presenter.Areas.Coordenadores.Controllers
         [HttpPost("SelecionarConteudoCoordenador")]
         public async Task<IActionResult> SelecionarConteudoCoordenador(string diretorioDaUnidade, IFormFile arquivo)
         {
-            if ((diretorioDaUnidade == null) || (arquivo == null))  return Redirect("SelecionarConteudoCoordenador");
+            if ((diretorioDaUnidade == null) || (arquivo == null)) 
+            {
+                TempData["erroAoEnviarArquivo"] = "Antes de enviar um arquivo, selecione a unidade e arquivo";
+                return Redirect("SelecionarConteudoCoordenador");
+            }
 
             var urlEncode = _encoder.Encode(diretorioDaUnidade);
             await _enviarArquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);

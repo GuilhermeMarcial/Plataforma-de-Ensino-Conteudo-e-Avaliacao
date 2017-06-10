@@ -26,6 +26,9 @@
                             }
                         </select>
                         </form>
+                        <div class="text-center">
+                            <span class="text-danger">@TempData["erroAoEnviarArquivo"]</span>
+                        </div>
                         <form method="POST" enctype="multipart/form-data" asp-action="SelecionarConteudoCoordenador">
                         @Html.AntiForgeryToken()
                         <select name="diretorioDaUnidade" class="disciplina-coordenador-upload form-control form-group">

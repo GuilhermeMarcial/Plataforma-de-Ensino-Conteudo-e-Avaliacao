@@ -72,7 +72,12 @@ namespace PlataformaDeEnsino.Presenter.Areas.Professores.Controllers
         [HttpPost("SelecionarArquivo")]
         public async Task<IActionResult> EnviarArquivoProfessor(string diretorioDaUnidade, IFormFile arquivo)
         {
-            if ((diretorioDaUnidade == null) || (arquivo == null))  return Redirect("SelecionarConteudoCoordenador");
+            if ((diretorioDaUnidade == null) || (arquivo == null)) 
+            {
+                TempData["erroAoEnviarArquivo"] = "Antes de enviar um arquivo, selecione a unidade e arquivo";
+                return Redirect("SelecionarArquivo");
+            }
+            
             var urlEncode = _encoder.Encode(diretorioDaUnidade);
             await _enviarAquivoAppService.EnviarArquivos(diretorioDaUnidade, arquivo);
             return Redirect("Conteudo?DiretorioDaUnidade=" + urlEncode);
