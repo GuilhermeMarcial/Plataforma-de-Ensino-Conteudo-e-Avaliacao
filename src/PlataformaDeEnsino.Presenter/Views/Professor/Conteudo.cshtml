@@ -1,0 +1,66 @@
+@model PlataformaDeEnsino.Presenter.ViewModels.InstituicaoViewModels.ConteudoProfessorViewModel 
+@{ Layout = $"_Layout"; }
+
+<!DOCTYPE html>
+<html lang="pt">
+
+<body>
+    <div class="titulo">
+            <ul class="nav navbar-nav float-direita-usuario">
+                <li class="dropdown ">
+                    <a href="#" class="float-direita-usuario-bottom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@ViewBag.UserName<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="/LogOff">Sair</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    <div class="container td">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center estilo-noticia-margin-bottom">
+                    <i class="fa fa-book fa-5x icone-book"></i>
+
+                    <p class="conteudo text-center">Conteúdo</p>
+                    <a href="SelecionarArquivo"> <button class="btn btn-default botaoupar">Enviar Arquivo</button></a>
+                </div>
+                <div class="container selects">
+                    <form method="GET" asp-controller="Professor" asp-action="Conteudo">
+                        <select name="diretorioDaUnidade" class="disciplina-professor form-control form-group" onchange="this.form.submit()">
+                            <option>Unidades</option>
+                            @foreach(var unidade in Model.UnidadeViewModel)
+                            {
+                                <option value="@unidade.DiretorioDaUnidade">@unidade.NomeDaUnidade</option>
+                            }
+                        </select>
+                    </form>
+                </div>
+
+                <div class="container">
+                    <table class="table table-bordered table-overflow">
+                        <thead>
+                            <th>Arquivo</th>
+                            <th>Data</th>
+                            <th>Deletar</th>
+                        </thead>
+
+                        <tbody>
+                            @if(Model.Arquivos != null) 
+                            { 
+                                foreach(var arquivo in Model.Arquivos) 
+                                {
+                                    <tbody>
+                                        <td><a href="Download?caminhoDoArquivo=@arquivo.FullName" target="_blank">@arquivo.Name</a></td>
+                                        <td>@arquivo.LastAccessTime.ToString("dd/MM/yyyy")</td>
+                                        <td><a href="Deletar?caminhoDoArquivo=@arquivo.FullName&nomeDoArquivo=@arquivo.Name" target="_self" ><button class=" btn btn-danger  "><i class="glyphicon glyphicon-trash"></i></button></a></td>
+                                    </tbody>
+                            }   }
+                       </tbody>
+                    </table>
+                </div>
+            </div>
+        </div></div>
+</body>
+
+</html>

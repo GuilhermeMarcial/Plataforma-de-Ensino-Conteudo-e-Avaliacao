@@ -50,12 +50,15 @@ namespace PlataformaDeEnsino.Presenter
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
-            app.UseExceptionHandler("/Erro");
-            app.UseStatusCodePagesWithRedirects("/Erro/{0}");
+            //app.UseExceptionHandler("/Erro");
+            //app.UseStatusCodePagesWithRedirects("/Erro/{0}");
+            app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseSession();
-            app.UseMvc();
+            app.UseMvc(route =>{
+                route.MapRoute("padrao", "{controller}/{action}");
+            });
             
             app.Use(async (contex, next) => { contex.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN"); await next(); });
         }
