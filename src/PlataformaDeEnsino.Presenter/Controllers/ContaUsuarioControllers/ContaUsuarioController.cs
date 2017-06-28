@@ -33,19 +33,19 @@ namespace PlataformaDeEnsino.Presenter.Controllers.ContaUsuarioControllers
 
         [HttpPost("")]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginUsuario(LoginViewModel model)
+        public async Task<IActionResult> LoginUsuario(LoginViewModel loginViewModel)
         {
             if (ModelState.IsValid)
             {
                 await _signInManager.SignOutAsync();
-                var usuario = await _userManager.FindByEmailAsync(model.emailDoUsuario);
+                var usuario = await _userManager.FindByEmailAsync(loginViewModel.emailDoUsuario);
                 if (usuario != null)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(usuario, model.cpfDoUsuario, false, false);
+                    var result = await _signInManager.PasswordSignInAsync(usuario, loginViewModel.cpfDoUsuario, false, false);
                     if (!result.Succeeded)
                     {
                         ModelState.AddModelError("All", "CPF incorreto");
-                        return View(model);
+                        return View(loginViewModel);
                     }
                     
                     return RedirectToAction("RedirecionarUsuario");
@@ -53,10 +53,10 @@ namespace PlataformaDeEnsino.Presenter.Controllers.ContaUsuarioControllers
                 else
                 {
                     ModelState.AddModelError("All", "Login Invalido");
-                    return View(model);
+                    return View(loginViewModel);
                 }
             }
-            return View(model);
+            return View(loginViewModel);
         }
 
         [HttpGet("RedirecionarUsuario")]

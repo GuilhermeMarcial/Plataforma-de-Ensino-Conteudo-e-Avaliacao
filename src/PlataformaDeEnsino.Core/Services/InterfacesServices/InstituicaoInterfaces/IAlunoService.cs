@@ -5,9 +5,10 @@ using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Core.Services.Interfaces.InstituicaoInterfaces
 {
-    public interface IAlunoService : IServiceBase<Aluno>, IDisposable
+    public interface IAlunoService : IServiceBase<Aluno>
     {
+       Task<Aluno> ConsultarAlunoPeloId(int idDoAluno);
        Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDoAluno);
-       Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso); 
+       Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso);
     }
 }

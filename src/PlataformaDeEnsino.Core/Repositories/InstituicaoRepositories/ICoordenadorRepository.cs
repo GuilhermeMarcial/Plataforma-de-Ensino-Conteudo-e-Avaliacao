@@ -4,7 +4,7 @@ using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Core.Repositories.InstituicaoRepositories
 {
-    public interface ICoordenadorRepository : IRepositoryBase<Coordenador>, IDisposable
+    public interface ICoordenadorRepository : IRepositoryBase<Coordenador>
     {
           Task<Coordenador> ConsultarPeloCpfAsync(string cpfDaPessoa);
     }

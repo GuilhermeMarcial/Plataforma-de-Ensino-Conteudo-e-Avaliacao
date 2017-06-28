@@ -44,7 +44,7 @@ namespace PlataformaDeEnsino.Presenter.Controllers.AlunoControllers
             var alunoUsuario = AlunoUsuario();
             _alunoUsuario = await alunoUsuario;
             
-            ViewBag.UserName = $"{_alunoUsuario.NomeDaPessoa} {_alunoUsuario.SobrenomeDaPessoa}";
+            ViewBag.UserName = $"{_alunoUsuario.Pessoa.NomeDaPessoa} {_alunoUsuario.Pessoa.SobrenomeDaPessoa}";
             
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_alunoUsuario.IdDoCurso, _alunoUsuario.NivelDoAluno));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));

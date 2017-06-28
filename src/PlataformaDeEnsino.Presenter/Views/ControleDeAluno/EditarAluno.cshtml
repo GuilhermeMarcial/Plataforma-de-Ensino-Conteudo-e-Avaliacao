@@ -1,5 +1,5 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model PlataformaDeEnsino.Presenter.ViewModels.InstituicaoViewModels.AlunoViewModel
+@model PlataformaDeEnsino.Presenter.ViewModels.InstituicaoViewModels.EditarAlunoViewModel
 @{ Layout = "_Layout"; }
 
 <!DOCTYPE html>
@@ -14,32 +14,31 @@
                         <div class="modal-header">
                             <div class="text-center estilo-noticia-margin-bottom">
                             <i class="fa fa-book fa-5x icone-book"></i>
-                            <h4 class="modal-title text-center ">Cadastrar novo aluno</h4>
+                            <h4 class="modal-title text-center ">Editando aluno</h4>
                             </div>
                         </div>
                         <form method="Post" asp-action="EditarAluno">
-                    
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Nome</label>
-
-                                <input name="NomeDaPessoa" class="form-control" type="text" value="@Model.NomeDaPessoa">
-                                <span asp-validation-for="NomeDaPessoa" class="text-danger"></span>
+                                
+                                <input name="Pessoa.NomeDaPessoa" class="form-control" type="text" value="@Model.Pessoa.NomeDaPessoa">
+                                <span asp-validation-for="Pessoa.NomeDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Sobrenome</label>
 
-                                <input class="form-control" type="text" name="SobrenomeDaPessoa" value="@Model.SobrenomeDaPessoa">
-                                <span asp-validation-for="SobrenomeDaPessoa" class="text-danger"></span>
+                                <input class="form-control" type="text" name="Pessoa.SobrenomeDaPessoa" value="@Model.Pessoa.SobrenomeDaPessoa">
+                                <span asp-validation-for="Pessoa.SobrenomeDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Email</label>
-                                <input class="form-control" type="text" name="EmailDaPessoa" value="@Model.EmailDaPessoa">
-                                <span asp-validation-for="EmailDaPessoa" class="text-danger"></span>
+                                <input class="form-control" type="text" name="Pessoa.EmailDaPessoa" value="@Model.Pessoa.EmailDaPessoa">
+                                <span asp-validation-for="Pessoa.EmailDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">CPF</label>
-                                <input class="form-control" type="text" name="CpfDaPessoa" value="@Model.CpfDaPessoa">
-                                <span asp-validation-for="CpfDaPessoa" class="text-danger"></span>
+                                <input class="form-control" type="text" name="Pessoa.CpfDaPessoa" value="@Model.Pessoa.CpfDaPessoa">
+                                <span asp-validation-for="Pessoa.CpfDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Codigo da turma</label>
@@ -59,20 +58,6 @@
                                             <option value="7">Setimo</option>
                                         </select>
                                 <span asp-validation-for="NivelDoAluno" class="text-danger"></span>
-                            </div>
-                            <div class="modal-container">
-                                <label class="col-2 col-form-label text-modal-title">Turma</label>
-                                <select name="IdDoCurso" class="form-control">
-                                            <option>Cursos</option>
-                                            <option value="1">CST em Agroindústria</option>
-                                            <option value="2">CST em Alimentos</option>
-                                            <option value="3">CST em Análise e Desenvolvimento de Sistemas</option>
-                                            <option value="4">CST em Gestão da Qualidade</option>
-                                            <option value="5">CST em Gestão de Recursos Humanos</option>
-                                            <option value="6">CST em Logística</option>
-                                            <option value="7">CST em Redes de Computadores</option>
-                                        </select>
-                                <span asp-validation-for="IdDoCurso" class="text-danger"></span>
                             </div>
                             <div class="modal-footer footer-modal">
                                 <div class="footer-botoes">

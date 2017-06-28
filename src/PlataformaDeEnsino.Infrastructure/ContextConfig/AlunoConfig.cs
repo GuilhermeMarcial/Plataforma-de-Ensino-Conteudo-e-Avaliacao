@@ -14,10 +14,7 @@ namespace PlataformaDeEnsino.Infrastructure.ContextConfig
                 a.Property(i => i.IdDoAluno).IsRequired().ValueGeneratedOnAdd();
                 a.Property(c => c.CodigoDaTurma).IsRequired().HasColumnType("varchar(35)").HasMaxLength(30);
                 a.Property(e => e.NivelDoAluno).IsRequired().HasColumnType("int(12)").HasMaxLength(1);
-                a.Property(n => n.NomeDaPessoa).IsRequired().HasColumnType("varchar(50)").HasMaxLength(50);
-                a.Property(s => s.SobrenomeDaPessoa).IsRequired().HasColumnType("varchar(100)").HasMaxLength(100);
-                a.Property(c => c.CpfDaPessoa).IsRequired().HasColumnType("varchar(12)").HasMaxLength(12);
-                a.Property(e => e.EmailDaPessoa).IsRequired().HasColumnType("varchar(50)").HasMaxLength(50);
+                a.HasOne(p => p.Pessoa).WithMany(p => p.Alunos).HasForeignKey(p => p.IdDaPessoa).IsRequired();
                 a.HasOne(t => t.Curso).WithMany(t => t.Alunos).HasForeignKey(t => t.IdDoCurso).IsRequired();
             });
         }

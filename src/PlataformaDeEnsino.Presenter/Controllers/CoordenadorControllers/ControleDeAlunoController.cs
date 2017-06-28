@@ -17,15 +17,17 @@ namespace PlataformaDeEnsino.Presenter.Coordenadores.Controllers.CoordenadorCont
     public class ControleDeAlunoController : Controller
     {
         private readonly IMapper _mapper;
+        private readonly IPessoaAppService _pessoaAppService;
         private Coordenador _coordenadorUsuario;
         private readonly ICoordenadorAppService _coordenadorAppService;
         private readonly IAlunoAppService _alunoAppService;
         private readonly ICursoAppService _cursoAppService;
         private readonly UserManager<AppUser> _userManager;
 
-        public ControleDeAlunoController(IMapper mapper, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAlunoAppService alunoAppService, ICursoAppService cursoAppService, ICoordenadorAppService coordenadorAppService)
+        public ControleDeAlunoController(IMapper mapper, IPessoaAppService pessoaAppService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IAlunoAppService alunoAppService, ICursoAppService cursoAppService, ICoordenadorAppService coordenadorAppService)
         {
             _mapper = mapper;
+            _pessoaAppService = pessoaAppService;
             _alunoAppService = alunoAppService;
             _cursoAppService = cursoAppService;
             _userManager = userManager;
@@ -41,8 +43,9 @@ namespace PlataformaDeEnsino.Presenter.Coordenadores.Controllers.CoordenadorCont
         {
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
+            TempData["CursoCoordenador"] = _coordenadorUsuario.IdDoCurso;
 
-            ViewBag.UserName = $"{_coordenadorUsuario.NomeDaPessoa} {_coordenadorUsuario.SobrenomeDaPessoa}";
+            ViewBag.UserName = $"{_coordenadorUsuario.Pessoa.NomeDaPessoa} {_coordenadorUsuario.Pessoa.SobrenomeDaPessoa}";
             var alunosViewModel = _mapper.Map<IEnumerable<Aluno>, IEnumerable<AlunoViewModel>>(await _alunoAppService.SelecionarAlunosPeloCursoAsync(_coordenadorUsuario.IdDoCurso));
             return View(alunosViewModel);
         }
@@ -57,11 +60,18 @@ namespace PlataformaDeEnsino.Presenter.Coordenadores.Controllers.CoordenadorCont
         {
             if (ModelState.IsValid)
             {
+                alunoViewModel.IdDaPessoa = alunoViewModel.Pessoa.IdDaPessoa;
+                
                 alunoViewModel.Role = "Aluno";
+                alunoViewModel.IdDoCurso = (int)TempData["CursoCoordenador"];
+                TempData.Keep();
+                
+
                 var aluno = _mapper.Map<AlunoViewModel, Aluno>(alunoViewModel);
+
                 _alunoAppService.InserirAsync(aluno);
-                var user = new AppUser { UserName = alunoViewModel.CpfDaPessoa, Email = alunoViewModel.EmailDaPessoa };
-                var resultCreate = await _userManager.CreateAsync(user, alunoViewModel.CpfDaPessoa);
+                var user = new AppUser { UserName = alunoViewModel.Pessoa.CpfDaPessoa, Email = alunoViewModel.Pessoa.EmailDaPessoa };
+                var resultCreate = await _userManager.CreateAsync(user, alunoViewModel.Pessoa.CpfDaPessoa);
 
                 if (resultCreate.Succeeded)
                 {
@@ -79,8 +89,8 @@ namespace PlataformaDeEnsino.Presenter.Coordenadores.Controllers.CoordenadorCont
         {
             ViewBag.Curso = _mapper.Map<Curso, CursoViewModel>(await _cursoAppService.ConsultarPeloIdAsync(idDoCurso));
 
-            var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(await _alunoAppService.ConsultarPeloIdAsync(idDoAluno));
-            alunoViewModel.Usuario = await _userManager.FindByNameAsync(alunoViewModel.CpfDaPessoa);
+            var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(await _alunoAppService.ConsultarAlunoPeloId(idDoAluno));
+            alunoViewModel.Usuario = await _userManager.FindByNameAsync(alunoViewModel.Pessoa.CpfDaPessoa);
 
             return View(alunoViewModel);
         }
@@ -91,58 +101,87 @@ namespace PlataformaDeEnsino.Presenter.Coordenadores.Controllers.CoordenadorCont
             TempData["idDoUsuario"] = idDoUsuario;
             TempData["Role"] = "Aluno";
             
-            var alunoViewModel = _mapper.Map<Aluno, AlunoViewModel>(await _alunoAppService.ConsultarPeloIdAsync(idDoAluno));
-        
-            alunoViewModel.Usuario = await _userManager.FindByIdAsync(idDoUsuario);
+            var coordenadorUsuario = CoodernadorUsuario();
+            _coordenadorUsuario = await coordenadorUsuario;
+            TempData["CursoCoordenador"] = _coordenadorUsuario.IdDoCurso;
+            
+            var editarAlunoViewModel = _mapper.Map<Aluno, EditarAlunoViewModel>(await _alunoAppService.ConsultarAlunoPeloId(idDoAluno));
 
-            return View(alunoViewModel);
+            editarAlunoViewModel.Usuario = await _userManager.FindByIdAsync(idDoUsuario);
+            TempData["IdDaPessoa"] = editarAlunoViewModel.Pessoa.IdDaPessoa;
+            TempData["CpfDaPessoa"] = editarAlunoViewModel.Pessoa.CpfDaPessoa;
+            TempData["EmailDaPessoa"] = editarAlunoViewModel.Pessoa.EmailDaPessoa;
+
+            return View(editarAlunoViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditarAluno(AlunoViewModel alunoViewModel)
+        public async Task<IActionResult> EditarAluno(EditarAlunoViewModel editarAlunoViewModel)
         {
             var idDoUsuario = TempData["idDoUsuario"] as string;
-            var idDoAluno = TempData["idDoAluno"] as int?;
-            var role = TempData["Role"] as string;
+            editarAlunoViewModel.IdDoAluno = TempData["idDoAluno"] as int?;
+            editarAlunoViewModel.Role = TempData["Role"] as string;
+            editarAlunoViewModel.IdDoCurso = (int)TempData["CursoCoordenador"];
+            editarAlunoViewModel.IdDaPessoa = (int)TempData["IdDaPessoa"];
+            var cpfDaPessoa = TempData["CpfDaPessoa"] as string;
+            var emailDaPessoa = TempData["EmailDaPessoa"] as string;
 
-            alunoViewModel.IdDoAluno = idDoAluno;
-            alunoViewModel.Role = role;
+            TempData.Keep();
+
+            
 
             if (ModelState.IsValid)
-            {
+            {     
+                if(await _pessoaAppService.PessoaExisteCpfAsync(cpfDaPessoa, editarAlunoViewModel.Pessoa.CpfDaPessoa))
+                {
+                    ModelState.AddModelError("Pessoa.CpfDaPessoa", "Cpf já esta em uso");
+                    return View(editarAlunoViewModel);
+                }
+
+                if(await _pessoaAppService.PessoaExisteEmailAsync(emailDaPessoa, editarAlunoViewModel.Pessoa.EmailDaPessoa))
+                {
+                    
+                    ModelState.AddModelError("Pessoa.EmailDaPessoa", "E-Mail já esta em uso");
+                    return View(editarAlunoViewModel);
+                
+                }
+
+                editarAlunoViewModel.Pessoa.IdDaPessoa = editarAlunoViewModel.IdDaPessoa;
+                var pessoa = _mapper.Map<PessoaViewModel, Pessoa>(editarAlunoViewModel.Pessoa);
+                _pessoaAppService.AtualizarAsync(pessoa);
+            
                 var usuario = await _userManager.FindByIdAsync(idDoUsuario);
 
                 if (usuario != null)
                 {
-                    var userChangePassword = await _userManager.ChangePasswordAsync(usuario, usuario.UserName, alunoViewModel.CpfDaPessoa);
+                    var userChangePassword = await _userManager.ChangePasswordAsync(usuario, usuario.UserName, editarAlunoViewModel.Pessoa.CpfDaPessoa);
                     if (userChangePassword.Succeeded)
                     {
-                        usuario.UserName = alunoViewModel.CpfDaPessoa;
-                        usuario.Email = alunoViewModel.EmailDaPessoa;
+                        usuario.UserName = editarAlunoViewModel.Pessoa.CpfDaPessoa;
+                        usuario.Email = editarAlunoViewModel.Pessoa.EmailDaPessoa;
                         var resultadoDaAtualizacaoDoUsuario = await _userManager.UpdateAsync(usuario);
                         if (resultadoDaAtualizacaoDoUsuario.Succeeded)
-                        {   
-                            var aluno = _mapper.Map<AlunoViewModel, Aluno>(alunoViewModel);
+                        {
+                            var aluno = _mapper.Map<EditarAlunoViewModel, Aluno>(editarAlunoViewModel);
                             _alunoAppService.AtualizarAsync(aluno);
                             return Redirect(
-                                $"VisualizarAluno?IdDoAluno={alunoViewModel.IdDoAluno}&IdDoCurso={alunoViewModel.IdDoCurso}");
+                                $"VisualizarAluno?IdDoAluno={editarAlunoViewModel.IdDoAluno}&IdDoCurso={editarAlunoViewModel.IdDoCurso}");
                         }
                     }
                 }
             }
-            return View(alunoViewModel);
+            return View(editarAlunoViewModel);
         }
-        [HttpGet("DeletarAluno")]
         public async Task<IActionResult> DeletarAluno(int idDoAluno)
         {
-            var alunoAsync = _alunoAppService.ConsultarPeloIdAsync(idDoAluno);
+            var alunoAsync = _alunoAppService.ConsultarAlunoPeloId(idDoAluno);
             var aluno = await alunoAsync;
-            var usuario = await _userManager.FindByNameAsync(aluno.CpfDaPessoa);
+            var usuario = await _userManager.FindByNameAsync(aluno.Pessoa.CpfDaPessoa);
             var deletandoUsuario = await _userManager.DeleteAsync(usuario);
 
             if (deletandoUsuario.Succeeded)
             {
-                _alunoAppService.DeletarAsync(aluno.IdDoAluno);
+                _pessoaAppService.DeletarAsync(aluno.IdDaPessoa);
             }
 
             return Redirect("Alunos");

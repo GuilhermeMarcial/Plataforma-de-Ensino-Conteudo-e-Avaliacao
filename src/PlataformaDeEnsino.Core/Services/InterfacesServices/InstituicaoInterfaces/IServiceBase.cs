@@ -10,6 +10,5 @@ namespace PlataformaDeEnsino.Core.Services.Interfaces.InstituicaoInterfaces
         void InserirAsync(TEntity obj);
         void DeletarAsync(int id);
         void AtualizarAsync(TEntity obj);
-        void Dispose();
     }
 }

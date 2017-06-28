@@ -5,7 +5,7 @@ using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Core.Repositories.InstituicaoRepositories
 {
-    public interface IUnidadeRepository : IRepositoryBase<Unidade>, IDisposable
+    public interface IUnidadeRepository : IRepositoryBase<Unidade>
     {
          Task<IEnumerable<Unidade>> ConsultarUnidadadesDoModuloAsync(int idDoModulo);
 

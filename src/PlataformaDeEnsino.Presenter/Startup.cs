@@ -14,6 +14,7 @@ using PlataformaDeEnsino.Core.Services.ServiceCollectionExtensionsServices;
 using PlataformaDeEnsino.Presenter.Mapper.ServiceCollectionExtensionsMapper;
 using PlataformaDeEnsino.Infrastructure.ServiceCollectionExtensionsInfrastructure;
 using PlataformaDeEnsino.Application.ServiceCollectionExtensionsApplicationService;
+using PlataformaDeEnsino.Presenter.Middlewares.XFrameOptions;
 
 namespace PlataformaDeEnsino.Presenter
 {
@@ -49,6 +50,7 @@ namespace PlataformaDeEnsino.Presenter
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseXFrameOptions();
             loggerFactory.AddConsole();
             //app.UseExceptionHandler("/Erro");
             //app.UseStatusCodePagesWithRedirects("/Erro/{0}");
@@ -59,8 +61,6 @@ namespace PlataformaDeEnsino.Presenter
             app.UseMvc(route =>{
                 route.MapRoute("padrao", "{controller}/{action}");
             });
-            
-            app.Use(async (contex, next) => { contex.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN"); await next(); });
         }
     }
 }

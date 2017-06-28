@@ -33,7 +33,7 @@
                     <ul class="nav navbar-nav">
 
                         <li><a class="navbar-brand estilo-navbar-brand bordas-a" href="">Repositório de Conteúdo</a></li>
-                        <li><a class="navbar-brand estilo-navbar-brand " id="espaco-conteudo" href="Conteudo">Conteudo</a></li>
+                        <li><a class="navbar-brand estilo-navbar-brand " id="espaco-conteudo" href="../Coordenador/Conteudo">Conteudo</a></li>
 
 
                         <li class="dropdown">
@@ -67,9 +67,9 @@
     <div class="titulo">
         <ul class="nav navbar-nav float-direita-usuario">
             <li class="dropdown ">
-                <a href="#" class="float-direita-usuario-bottom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@ViewBag.UserName<span class="caret"></span></a>
+                <a href="#" class="float-direita-usuario-bottom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-graduation-cap" aria-hidden="true"></i>@ViewBag.UserName<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-
+                    <li><a href="../Coordenador/TrocaDeSenha">Trocar Senha</a></li>
                     <li><a href="/LogOff">Sair</a></li>
 
                 </ul>
@@ -100,7 +100,7 @@
                                     {
                                         <tbody>
                                             <td>
-                                                @aluno.NomeDaPessoa @aluno.SobrenomeDaPessoa
+                                                @aluno.Pessoa.NomeDaPessoa @aluno.Pessoa.SobrenomeDaPessoa
                                             </td>
                                             <td>
                                                 @aluno.CodigoDaTurma

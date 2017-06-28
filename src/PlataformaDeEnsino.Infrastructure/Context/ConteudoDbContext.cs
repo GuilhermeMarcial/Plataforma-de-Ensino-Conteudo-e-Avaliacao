@@ -9,6 +9,7 @@ namespace PlataformaDeEnsino.Infrastructure.Context
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<Modulo> Modulos { get; set; }
         public DbSet<Unidade> Unidades { get; set; }
+        public DbSet<Pessoa> Pessoas { get; set; }
         public DbSet<Aluno> Alunos { get; set; }
         public DbSet<Professor> Professores { get; set; }
         public DbSet<Coordenador> Coordenadores { get; set; }
@@ -32,6 +33,7 @@ namespace PlataformaDeEnsino.Infrastructure.Context
             CursoConfig.Curso(builder);
             ModuloConfig.Modulo(builder);
             UnidadeConfig.Unidade(builder);
+            PessoaConfig.Pessoa(builder);
             AlunoConfig.Aluno(builder);
             ProfessorConfig.Professor(builder);
             CoordenadorConfig.Coordenador(builder);

@@ -17,10 +17,15 @@ namespace PlataformaDeEnsino.Core.Services.InstituicaoServices
         {
             _alunoRepository = alunoRepository;
         }
-
+        
         public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDoAluno)
         {
             return await _alunoRepository.ConsultarAlunoPeloCpfAsync(cpfDoAluno);
+        }
+
+        public async Task<Aluno> ConsultarAlunoPeloId(int idDoAluno)
+        {
+           return await _alunoRepository.ConsultarAlunoPeloId(idDoAluno);
         }
 
         public async Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso)

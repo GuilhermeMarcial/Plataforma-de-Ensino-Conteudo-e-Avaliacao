@@ -35,12 +35,7 @@ namespace PlataformaDeEnsino.Application.AppServices.InstituicaoAppServices
         {
             _serviceBase.DeletarAsync(id);
         }
-
-        public void Dispose()
-        {
-            _serviceBase.Dispose();
-        }
-
+        
         public void InserirAsync(TEntity obj)
         {
             _serviceBase.InserirAsync(obj);

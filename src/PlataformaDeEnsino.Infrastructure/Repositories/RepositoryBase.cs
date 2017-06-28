@@ -36,13 +36,6 @@ namespace PlataformaDeEnsino.Infrastructure.Repositories
             context.SaveChanges();
         }
 
-        public void Dispose()
-        {
-            if (context != null)
-                context.Dispose();
-            GC.SuppressFinalize(this);
-        }
-
         public async void InserirAsync(TEntity obj)
         {
             await context.Set<TEntity>().AddAsync(obj);

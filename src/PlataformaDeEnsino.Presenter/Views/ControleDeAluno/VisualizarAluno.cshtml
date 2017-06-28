@@ -20,13 +20,13 @@
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">Nome</label>
 
-                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.NomeDaPessoa">
+                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.Pessoa.NomeDaPessoa">
 
                         </div>
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">Sobrenome</label>
 
-                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.SobrenomeDaPessoa">
+                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.Pessoa.SobrenomeDaPessoa">
 
                         </div>
                         <div class="modal-container">
@@ -38,7 +38,7 @@
                         <div class="modal-container">
                             <label class="col-2 col-form-label text-modal-title">CPF</label>
 
-                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.CpfDaPessoa">
+                            <input class="form-control" type="text" disabled="disabled" placeholder="@Model.Pessoa.CpfDaPessoa">
 
                         </div>
                         <div class="modal-container">
@@ -53,9 +53,7 @@
                         </div>
                         <div class="modal-container">
                             <label disabled="disabled" class="col-2 col-form-label text-modal-title">Curso</label>
-                            <select class="form-control" disabled="disabled">
-                                            <option selected value="" name="">@ViewBag.Curso.NomeDoCurso</option>
-                                        </select>
+                            <input class="form-control" disabled="disabled" type="text" placeholder="@ViewBag.Curso.NomeDoCurso">
                         </div>
                         <div class="modal-footer footer-modal">
                             <div class="footer-botoes">

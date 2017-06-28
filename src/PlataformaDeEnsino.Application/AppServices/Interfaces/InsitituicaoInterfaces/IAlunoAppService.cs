@@ -6,6 +6,7 @@ namespace PlataformaDeEnsino.Application.AppServices.Interfaces.InsitituicaoInte
 {
     public interface IAlunoAppService : IAppServiceBase<Aluno>
     {
+        Task<Aluno> ConsultarAlunoPeloId(int idDoAluno);
         Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDoAluno);
         Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso);
     }

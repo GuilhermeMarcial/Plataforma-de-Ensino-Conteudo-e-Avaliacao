@@ -11,6 +11,7 @@ namespace PlataformaDeEnsino.Application.ServiceCollectionExtensionsApplicationS
         public static void RegistrarDependenciasApplicationService(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped(typeof(IAppServiceBase<>), typeof(AppServiceBase<>));
+            serviceCollection.AddScoped<IPessoaAppService, PessoaAppService>();
             serviceCollection.AddScoped<IAlunoAppService, AlunoAppService>();
             serviceCollection.AddScoped<ICoordenadorAppService, CoordenadorAppService>();
             serviceCollection.AddScoped<ICursoAppService, CursoAppService>();

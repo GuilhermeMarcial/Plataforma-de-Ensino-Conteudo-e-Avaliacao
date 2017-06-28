@@ -4,5 +4,6 @@ namespace PlataformaDeEnsino.Identity.Models
 {
     public class AppUser : IdentityUser
     {
+        
     }
 }

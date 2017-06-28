@@ -5,14 +5,15 @@ using PlataformaDeEnsino.Presenter.ViewModels.InstituicaoViewModels;
 
 namespace PlataformaDeEnsino.Presenter.ViewModels.InstituicaoViewModels
 {
-    public class ProfessorViewModel : PessoaViewModel
+    public class ProfessorViewModel
     {
-        [Key]
-        public int? IdDoProfessor { get; set; }
+        public int IdDoProfessor { get; set; }
         public string IdDoUsuario { get; set; }
         public string Role { get; set; }
         public AppUser Usuario { get; set; }
-
+        
+        public int IdDaPessoa { get; set; }
+        public PessoaViewModel Pessoa { get; set; }
         public ICollection<UnidadeViewModel> Unidades { get; set; }
     }
 }

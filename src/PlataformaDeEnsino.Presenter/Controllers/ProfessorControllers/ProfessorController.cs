@@ -57,7 +57,7 @@ namespace PlataformaDeEnsino.Presenter.Professores.Controllers.ProfessorControll
             var professorUsuario = ProfessorUsuario();
             _professorUsuario = await professorUsuario;
             
-            ViewBag.UserName = _professorUsuario.NomeDaPessoa + " " + _professorUsuario.SobrenomeDaPessoa;
+            ViewBag.UserName = _professorUsuario.Pessoa.NomeDaPessoa + " " + _professorUsuario.Pessoa.SobrenomeDaPessoa;
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadesDoProfessorAsync(_professorUsuario.IdDoProfessor));
             _arquivos = diretorioDaUnidade != null ? await _arquivoAppService.RecuperarArquivosAsync(diretorioDaUnidade) : null;
             var conteudoProfessorViewModel = new ConteudoProfessorViewModel(unidadeViewModel, _arquivos);

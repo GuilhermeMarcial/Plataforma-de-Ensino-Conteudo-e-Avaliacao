@@ -4,7 +4,7 @@ using PlataformaDeEnsino.Core.Entities;
 
 namespace PlataformaDeEnsino.Core.Services.Interfaces.InstituicaoInterfaces
 {
-    public interface ICoordenadorService : IServiceBase<Coordenador>, IDisposable
+    public interface ICoordenadorService : IServiceBase<Coordenador>
     {
          Task<Coordenador> ConsultarPeloCpfAsync(string cpfDoCoordenador);
     }

@@ -53,7 +53,7 @@ namespace PlataformaDeEnsino.Presenter.Coordenadores.Controllers.CoordenadorCont
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
 
-            ViewBag.UserName = $"{_coordenadorUsuario.NomeDaPessoa} {_coordenadorUsuario.SobrenomeDaPessoa}";
+            ViewBag.UserName = $"{_coordenadorUsuario.Pessoa.NomeDaPessoa} {_coordenadorUsuario.Pessoa.SobrenomeDaPessoa}";
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
             _arquivos = diretorioDaUnidade != null ? await _recuperarArquivoAppService.RecuperarArquivosAsync(diretorioDaUnidade) : null;
@@ -75,7 +75,7 @@ namespace PlataformaDeEnsino.Presenter.Coordenadores.Controllers.CoordenadorCont
         [HttpPost]
         public async Task<IActionResult> SelecionarConteudo(string diretorioDaUnidade, IFormFile arquivo)
         {
-            if ((diretorioDaUnidade == null) || (arquivo == null)) 
+            if ((diretorioDaUnidade == null) || (arquivo == null))
             {
                 TempData["erroAoEnviarArquivo"] = "Antes de enviar um arquivo, selecione a unidade e arquivo";
                 return Redirect("SelecionarConteudo");

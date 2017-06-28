@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PlataformaDeEnsino.Core.Entities;
 using PlataformaDeEnsino.Core.Repositories;
@@ -24,6 +25,16 @@ namespace PlataformaDeEnsino.Core.Services.InstituicaoServices
         public async Task<Professor> ConsultarPeloCpfAsync(string cpfDoProfessor)
         {
             return await _professorRepository.ConsultarPeloCpfAsync(cpfDoProfessor);
+        }
+
+        public async Task<Professor> ConsultarProfessorPeloId(int idDoProfessor)
+        {
+            return await _professorRepository.ConsultarProfessorPeloId(idDoProfessor);
+        }
+
+        public async Task<IEnumerable<Professor>> ConsultarTodosProfessoresAsync()
+        {
+            return await _professorRepository.ConsultarTodosProfessoresAsync();
         }
     }
 }

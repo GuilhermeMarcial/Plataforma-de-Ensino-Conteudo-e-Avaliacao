@@ -20,27 +20,25 @@
                         <form method="Post" asp-action="NovoAluno">
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Nome</label>
-
-                                <input name="NomeDaPessoa" class="form-control" type="text" placeholder="Digite o nome">
-                                <span asp-validation-for="NomeDaPessoa" class="text-danger"></span>
+                                <input name="Pessoa.NomeDaPessoa" class="form-control" type="text" placeholder="Digite o nome">
+                                <span asp-validation-for="Pessoa.NomeDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Sobrenome</label>
-
-                                <input class="form-control" type="text" name="SobrenomeDaPessoa" placeholder="Digite o sobrenome">
-                                <span asp-validation-for="SobrenomeDaPessoa" class="text-danger"></span>
+                                <input class="form-control" type="text" name="Pessoa.SobrenomeDaPessoa" placeholder="Digite o sobrenome">
+                                <span asp-validation-for="Pessoa.SobrenomeDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Email</label>
 
-                                <input class="form-control" type="text" name="EmailDaPessoa" placeholder="Digite o email">
-                                <span asp-validation-for="EmailDaPessoa" class="text-danger"></span>
+                                <input class="form-control" type="text" name="Pessoa.EmailDaPessoa" placeholder="Digite o email">
+                                <span asp-validation-for="Pessoa.EmailDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">CPF</label>
 
-                                <input class="form-control" type="text" name="CpfDaPessoa" placeholder="Digite o CPF">
-                                <span asp-validation-for="CpfDaPessoa" class="text-danger"></span>
+                                <input class="form-control" type="text" name="Pessoa.CpfDaPessoa" placeholder="Digite o CPF">
+                                <span asp-validation-for="Pessoa.CpfDaPessoa" class="text-danger"></span>
                             </div>
                             <div class="modal-container">
                                 <label class="col-2 col-form-label text-modal-title">Codigo da turma</label>
@@ -60,20 +58,6 @@
                                             <option value="7">Setimo</option>
                                         </select>
                                 <span asp-validation-for="NivelDoAluno" class="text-danger"></span>
-                            </div>
-                            <div class="modal-container">
-                                <label class="col-2 col-form-label text-modal-title">Turma</label>
-                                <select name="IdDoCurso" class="form-control">
-                                            <option>Cursos</option>
-                                            <option value="1">CST em Agroindústria</option>
-                                            <option value="2">CST em Alimentos</option>
-                                            <option value="3">CST em Análise e Desenvolvimento de Sistemas</option>
-                                            <option value="4">CST em Gestão da Qualidade</option>
-                                            <option value="5">CST em Gestão de Recursos Humanos</option>
-                                            <option value="6">CST em Logística</option>
-                                            <option value="7">CST em Redes de Computadores</option>
-                                        </select>
-                                <span asp-validation-for="IdDoCurso" class="text-danger"></span>
                             </div>
                             <div class="modal-footer footer-modal">
                                 <div class="footer-botoes">

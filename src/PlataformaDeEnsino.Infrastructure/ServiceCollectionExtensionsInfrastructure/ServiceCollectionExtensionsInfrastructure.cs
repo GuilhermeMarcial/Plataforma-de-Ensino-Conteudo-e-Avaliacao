@@ -9,6 +9,7 @@ namespace PlataformaDeEnsino.Infrastructure.ServiceCollectionExtensionsInfrastru
             public static void RegistrarDependenciasInfrastructure(this IServiceCollection serviceCollection)
             {
                 serviceCollection.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+                serviceCollection.AddScoped<IPessoaRepository, PessoaRepository>();
                 serviceCollection.AddScoped<IAlunoRepository, AlunoRepository>();
                 serviceCollection.AddScoped<ICoordenadorRepository, CoordenadorRepository>();
                 serviceCollection.AddScoped<ICursoRepository, CursoRepository>();

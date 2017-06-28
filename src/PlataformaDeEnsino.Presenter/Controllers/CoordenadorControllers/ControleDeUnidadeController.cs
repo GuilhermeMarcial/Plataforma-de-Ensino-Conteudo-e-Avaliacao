@@ -41,7 +41,7 @@ namespace PlataformaDeEnsino.Presenter.Coordenadores.Controllers.CoordenadorCont
             var coordenadorUsuario = CoodernadorUsuario();
             _coordenadorUsuario = await coordenadorUsuario;
 
-            ViewBag.UserName = $"{_coordenadorUsuario.NomeDaPessoa} {_coordenadorUsuario.SobrenomeDaPessoa}";
+            ViewBag.UserName = $"{_coordenadorUsuario.Pessoa.NomeDaPessoa} {_coordenadorUsuario.Pessoa.SobrenomeDaPessoa}";
             var moduloViewModel = _mapper.Map<IEnumerable<Modulo>, IEnumerable<ModuloViewModel>>(await _moduloAppService.ConsultarModulosDoCursoAsync(_coordenadorUsuario.IdDoCurso));
             var unidadeViewModel = _mapper.Map<IEnumerable<Unidade>, IEnumerable<UnidadeViewModel>>(await _unidadeAppService.ConsultarUnidadadesDoModuloAsync(idDoModulo));
             var conteudoAlunoViewModel = new ConteudoViewModel(moduloViewModel, unidadeViewModel);
@@ -51,7 +51,7 @@ namespace PlataformaDeEnsino.Presenter.Coordenadores.Controllers.CoordenadorCont
         public async Task<IActionResult> VisualizarUnidade(int idDaUnidade)
         {
             var unidadeViewModel = _mapper.Map<Unidade, UnidadeViewModel>(await _unidadeAppService.ConsultarPeloIdAsync(idDaUnidade));
-            var professorViewModel = _mapper.Map<Professor, ProfessorViewModel>(await _professorAppService.ConsultarPeloIdAsync(Convert.ToInt32(unidadeViewModel.IdDoProfessor)));
+            var professorViewModel = _mapper.Map<Professor, ProfessorViewModel>(await _professorAppService.ConsultarPelaUnidadeAsync(Convert.ToInt32(unidadeViewModel.IdDoProfessor)));
             var vincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professorViewModel);
             return View(vincularProfessorViewModel);
         }
@@ -65,7 +65,7 @@ namespace PlataformaDeEnsino.Presenter.Coordenadores.Controllers.CoordenadorCont
             TempData["DiretorioDaUnidade"] = unidadeViewModel.DiretorioDaUnidade;
             TempData["IdDoModulo"] = unidadeViewModel.IdDoModulo;
             
-            var professoresViewModel = _mapper.Map<IEnumerable<Professor>, IEnumerable<ProfessorViewModel>>(await _professorAppService.ConsultarTodosAsync());
+            var professoresViewModel = _mapper.Map<IEnumerable<Professor>, IEnumerable<ProfessorViewModel>>(await _professorAppService.ConsultarTodosProfessoresAsync());
             var vincularProfessorViewModel = new VincularProfessorViewModel(unidadeViewModel, professoresViewModel);
             return View(vincularProfessorViewModel);
         }

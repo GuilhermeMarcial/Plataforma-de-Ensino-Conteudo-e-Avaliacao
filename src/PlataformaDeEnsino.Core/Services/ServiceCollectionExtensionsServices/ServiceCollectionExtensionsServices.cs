@@ -12,6 +12,7 @@ namespace PlataformaDeEnsino.Core.Services.ServiceCollectionExtensionsServices
         public static void RegistrarDependenciasServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped(typeof(IServiceBase<>), typeof(ServiceBase<>));
+            serviceCollection.AddScoped<IPessoaService, PessoaService>();
             serviceCollection.AddScoped<IAlunoService, AlunoService>();
             serviceCollection.AddScoped<ICoordenadorService, CoordenadorService>();
             serviceCollection.AddScoped<ICursoService, CursoService>();

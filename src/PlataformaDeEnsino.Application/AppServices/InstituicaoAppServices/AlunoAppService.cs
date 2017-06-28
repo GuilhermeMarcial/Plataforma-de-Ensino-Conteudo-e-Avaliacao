@@ -17,11 +17,16 @@ namespace PlataformaDeEnsino.Application.AppServices.InstituicaoAppServices
         {
             _alunoService = alunoService;
         }
-
         public async Task<Aluno> ConsultarAlunoPeloCpfAsync(string cpfDoAluno)
         {
             return await  _alunoService.ConsultarAlunoPeloCpfAsync(cpfDoAluno);
         }
+
+        public async Task<Aluno> ConsultarAlunoPeloId(int idDoAluno)
+        {
+            return await _alunoService.ConsultarAlunoPeloId(idDoAluno);
+        }
+
         public async Task<IEnumerable<Aluno>> SelecionarAlunosPeloCursoAsync(int idDoCurso)
         {
             return await  _alunoService.SelecionarAlunosPeloCursoAsync(idDoCurso);

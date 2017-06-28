@@ -8,10 +8,9 @@ using PlataformaDeEnsino.Infrastructure.Context;
 namespace PlataformaDeEnsino.Infrastructure.Migrations
 {
     [DbContext(typeof(ConteudoDbContext))]
-    [Migration("20170523034126_RepositorioDeConteudo")]
-    partial class RepositorioDeConteudo
+    partial class ConteudoDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1");
@@ -26,15 +25,7 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
                         .HasColumnType("varchar(35)")
                         .HasMaxLength(30);
 
-                    b.Property<string>("CpfDaPessoa")
-                        .IsRequired()
-                        .HasColumnType("varchar(12)")
-                        .HasMaxLength(12);
-
-                    b.Property<string>("EmailDaPessoa")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
+                    b.Property<int>("IdDaPessoa");
 
                     b.Property<int>("IdDoCurso");
 
@@ -42,17 +33,9 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
                         .HasColumnType("int(12)")
                         .HasMaxLength(1);
 
-                    b.Property<string>("NomeDaPessoa")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("SobrenomeDaPessoa")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
-
                     b.HasKey("IdDoAluno");
+
+                    b.HasIndex("IdDaPessoa");
 
                     b.HasIndex("IdDoCurso");
 
@@ -64,29 +47,13 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
                     b.Property<int>("IdDoCoordenador")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CpfDaPessoa")
-                        .IsRequired()
-                        .HasColumnType("varchar(12)")
-                        .HasMaxLength(12);
-
-                    b.Property<string>("EmailDaPessoa")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
+                    b.Property<int>("IdDaPessoa");
 
                     b.Property<int>("IdDoCurso");
 
-                    b.Property<string>("NomeDaPessoa")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("SobrenomeDaPessoa")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
-
                     b.HasKey("IdDoCoordenador");
+
+                    b.HasIndex("IdDaPessoa");
 
                     b.HasIndex("IdDoCurso")
                         .IsUnique();
@@ -132,9 +99,9 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
                     b.ToTable("Modulo");
                 });
 
-            modelBuilder.Entity("PlataformaDeEnsino.Core.Entities.Professor", b =>
+            modelBuilder.Entity("PlataformaDeEnsino.Core.Entities.Pessoa", b =>
                 {
-                    b.Property<int>("IdDoProfessor")
+                    b.Property<int>("IdDaPessoa")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("CpfDaPessoa")
@@ -154,10 +121,24 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
 
                     b.Property<string>("SobrenomeDaPessoa")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("IdDaPessoa");
+
+                    b.ToTable("Pessoa");
+                });
+
+            modelBuilder.Entity("PlataformaDeEnsino.Core.Entities.Professor", b =>
+                {
+                    b.Property<int>("IdDoProfessor")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("IdDaPessoa");
 
                     b.HasKey("IdDoProfessor");
+
+                    b.HasIndex("IdDaPessoa");
 
                     b.ToTable("Professor");
                 });
@@ -192,6 +173,11 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
 
             modelBuilder.Entity("PlataformaDeEnsino.Core.Entities.Aluno", b =>
                 {
+                    b.HasOne("PlataformaDeEnsino.Core.Entities.Pessoa", "Pessoa")
+                        .WithMany("Alunos")
+                        .HasForeignKey("IdDaPessoa")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("PlataformaDeEnsino.Core.Entities.Curso", "Curso")
                         .WithMany("Alunos")
                         .HasForeignKey("IdDoCurso")
@@ -200,6 +186,11 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
 
             modelBuilder.Entity("PlataformaDeEnsino.Core.Entities.Coordenador", b =>
                 {
+                    b.HasOne("PlataformaDeEnsino.Core.Entities.Pessoa", "Pessoa")
+                        .WithMany("Coordenadores")
+                        .HasForeignKey("IdDaPessoa")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("PlataformaDeEnsino.Core.Entities.Curso", "Curso")
                         .WithOne("Coordenador")
                         .HasForeignKey("PlataformaDeEnsino.Core.Entities.Coordenador", "IdDoCurso")
@@ -211,6 +202,14 @@ namespace PlataformaDeEnsino.Infrastructure.Migrations
                     b.HasOne("PlataformaDeEnsino.Core.Entities.Curso", "Curso")
                         .WithMany("Modulos")
                         .HasForeignKey("IdDoCurso")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PlataformaDeEnsino.Core.Entities.Professor", b =>
+                {
+                    b.HasOne("PlataformaDeEnsino.Core.Entities.Pessoa", "Pessoa")
+                        .WithMany("Professores")
+                        .HasForeignKey("IdDaPessoa")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

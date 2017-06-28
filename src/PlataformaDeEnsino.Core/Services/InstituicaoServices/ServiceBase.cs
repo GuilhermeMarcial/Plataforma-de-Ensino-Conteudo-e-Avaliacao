@@ -33,11 +33,6 @@ namespace PlataformaDeEnsino.Core.Services.InstituicaoServices
              _repository.DeletarAsync(id);
         }
 
-        public void Dispose()
-        {
-            _repository.Dispose();
-        }
-
         public void InserirAsync(TEntity obj)
         {
             _repository.InserirAsync(obj);
