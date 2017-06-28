@@ -52,9 +52,8 @@ namespace PlataformaDeEnsino.Presenter
         {
             app.UseXFrameOptions();
             loggerFactory.AddConsole();
-            //app.UseExceptionHandler("/Erro");
-            //app.UseStatusCodePagesWithRedirects("/Erro/{0}");
-            app.UseDeveloperExceptionPage();
+            app.UseExceptionHandler("/Erro");
+            app.UseStatusCodePagesWithRedirects("/Erro/{0}");
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseSession();
