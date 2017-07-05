@@ -15,6 +15,7 @@ using PlataformaDeEnsino.Presenter.Mapper.ServiceCollectionExtensionsMapper;
 using PlataformaDeEnsino.Infrastructure.ServiceCollectionExtensionsInfrastructure;
 using PlataformaDeEnsino.Application.ServiceCollectionExtensionsApplicationService;
 using PlataformaDeEnsino.Presenter.Middlewares.XFrameOptions;
+using PlataformaDeEnsino.Infrastructure.Context;
 
 namespace PlataformaDeEnsino.Presenter
 {
@@ -34,9 +35,8 @@ namespace PlataformaDeEnsino.Presenter
             .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddDbContext<AppIdentityDbContext>(options =>
-            options.UseMySql(
-            configuration["Data:ConteudoDBA:ConnectionString"]));
-
+            options.UseSqlite("Data Source= ../ConteudoDatabase.db"));
+            
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 
             services.AddSession();

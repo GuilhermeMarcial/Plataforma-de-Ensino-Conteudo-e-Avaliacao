@@ -20,7 +20,7 @@ namespace PlataformaDeEnsino.Infrastructure.Context
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql("server=localhost;userid=plataformadeconteudo;pwd=@3040#$;database=ConteudoDatabase;");
+            optionsBuilder.UseSqlite("Data Source= ../../../../ConteudoDatabase.db");
         }
         public void Commit()
         {

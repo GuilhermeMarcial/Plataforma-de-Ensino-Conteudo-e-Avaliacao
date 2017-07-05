@@ -17,7 +17,6 @@ namespace PlataformaDeEnsino.Presenter.Controllers.CoordenadorControllers
     {
         private readonly IMapper _mapper;
         private readonly IPessoaAppService _pessoaAppService;
-        private Coordenador _coordenadorUsuario;
         private readonly ICoordenadorAppService _coordenadorAppService;
         private readonly UserManager<AppUser> _userManager;
     
